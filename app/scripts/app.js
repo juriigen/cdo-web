@@ -1,6 +1,6 @@
 'use strict';
 
-var endpoint = 'https://cdo-flatland.rhcloud.com'
+var endpoint = 'https://localhost:9080'
 
 // declare modules
 angular.module('Authentication', []);
@@ -43,6 +43,7 @@ angular
   .config(function($httpProvider) {
     //Enable cross domain calls
     $httpProvider.defaults.useXDomain = true;
+    $httpProvider.defaults.withCredentials = true;
   })
   .run(['$rootScope', '$location', '$cookieStore', '$http',
     function ($rootScope, $location, $cookieStore, $http) {
