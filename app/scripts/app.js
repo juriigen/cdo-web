@@ -1,5 +1,7 @@
 'use strict';
 
+var endpoint = 'https://localhost:9080'
+
 // declare modules
 angular.module('Authentication', []);
 
@@ -37,6 +39,10 @@ angular
         redirectTo: '/login'
       });
 
+  })
+  .config(function($httpProvider) {
+    //Enable cross domain calls
+    $httpProvider.defaults.useXDomain = true;
   })
   .run(['$rootScope', '$location', '$cookieStore', '$http',
     function ($rootScope, $location, $cookieStore, $http) {
