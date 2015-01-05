@@ -10,8 +10,9 @@ angular.module('Authentication')
       service.Login = function (username, password, callback) {
 
         $http.defaults.headers.common['Authorization'] = 'Basic ' + Base64.encode(username + ':' + password);
-        $http.get(endpoint + '/node', {withCredentials: true})
+        $http.get(endpoint + '/node?refs', {withCredentials: true})
           .success(function (response) {
+            $rootScope.repoRootNode = response;
             response.success = true;
             callback(response);
 
