@@ -13,13 +13,11 @@ angular.module('Authentication')
         $http.get(endpoint + '/node?refs')
           .success(function (response) {
             $rootScope.repoRootNode = response;
-            response.success = true;
             callback(response);
 
           })
           .error(function () {
             var response = {}
-            response.success = false;
             response.message = 'Username or password is incorrect';
             callback(response);
           });

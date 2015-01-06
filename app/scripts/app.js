@@ -1,6 +1,6 @@
 'use strict';
 
-var endpoint = 'https://localhost:9080'
+var endpoint = 'https://localhost:9080';
 
 // declare modules
 angular.module('Authentication', []);
@@ -42,7 +42,6 @@ angular
   })
   .config(function($httpProvider) {
     //Enable cross domain calls
-    $httpProvider.defaults.useXDomain = true;
     $httpProvider.defaults.withCredentials = true;
   })
   .run(['$rootScope', '$location', '$cookieStore', '$http',
@@ -53,7 +52,7 @@ angular
         $http.defaults.headers.common['Authorization'] = 'Basic ' + $rootScope.globals.currentUser.authdata; // jshint ignore:line
       }
 
-      $rootScope.$on('$locationChangeStart', function (event, next, current) {
+      $rootScope.$on('$locationChangeStart', function () {
         // redirect to login page if not logged in
         if ($location.path() !== '/login' && !$rootScope.globals.currentUser) {
           $location.path('/login');

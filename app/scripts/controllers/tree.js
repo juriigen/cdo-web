@@ -33,27 +33,27 @@ angular.module('cdoWebApp')
     };
 
     vm.selectNodeCB = function(e, item) {
-      vm.newNode.parent = item.node
+      vm.newNode.parent = item.node;
       //vm.newNode.text = 'new'
       //vm.addNewNode();
-      $scope.$apply()
+      $scope.$apply();
       console.log('node selected ' + item.node.text + ' and set newNode.parent to ' + vm.newNode.parent.id);
     };
 
     vm.applyModelChanges = function() {
-      console.log('Apply Changes Mode')
+      console.log('Apply Changes Mode');
       return true;
     };
 
     vm.isAddNodeDisabled = function() {
-      if (vm.newNode.parent == undefined) {
+      if (vm.newNode.parent === undefined) {
         return true;
       }
-      if (vm.newNode.text == undefined) {
+      if (vm.newNode.text === undefined) {
         return true;
       }
       return false;
-    }
+    };
 
     vm.beforeOpenNodeCB = function(e, item) {
       console.log('before node openend ' + item.node.text);
