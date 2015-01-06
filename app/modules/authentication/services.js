@@ -1,4 +1,4 @@
-﻿'use strict';
+﻿﻿'use strict';
 
 angular.module('Authentication')
 
@@ -11,15 +11,15 @@ angular.module('Authentication')
 
         $http.defaults.headers.common['Authorization'] = 'Basic ' + Base64.encode(username + ':' + password);
         $http.get(endpoint + '/node?refs')
-          .success(function (response) {
-            $rootScope.repoRootNode = response;
-            callback(response);
+          .success(function (data, status) {
+            $rootScope.repoRootNode = data;
+            callback(data, status);
 
           })
-          .error(function () {
-            var response = {}
-            response.message = 'Username or password is incorrect';
-            callback(response);
+          .error(function (data, status) {
+            var data = {}
+            data.message = 'Username or password is incorrect';
+            callback(data, status);
           });
 
       };

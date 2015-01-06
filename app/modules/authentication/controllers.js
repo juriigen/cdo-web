@@ -1,4 +1,4 @@
-﻿'use strict';
+﻿﻿'use strict';
 
 angular.module('Authentication')
 
@@ -10,12 +10,12 @@ angular.module('Authentication')
 
         $scope.login = function () {
             $scope.dataLoading = true;
-            AuthenticationService.Login($scope.username, $scope.password, function (response) {
-                if (response.status.status = 'OK') {
+            AuthenticationService.Login($scope.username, $scope.password, function (data, status) {
+                if (status == '200') {
                     AuthenticationService.SetCredentials($scope.username, $scope.password);
                     $location.path('/');
                 } else {
-                    $scope.error = response.message;
+                    $scope.error = data.message;
                     $scope.dataLoading = false;
                 }
             });
