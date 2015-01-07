@@ -12,11 +12,12 @@ angular.module('Authentication')
             $scope.dataLoading = true;
             AuthenticationService.Login($scope.username, $scope.password, function (data, status) {
                 if (status == '200') {
-                    AuthenticationService.SetCredentials($scope.username, $scope.password);
-                    $location.path('/');
+                  $rootScope.$broadcast('repoRootNodeUpdated', data);
+                  AuthenticationService.SetCredentials($scope.username, $scope.password);
+                  $location.path('/');
                 } else {
-                    $scope.error = data.message;
-                    $scope.dataLoading = false;
+                  $scope.error = data.message;
+                  $scope.dataLoading = false;
                 }
             });
         };

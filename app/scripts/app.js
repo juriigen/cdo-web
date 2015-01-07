@@ -1,6 +1,6 @@
 'use strict';
 
-var endpoint = 'https://cdo-flatland.rhcloud.com';
+var endpoint = 'https://localhost:9080';
 
 // declare modules
 angular.module('Authentication', []);

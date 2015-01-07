@@ -70,6 +70,10 @@ angular.module('cdoWebApp')
     vm.treeData = [
       { id : 'root', parent : '#', text : 'Root', state: { opened: false} }
     ];
+
+    $scope.$on('repoRootNodeUpdated', function (scope, data) {
+      console.log('tree ' + data.status.status);
+    });
   });
 
 

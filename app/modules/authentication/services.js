@@ -12,7 +12,6 @@ angular.module('Authentication')
         $http.defaults.headers.common['Authorization'] = 'Basic ' + Base64.encode(username + ':' + password);
         $http.get(endpoint + '/node?refs')
           .success(function (data, status) {
-            $rootScope.repoRootNode = data;
             callback(data, status);
 
           })
