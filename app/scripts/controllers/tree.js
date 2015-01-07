@@ -69,9 +69,7 @@ angular.module('cdoWebApp')
       vm.treeData.push({ id : (newId++).toString(), parent : vm.newNode.parent, text : vm.newNode.text });
     };
 
-    vm.treeData = [
-     // { id : 'root', parent : '#', text : 'Root', state: { opened: false} }
-    ];
+    vm.treeData = [];
 
     $scope.$on('repoRootNodeUpdated', function (scope, data) {
       console.log('tree ' + data.status.status);
@@ -84,7 +82,16 @@ angular.module('cdoWebApp')
       root.state = { opened : false};
       root.icon = CalculateUrlService.getUrl(data.data.icon + 'Folder');
       vm.treeData.push(root);
-      $scope.apply();
+      data.data.references.contents.forEach(function(entry) {
+        var child = {};
+        child.id = entry.id.toString();
+        child.parent = root;
+        child.text = entry.label;
+        child.state = { opened : false};
+        child.icon = CalculateUrlService.getUrl(entry.icon);
+        vm.treeData.push(child);
+      });
+
     });
 
   });
