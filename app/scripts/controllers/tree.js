@@ -70,12 +70,21 @@ angular.module('cdoWebApp')
     };
 
     vm.treeData = [
-      { id : 'root', parent : '#', text : 'Root', state: { opened: false} }
+     // { id : 'root', parent : '#', text : 'Root', state: { opened: false} }
     ];
 
     $scope.$on('repoRootNodeUpdated', function (scope, data) {
       console.log('tree ' + data.status.status);
+      // create repo root
+      vm.treeData.length = 0;
+      var root = {};
+      root.id = data.data.id.toString();
+      root.parent = '#';
+      root.text = 'Repository';
+      root.state = { opened : false};
+      root.icon = endpoint + data.data.icon;
+      vm.treeData.push(root);
+      $scope.apply();
     });
+
   });
-
-
