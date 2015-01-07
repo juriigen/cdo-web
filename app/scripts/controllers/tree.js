@@ -21,7 +21,9 @@ angular.module('cdoWebApp')
         themes : {
           dots : false
         },
+        /* jshint camelcase:false */
         check_callback : true,
+        /* jshint camelcase:true */
         worker : true
       },
       plugins : [ 'wholerow' ],

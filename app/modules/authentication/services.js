@@ -10,6 +10,7 @@ angular.module('Authentication')
       service.Login = function (username, password, callback) {
 
         $http.defaults.headers.common.Authorization = 'Basic ' + Base64.encode(username + ':' + password);
+        /* global endpoint:true */
         $http.get(endpoint + '/node?refs')
           .success(function (data, status) {
             callback(data, status);

@@ -1,5 +1,6 @@
 'use strict';
 
+/* exported endpoint */
 var endpoint = 'https://localhost:9080';
 
 // declare modules
