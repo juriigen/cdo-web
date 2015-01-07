@@ -11,7 +11,7 @@ angular.module('Authentication')
         $scope.login = function () {
             $scope.dataLoading = true;
             AuthenticationService.Login($scope.username, $scope.password, function (data, status) {
-                if (status == '200') {
+                if (status === 200) {
                   $rootScope.$broadcast('repoRootNodeUpdated', data);
                   AuthenticationService.SetCredentials($scope.username, $scope.password);
                   $location.path('/');

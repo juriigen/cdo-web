@@ -9,14 +9,13 @@ angular.module('Authentication')
 
       service.Login = function (username, password, callback) {
 
-        $http.defaults.headers.common['Authorization'] = 'Basic ' + Base64.encode(username + ':' + password);
+        $http.defaults.headers.common.Authorization = 'Basic ' + Base64.encode(username + ':' + password);
         $http.get(endpoint + '/node?refs')
           .success(function (data, status) {
             callback(data, status);
 
           })
           .error(function (data, status) {
-            var data = {}
             data.message = 'Username or password is incorrect';
             callback(data, status);
           });
@@ -33,7 +32,7 @@ angular.module('Authentication')
           }
         };
 
-        $http.defaults.headers.common['Authorization'] = 'Basic ' + authdata; // jshint ignore:line
+        $http.defaults.headers.common.Authorization = 'Basic ' + authdata; // jshint ignore:line
         $cookieStore.put('globals', $rootScope.globals);
       };
 
