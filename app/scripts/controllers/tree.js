@@ -8,7 +8,7 @@
  * Controller of the cdoWebApp
  */
 angular.module('cdoWebApp')
-  .controller('TreeCtrl', function ($scope) {
+  .controller('TreeCtrl', function ($scope, CalculateUrlService) {
     var newId = 0;
     var vm = this;
 
@@ -82,7 +82,7 @@ angular.module('cdoWebApp')
       root.parent = '#';
       root.text = 'Repository';
       root.state = { opened : false};
-      root.icon = endpoint + data.data.icon;
+      root.icon = CalculateUrlService.getUrl(data.data.icon + 'Folder');
       vm.treeData.push(root);
       $scope.apply();
     });
