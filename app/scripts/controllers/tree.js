@@ -8,7 +8,7 @@
  * Controller of the cdoWebApp
  */
 angular.module('cdoWebApp')
-  .controller('TreeCtrl', function ($scope, CalculateUrlService) {
+  .controller('TreeCtrl', function ($rootScope, $scope, TreeModelService, RepoAccessService) {
     var newId = 0;
     var vm = this;
 
@@ -31,6 +31,19 @@ angular.module('cdoWebApp')
     };
 
     vm.readyCB = function() {
+      if ($rootScope.globals.currentUser !== undefined) {
+        RepoAccessService.get('/node?refs', function (data, status) {
+          if (status === 200) {
+            vm.treeData.length = 0;
+
+            var transformedData = TreeModelService.transform(data, '#');
+            transformedData.forEach(function(node) {
+              vm.treeData.push(node);
+            });
+          }
+        });
+      }
+
       console.log('ready called');
     };
 
@@ -72,26 +85,13 @@ angular.module('cdoWebApp')
     vm.treeData = [];
 
     $scope.$on('repoRootNodeUpdated', function (scope, data) {
-      console.log('tree ' + data.status.status);
       // create repo root
       vm.treeData.length = 0;
-      var root = {};
-      root.id = data.data.id.toString();
-      root.parent = '#';
-      root.text = 'Repository';
-      root.state = { opened : false};
-      root.icon = CalculateUrlService.getUrl(data.data.icon + 'Folder');
-      vm.treeData.push(root);
-      data.data.references.contents.forEach(function(entry) {
-        var child = {};
-        child.id = entry.id.toString();
-        child.parent = root;
-        child.text = entry.label;
-        child.state = { opened : false};
-        child.icon = CalculateUrlService.getUrl(entry.icon);
-        vm.treeData.push(child);
-      });
 
+      var transformedData = TreeModelService.transform(data, '#');
+      transformedData.forEach(function(node) {
+        vm.treeData.push(node);
+      });
     });
 
   });

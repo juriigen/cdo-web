@@ -3,15 +3,14 @@
 angular.module('Authentication')
 
   .factory('AuthenticationService',
-  ['Base64', '$http', '$cookieStore', '$rootScope',
-    function (Base64, $http, $cookieStore, $rootScope) {
+  ['Base64', '$http', '$cookieStore', '$rootScope', 'CalculateUrlService',
+    function (Base64, $http, $cookieStore, $rootScope, CalculateUrlService) {
       var service = {};
 
       service.Login = function (username, password, callback) {
 
         $http.defaults.headers.common.Authorization = 'Basic ' + Base64.encode(username + ':' + password);
-        /* global endpoint:true */
-        $http.get(endpoint + '/node?refs')
+        $http.get(CalculateUrlService.getUrl('/node?refs'))
           .success(function (data, status) {
             callback(data, status);
 
