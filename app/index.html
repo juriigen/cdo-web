@@ -45,11 +45,12 @@
                tree-events="ready:vm.readyCB;select_node:vm.selectNodeCB;before_open:vm.beforeOpenNodeCB;open_node:vm.openNodeCB"></div>
         </div>
       </div>
+      <!--
       <div ng-show="globals.currentUser != undefined" class="panel panel-default">
         <div class="panel-heading"><i class="glyphicon glyphicon-plus"></i> Add Node</div>
         <div class="panel-body">
           <form novalidate name="newNodeForm" role="form">
-            <div class="form-group"> <!--ng-class="{ 'has-error' : newNodeForm.addNode.$invalid}"-->
+            <div class="form-group"> <!--ng-class="{ 'has-error' : newNodeForm.addNode.$invalid}"
               <label for="addNode">Node Text</label>
               <input type="text" class="form-control" id="addNode" ng-model="vm.newNode.text" name="addNode"
                      placeholder="Node Text" required>
@@ -61,7 +62,7 @@
             </div>
           </form>
         </div>
-      </div>
+      </div>-->
     </div>
     <div class="col-xs-9" ng-view=""></div>
   </div>
