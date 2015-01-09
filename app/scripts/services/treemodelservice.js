@@ -26,7 +26,12 @@ angular.module('cdoWebApp')
       node.icon = CalculateUrlService.getUrl(data.data.icon + 'Folder');
       node.url = data.data._links.self.href + params;
       array.push(node);
-      data.data.references.contents.forEach(function(entry) {
+
+      /* global jsonPath:true */
+      /* jshint evil:true */
+      var containmentRefs = jsonPath.eval(data.data.references, '*')[0];
+
+      containmentRefs.forEach(function(entry) {
         var child = {};
         child.id = entry.id.toString();
         child.parent = { id: node.id };
