@@ -32,7 +32,7 @@ angular.module('cdoWebApp')
 
     vm.readyCB = function() {
       if ($rootScope.globals.currentUser !== undefined) {
-        RepoAccessService.get('/node?refs', function (data, status) {
+        RepoAccessService.get('/node?crefs', function (data, status) {
           if (status === 200) {
             vm.treeData.length = 0;
 

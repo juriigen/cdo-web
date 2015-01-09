@@ -12,7 +12,7 @@ angular.module('cdoWebApp')
 
     var service = {};
     service.transform = function(data, parent) {
-      var params = '?refs';
+      var params = '?crefs';
       var array = [];
       var node = {};
       node.id = data.data.id.toString();
