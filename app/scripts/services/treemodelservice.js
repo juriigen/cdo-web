@@ -20,6 +20,11 @@ angular.module('cdoWebApp')
       root.icon = CalculateUrlService.getUrl(object.icon + 'Folder');
       root.url = object._links.self.href;
       root.resolved = true;
+      if (object.permission === 'READ') {
+        root.li_attr = {class: 'readpermission'};
+      } else {
+        root.li_attr = {class: 'writepermission'};
+      }
       console.log('TreeModelService.root ' + JSON.stringify(root));
       return root;
     };
@@ -40,10 +45,16 @@ angular.module('cdoWebApp')
         }
         child.url = entry._links.self.href;
         child.resolved = false;
+        if (entry.permission === 'READ') {
+          console.log('children.entry ' + child.id + ' ' + entry.permission);
+          child.li_attr = {class: 'readpermission'};
+        } else {
+          child.li_attr = {class: 'writepermission'};
+        }
         array.push(child);
       });
       console.log('TreeModelService.children ' + JSON.stringify(array));
-      return array;
+      return array.reverse();
     };
     return service;
   });
