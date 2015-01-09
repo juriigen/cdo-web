@@ -19,8 +19,8 @@ angular.module('cdoWebApp')
         multiple : false,
         animation: true,
         themes : {
-          dots : false
-          //variant: 'small'
+          dots : false,
+          variant: 'small'
         },
         /* jshint camelcase:false */
         check_callback : true,
