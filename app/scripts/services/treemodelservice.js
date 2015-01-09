@@ -15,7 +15,7 @@ angular.module('cdoWebApp')
       var root = {};
       root.id = object.id.toString();
       root.parent = '#';
-      root.text = '/node';
+      root.text = 'node';
       root.state = { opened : false};
       root.icon = CalculateUrlService.getUrl(object.icon + 'Folder');
       root.url = object._links.self.href;
@@ -40,7 +40,11 @@ angular.module('cdoWebApp')
         var child = {};
         child.id = entry.id.toString();
         child.parent = { id: parentId };
-        child.text = entry.label;
+        if (entry.type === 'eresource.CDOResourceFolder') {
+          child.text = entry.attributes.name;
+        } else {
+          child.text = entry.label;
+        }
         child.state = { opened : false};
         if (entry.icon === '/icon/eresource.CDOResource') {
           child.icon =  CalculateUrlService.getUrl('/icon/security.ResourceFilter');
