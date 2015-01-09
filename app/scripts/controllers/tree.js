@@ -35,9 +35,11 @@ angular.module('cdoWebApp')
         RepoAccessService.get('/node?crefs', function (data, status) {
           if (status === 200) {
             vm.treeData.length = 0;
+            var root = TreeModelService.transformRoot(data.data);
+            vm.treeData.push(root);
 
-            var transformedData = TreeModelService.transform(data, '#');
-            transformedData.forEach(function(node) {
+            var children = TreeModelService.transformChildren(data.data.references.contents, root.id);
+            children.forEach(function(node) {
               vm.treeData.push(node);
             });
           }
@@ -75,7 +77,24 @@ angular.module('cdoWebApp')
     };
 
     vm.openNodeCB = function(e, item) {
-      console.log('node openend ' + item.node.text);
+      console.log('node openend ' + item.node.text + ' ' + item.node.id);
+
+      vm.treeData.forEach(function(entry) {
+        if (entry.parent.id === item.node.id && entry.resolved === false) {
+          console.log(' has child ' + entry.text + ' ' + entry.id);
+          RepoAccessService.get(entry.url + '/references?crefs', function (data, status) {
+            if (status === 200) {
+
+              var children = TreeModelService.transformChildren(data.data, entry.id);
+              children.forEach(function(node) {
+                vm.treeData.push(node);
+              });
+              entry.resolved = true;
+            }
+          });
+        }
+      });
+
     };
 
     vm.addNewNode = function() {
@@ -87,9 +106,11 @@ angular.module('cdoWebApp')
     $scope.$on('repoRootNodeUpdated', function (scope, data) {
       // create repo root
       vm.treeData.length = 0;
+      var root = TreeModelService.transformRoot(data.data);
+      vm.treeData.push(root);
 
-      var transformedData = TreeModelService.transform(data, '#');
-      transformedData.forEach(function(node) {
+      var children = TreeModelService.transformChildren(data.data.references.contents, root.id);
+      children.forEach(function(node) {
         vm.treeData.push(node);
       });
     });

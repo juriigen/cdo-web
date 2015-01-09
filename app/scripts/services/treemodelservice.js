@@ -11,37 +11,38 @@ angular.module('cdoWebApp')
   .service('TreeModelService', function (CalculateUrlService) {
 
     var service = {};
-    service.transform = function(data, parent) {
-      var params = '?crefs';
+    service.transformRoot = function(object) {
+      var root = {};
+      root.id = object.id.toString();
+      root.parent = '#';
+      root.text = '/node';
+      root.state = { opened : false};
+      root.icon = CalculateUrlService.getUrl(object.icon + 'Folder');
+      root.url = object._links.self.href;
+      root.resolved = true;
+      console.log('TreeModelService.root ' + JSON.stringify(root));
+      return root;
+    };
+
+    service.transformChildren = function(children, parentId) {
       var array = [];
-      var node = {};
-      node.id = data.data.id.toString();
-      node.parent = parent;
-      if (parent === '#') {
-        node.text = '/node';
-      } else {
-        node.text = data.data.label;
-      }
-      node.state = { opened : false};
-      node.icon = CalculateUrlService.getUrl(data.data.icon + 'Folder');
-      node.url = data.data._links.self.href + params;
-      array.push(node);
 
-      /* global jsonPath:true */
-      /* jshint evil:true */
-      var containmentRefs = jsonPath.eval(data.data.references, '*')[0];
-
-      containmentRefs.forEach(function(entry) {
+      children.forEach(function(entry) {
         var child = {};
         child.id = entry.id.toString();
-        child.parent = { id: node.id };
+        child.parent = { id: parentId };
         child.text = entry.label;
         child.state = { opened : false};
-        child.icon = CalculateUrlService.getUrl(entry.icon);
-        child.url = entry._links.self.href + params;
+        if (entry.icon === '/icon/eresource.CDOResource') {
+          child.icon =  CalculateUrlService.getUrl('/icon/security.ResourceFilter');
+        } else {
+          child.icon = CalculateUrlService.getUrl(entry.icon);
+        }
+        child.url = entry._links.self.href;
+        child.resolved = false;
         array.push(child);
       });
-      console.log('TreeModelService ' + JSON.stringify(array));
+      console.log('TreeModelService.children ' + JSON.stringify(array));
       return array;
     };
     return service;
