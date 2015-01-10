@@ -14,7 +14,7 @@ angular.module('cdoWebApp')
 
     vm.newNode = {};
 
-    vm.selectedObject = {};
+    //vm.selectedObject;
 
     vm.treeConfig = {
       core : {
@@ -35,11 +35,11 @@ angular.module('cdoWebApp')
 
     vm.readyCB = function() {
       if ($rootScope.globals.currentUser !== undefined) {
-        RepoAccessService.get('/node//references?crefs', function (data, status) {
+        RepoAccessService.get('/node?crefs', function (data, status) {
           if (status === 200) {
             vm.treeData.length = 0;
 
-            var children = TreeModelService.transformChildren(data.data, '#');
+            var children = TreeModelService.transformChildren(data.data.references.contents, '#');
             children.forEach(function(node) {
               vm.treeData.push(node);
               RepoAccessService.get(node.url + '/references?crefs', function (data, status) {
@@ -49,6 +49,8 @@ angular.module('cdoWebApp')
                   children.forEach(function(node) {
                     vm.treeData.push(node);
                   });
+                  node.resolved = true;
+                } else if (status === 404) {
                   node.resolved = true;
                 }
               });
@@ -100,6 +102,8 @@ angular.module('cdoWebApp')
                 vm.treeData.push(node);
               });
               entry.resolved = true;
+            } else if (status === 404) {
+              entry.resolved = true;
             }
           });
         }
@@ -125,6 +129,8 @@ angular.module('cdoWebApp')
             children.forEach(function(node) {
               vm.treeData.push(node);
             });
+            node.resolved = true;
+          } else if (status === 404) {
             node.resolved = true;
           }
         });
