@@ -64,9 +64,9 @@ angular.module('cdoWebApp')
 
     vm.selectNodeCB = function(e, item) {
       vm.selectedObject = item.node.data;
+      console.log('node selected ' + item.node.id);
+      $rootScope.$broadcast('objectSelected', vm.selectedObject);
       $scope.$apply();
-      console.log('node selected ' + item.node.text);
-      //console.log('Select Object ' + vm.selectedObject.label + ' - id ' + JSON.stringify(vm.selectedObject));
     };
 
     vm.applyModelChanges = function() {

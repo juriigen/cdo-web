@@ -23,7 +23,7 @@
 <![endif]-->
 
 <!-- Add your site or application content here -->
-<div ng-controller="TreeCtrl as vm" class="container-fluid">
+<div class="container-fluid">
   <!--
   <div class="header">
 
@@ -38,7 +38,7 @@
     <div class="col-xs-4">
       <div ng-show="globals.currentUser != undefined" class="panel panel-default">
         <div class="panel-heading"><i class="glyphicon glyphicon-user"></i> {{globals.currentUser.username}}</div>
-        <div class="panel-body">
+        <div ng-controller="TreeCtrl as vm" class="panel-body">
           <div js-tree="vm.treeConfig" should-apply="vm.applyModelChanges()"
                ng-model="vm.treeData"
                tree="vm.treeInstance"

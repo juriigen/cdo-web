@@ -8,7 +8,10 @@
  * Controller of the cdoWebApp
  */
 angular.module('cdoWebApp')
-  .controller('MainCtrl', function () {
+  .controller('MainCtrl', function ($scope) {
     var main = this;
-    main.selectedObject = { id: 'test'};
+    $scope.$on('objectSelected', function (scope, data) {
+      main.selectedObject = data;
+      console.log('MainCtrl.selectedObject = ' + main.selectedObject.id);
+    });
   });
