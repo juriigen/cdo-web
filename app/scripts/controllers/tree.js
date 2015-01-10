@@ -14,6 +14,8 @@ angular.module('cdoWebApp')
 
     vm.newNode = {};
 
+    vm.selectedObject = {};
+
     vm.treeConfig = {
       core : {
         multiple : false,
@@ -33,15 +35,23 @@ angular.module('cdoWebApp')
 
     vm.readyCB = function() {
       if ($rootScope.globals.currentUser !== undefined) {
-        RepoAccessService.get('/node?crefs', function (data, status) {
+        RepoAccessService.get('/node//references?crefs', function (data, status) {
           if (status === 200) {
             vm.treeData.length = 0;
-            var root = TreeModelService.transformRoot(data.data);
-            vm.treeData.push(root);
 
-            var children = TreeModelService.transformChildren(data.data.references.contents, root.id);
+            var children = TreeModelService.transformChildren(data.data, '#');
             children.forEach(function(node) {
               vm.treeData.push(node);
+              RepoAccessService.get(node.url + '/references?crefs', function (data, status) {
+                if (status === 200) {
+
+                  var children = TreeModelService.transformChildren(data.data, node.id);
+                  children.forEach(function(node) {
+                    vm.treeData.push(node);
+                  });
+                  node.resolved = true;
+                }
+              });
             });
           }
         });
@@ -51,11 +61,10 @@ angular.module('cdoWebApp')
     };
 
     vm.selectNodeCB = function(e, item) {
-      vm.newNode.parent = item.node;
-      //vm.newNode.text = 'new'
-      //vm.addNewNode();
+      vm.selectedObject = item.node.data;
       $scope.$apply();
-      console.log('node selected ' + item.node.text + ' and set newNode.parent to ' + vm.newNode.parent.id);
+      console.log('node selected ' + item.node.text);
+      //console.log('Select Object ' + vm.selectedObject.label + ' - id ' + JSON.stringify(vm.selectedObject));
     };
 
     vm.applyModelChanges = function() {
@@ -105,14 +114,20 @@ angular.module('cdoWebApp')
     vm.treeData = [];
 
     $scope.$on('repoRootNodeUpdated', function (scope, data) {
-      // create repo root
       vm.treeData.length = 0;
-      var root = TreeModelService.transformRoot(data.data);
-      vm.treeData.push(root);
-
-      var children = TreeModelService.transformChildren(data.data.references.contents, root.id);
+      var children = TreeModelService.transformChildren(data.data.references.contents, '#');
       children.forEach(function(node) {
         vm.treeData.push(node);
+        RepoAccessService.get(node.url + '/references?crefs', function (data, status) {
+          if (status === 200) {
+
+            var children = TreeModelService.transformChildren(data.data, node.id);
+            children.forEach(function(node) {
+              vm.treeData.push(node);
+            });
+            node.resolved = true;
+          }
+        });
       });
     });
 

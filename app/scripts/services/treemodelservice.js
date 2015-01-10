@@ -11,59 +11,45 @@ angular.module('cdoWebApp')
   .service('TreeModelService', function (CalculateUrlService) {
 
     var service = {};
-    service.transformRoot = function(object) {
-      var root = {};
-      root.id = object.id.toString();
-      root.parent = '#';
-      root.text = 'node';
-      root.state = { opened : false};
-      root.icon = CalculateUrlService.getUrl(object.icon + 'Folder');
-      root.url = object._links.self.href;
-      root.resolved = true;
+
+    service.transformObject = function(object, parentId) {
+      var node = {};
+      node.id = object.id.toString();
+      node.parent = { id: parentId };
+      if (object.type === 'eresource.CDOResourceFolder') {
+        node.text = object.attributes.name;
+      } else {
+        node.text = object.label;
+      }
+      node.state = { opened : false};
+      if (object.icon === '/icon/eresource.CDOResource') {
+        node.icon =  CalculateUrlService.getUrl('/icon/security.ResourceFilter');
+      } else {
+        node.icon = CalculateUrlService.getUrl(object.icon);
+      }
+      node.url = object._links.self.href;
+      node.resolved = false;
+      node.data = object;
 
       /* jshint ignore:start */
       if (object.permission === 'READ') {
-        root.li_attr = {class: 'readpermission'};
+        node.li_attr = {class: 'readpermission'};
       } else {
-        root.li_attr = {class: 'writepermission'};
+        node.li_attr = {class: 'writepermission'};
       }
       /* jshint ignore:end */
 
-      console.log('TreeModelService.root ' + JSON.stringify(root));
-      return root;
+      return node;
     };
 
     service.transformChildren = function(children, parentId) {
       var array = [];
 
       children.forEach(function(entry) {
-        var child = {};
-        child.id = entry.id.toString();
-        child.parent = { id: parentId };
-        if (entry.type === 'eresource.CDOResourceFolder') {
-          child.text = entry.attributes.name;
-        } else {
-          child.text = entry.label;
-        }
-        child.state = { opened : false};
-        if (entry.icon === '/icon/eresource.CDOResource') {
-          child.icon =  CalculateUrlService.getUrl('/icon/security.ResourceFilter');
-        } else {
-          child.icon = CalculateUrlService.getUrl(entry.icon);
-        }
-        child.url = entry._links.self.href;
-        child.resolved = false;
-
-        /* jshint ignore:start */
-        if (entry.permission === 'READ') {
-          child.li_attr = {class: 'readpermission'};
-        } else {
-          child.li_attr = {class: 'writepermission'};
-        }
-        /* jshint ignore:end */
-
+        var child = service.transformObject(entry, parentId);
         array.push(child);
       });
+
       console.log('TreeModelService.children ' + JSON.stringify(array));
       return array.reverse();
     };

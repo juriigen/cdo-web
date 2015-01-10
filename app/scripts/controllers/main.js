@@ -8,10 +8,7 @@
  * Controller of the cdoWebApp
  */
 angular.module('cdoWebApp')
-  .controller('MainCtrl', function ($scope) {
-    $scope.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
+  .controller('MainCtrl', function () {
+    var main = this;
+    main.selectedObject = { id: 'test'};
   });
