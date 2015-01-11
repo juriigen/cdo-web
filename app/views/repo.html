@@ -9,6 +9,37 @@
       </div>
     </div>
   </div>
+  <div ng-controller="RepoCtrl as repo" class="panel panel-default">
+    <div class="panel-heading"><i class="glyphicon glyphicon-barcode"></i> Object Identity</div>
+    <div class="panel-body">
+      <table>
+        <tr>
+          <td style="width: 150px;">id</td>
+          <td>{{repo.selectedObject.id}}</td>
+        </tr>
+        <tr>
+          <td>revision</td>
+          <td>{{repo.selectedObject.revision}}</td>
+        </tr>
+        <tr>
+          <td>date</td>
+          <td>{{repo.selectedObject.date |  date : 'dd MMMM yyyy - HH:mm:ss'}}</td>
+        </tr>
+        <tr>
+          <td>uri</td>
+          <td>{{repo.selectedObject._links.self.href}}</td>
+        </tr>
+        <tr>
+          <td>permission</td>
+          <td>{{repo.selectedObject.permission}}</td>
+        </tr>
+        <tr>
+          <td>author</td>
+          <td>{{repo.selectedObject.author}}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
   <!--
   <div ng-show="globals.currentUser != undefined" class="panel panel-default">
     <div class="panel-heading"><i class="glyphicon glyphicon-plus"></i> Add Node</div>
