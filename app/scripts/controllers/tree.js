@@ -42,7 +42,7 @@ angular.module('cdoWebApp')
           if (status === 200) {
             vm.treeData.length = 0;
 
-            if (data.data.references.contents != undefined) {
+            if (data.data.references.contents !== undefined) {
 
               var children = TreeModelService.transformChildren(data.data.references.contents, '#');
               children.forEach(function(node) {

@@ -33,8 +33,8 @@ angular
         hideMenus: true
       })
       .when('/', {
-        templateUrl: 'views/main.html',
-        controller: 'MainCtrl'
+        templateUrl: 'views/repo.html',
+        controller: 'RepoCtrl'
       })
       .otherwise({
         redirectTo: '/login'
