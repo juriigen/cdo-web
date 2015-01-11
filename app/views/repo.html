@@ -15,28 +15,32 @@
       <div class="panel-body">
         <table ng-show="repo.selectedObject != undefined" >
           <tr>
-            <td style="width: 150px;">id</td>
+            <td style="width: 150px;"><b>id</b></td>
             <td>{{repo.selectedObject.id}}</td>
           </tr>
           <tr>
-            <td>revision</td>
+            <td><b>revision</b></td>
             <td>{{repo.selectedObject.revision}}</td>
           </tr>
           <tr>
-            <td>date</td>
+            <td><b>date</b></td>
             <td>{{repo.selectedObject.date | date : 'dd MMMM yyyy - HH:mm:ss'}}</td>
           </tr>
           <tr>
-            <td>uri</td>
+            <td><b>uri</b></td>
             <td>{{repo.selectedObject._links.self.href}}</td>
           </tr>
           <tr>
-            <td>permission</td>
+            <td><b>permission</b></td>
             <td>{{repo.selectedObject.permission}}</td>
           </tr>
           <tr>
-            <td>author</td>
+            <td><b>author</b></td>
             <td>{{repo.selectedObject.author}}</td>
+          </tr>
+          <tr>
+            <td><b>type</b></td>
+            <td>{{repo.selectedObject.type}}</td>
           </tr>
         </table>
       </div>
