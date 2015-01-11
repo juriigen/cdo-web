@@ -8,7 +8,7 @@
  * Service in the cdoWebApp.
  */
 angular.module('cdoWebApp')
-  .service('TreeModelService', function (CalculateUrlService) {
+  .service('TreeModelService', function ($log, CalculateUrlService) {
 
     var service = {};
 
@@ -50,7 +50,6 @@ angular.module('cdoWebApp')
         array.push(child);
       });
 
-      console.log('TreeModelService.children ' + JSON.stringify(array));
       return array.reverse();
     };
     return service;
