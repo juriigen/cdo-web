@@ -71,7 +71,7 @@ angular.module('cdoWebApp')
       vm.selectedObject = item.node.data;
       $log.debug('TreeCtrl.selectNodeCB - ' + item.node.id + ' - broadcast objectSelected event');
       $rootScope.$broadcast('objectSelected', vm.selectedObject);
-      $scope.$apply();
+      //$scope.$apply();
     };
 
     vm.applyModelChanges = function() {
