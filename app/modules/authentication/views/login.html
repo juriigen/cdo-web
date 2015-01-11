@@ -2,7 +2,11 @@
   <div class="row">
     <div class="col-xs-4"></div>
     <div class="col-xs-4">
-      <div ng-show="error" class="alert alert-danger">{{error}}</div>
+      <div ng-show="error" class="alert alert-danger" role="alert">
+        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+        <span class="sr-only">Error:</span>
+        {{error}}
+      </div>
       <div class="panel panel-primary">
         <div class="panel-heading"><i class="glyphicon glyphicon-cloud"></i> CDO Web Login</div>
         <div class="panel-body">
