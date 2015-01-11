@@ -23,7 +23,8 @@ angular
     'ngRoute',
     'ngSanitize',
     'ngTouch',
-    'ngJsTree'
+    'ngJsTree',
+    'toaster'
   ])
   .config(function ($routeProvider) {
     $routeProvider
