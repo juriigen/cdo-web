@@ -20,24 +20,27 @@ angular
     'ngAnimate',
     'ngCookies',
     'ngResource',
-    'ngRoute',
+    'ui.router',
     'ngSanitize',
     'ngTouch',
     'ngJsTree',
     'toaster'
   ])
-  .config(function ($routeProvider) {
-    $routeProvider
-      .when('/login', {
+  .config(function($stateProvider, $urlRouterProvider) {
+
+    // For any unmatched url, redirect to /state1
+    $urlRouterProvider.otherwise('/login');
+
+    // Now set up the states
+    $stateProvider
+      .state('login', {
+        url: '/login',
         controller: 'LoginController',
-        templateUrl: 'modules/authentication/views/login.html',
-        hideMenus: true
+        templateUrl: 'modules/authentication/views/login.html'
       })
-      .when('/', {
+      .state('/', {
+        url: '/',
         templateUrl: 'views/repo.html'
-      })
-      .otherwise({
-        redirectTo: '/login'
       });
 
   })
