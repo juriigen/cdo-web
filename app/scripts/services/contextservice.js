@@ -13,7 +13,7 @@ angular.module('cdoWebApp')
 
     var setSelectedObject = function (newObj) {
       selectedObject = newObj;
-      $log.debug('ContextService.setSelectedObject - id = ' + selectedObject.id);
+      $log.debug('ContextService.setSelectedObject - id ' + selectedObject.id);
 
       RepoAccessService.get(selectedObject._links.self.href + '?crefs&rrefs&meta', function (data, status) {
         if (status === 200) {
@@ -22,7 +22,6 @@ angular.module('cdoWebApp')
           $rootScope.$broadcast('objectSelected', selectedObject);
         }
       });
-
     };
 
     var getSelectedObject = function () {
