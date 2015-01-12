@@ -4,7 +4,7 @@
  * @ngdoc function
  * @name cdoWebApp.controller:RepoCtrl
  * @description
- * # MainCtrl
+ * # RepoCtrl
  * Controller of the cdoWebApp
  */
 angular.module('cdoWebApp')
