@@ -41,7 +41,7 @@ angular
       });
 
   })
-  .config(function($httpProvider) {
+  .config(function ($httpProvider) {
     //Enable cross domain calls
     $httpProvider.defaults.withCredentials = true;
   })
