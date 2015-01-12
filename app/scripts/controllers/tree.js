@@ -8,7 +8,7 @@
  * Controller of the cdoWebApp
  */
 angular.module('cdoWebApp')
-  .controller('TreeCtrl', function ($rootScope, $scope, $log, TreeModelService, RepoAccessService) {
+  .controller('TreeCtrl', function ($rootScope, $scope, $log, TreeModelService, RepoAccessService, ContextService) {
     var newId = 0;
     var vm = this;
 
@@ -69,8 +69,9 @@ angular.module('cdoWebApp')
 
     vm.selectNodeCB = function(e, item) {
       vm.selectedObject = item.node.data;
-      $log.debug('TreeCtrl.selectNodeCB - ' + item.node.id + ' - broadcast objectSelected event');
-      $rootScope.$broadcast('objectSelected', vm.selectedObject);
+      $log.debug('TreeCtrl.selectNodeCB - ' + item.node.id);
+      ContextService.setSelectedObject(vm.selectedObject);
+
       //$scope.$apply();
     };
 
