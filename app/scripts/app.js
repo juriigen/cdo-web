@@ -40,6 +40,7 @@ angular
       })
       .state('repo', {
         url: '/repo',
+        controller: 'RepoCtrl',
         templateUrl: 'views/repo.html'
       });
 

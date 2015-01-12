@@ -9,10 +9,9 @@
  */
 angular.module('cdoWebApp')
   .controller('RepoCtrl', function ($scope, $log) {
-    var repo = this;
 
     $scope.$on('objectSelected', function (scope, data) {
-      repo.selectedObject = data;
-      $log.debug('RepoCtrl.objectSelected - received event - id ' + repo.selectedObject.id);
+      $scope.selectedObject = data;
+      $log.debug('RepoCtrl.objectSelected - received event - id ' + $scope.selectedObject.id);
     });
   });

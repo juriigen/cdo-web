@@ -1,46 +1,46 @@
-<div ng-controller="RepoCtrl as repo">
+<div>
   <div class="col-xs-5">
     <div class="panel panel-primary">
       <div class="panel-heading"><i class="glyphicon glyphicon-globe"></i> Repository Explorer</div>
-      <div ng-controller="TreeCtrl as vm" class="panel-body">
-        <div js-tree="vm.treeConfig" should-apply="vm.applyModelChanges()"
-             ng-model="vm.treeData"
-             tree="vm.treeInstance"
-             tree-events="ready:vm.readyCB;select_node:vm.selectNodeCB;before_open:vm.beforeOpenNodeCB;open_node:vm.openNodeCB">
+      <div ng-controller="RepoTreeCtrl as repoTree" class="panel-body">
+        <div js-tree="repoTree.treeConfig" should-apply="repoTree.applyModelChanges()"
+             ng-model="repoTree.treeData"
+             tree="repoTree.treeInstance"
+             tree-events="ready:repoTree.readyCB;select_node:repoTree.selectNodeCB;before_open:repoTree.beforeOpenNodeCB;open_node:repoTree.openNodeCB">
         </div>
       </div>
     </div>
     <div class="panel panel-info">
       <div class="panel-heading"><i class="glyphicon glyphicon-barcode"></i> Object Identity</div>
       <div class="panel-body">
-        <table ng-show="repo.selectedObject != undefined" >
+        <table ng-show="selectedObject != undefined" >
           <tr>
             <td style="width: 150px;"><label>id</label></td>
-            <td>{{repo.selectedObject.id}}</td>
+            <td>{{selectedObject.id}}</td>
           </tr>
           <tr>
             <td><label>revision</label></td>
-            <td>{{repo.selectedObject.revision}}</td>
+            <td>{{selectedObject.revision}}</td>
           </tr>
           <tr>
             <td><label>date</label></td>
-            <td>{{repo.selectedObject.date | date : 'dd MMMM yyyy - HH:mm:ss'}}</td>
+            <td>{{selectedObject.date | date : 'dd MMMM yyyy - HH:mm:ss'}}</td>
           </tr>
           <tr>
             <td><label>uri</label></td>
-            <td>{{repo.selectedObject._links.self.href}}</td>
+            <td>{{selectedObject._links.self.href}}</td>
           </tr>
           <tr>
             <td><label>permission</label></td>
-            <td>{{repo.selectedObject.permission}}</td>
+            <td>{{selectedObject.permission}}</td>
           </tr>
           <tr>
             <td><label>author</label></td>
-            <td>{{repo.selectedObject.author}}</td>
+            <td>{{selectedObject.author}}</td>
           </tr>
           <tr>
             <td><label>type</label></td>
-            <td>{{repo.selectedObject.type}}</td>
+            <td>{{selectedObject.type}}</td>
           </tr>
         </table>
       </div>
@@ -48,33 +48,15 @@
     <div class="panel panel-info">
       <div class="panel-heading"><i class="glyphicon glyphicon-info-sign"></i> Meta Information</div>
       <div class="panel-body">
-        <pre ng-show="repo.selectedObject.meta != undefined" style="background: #ffffff; border: hidden">{{ repo.selectedObject.meta | json}}</pre>
+        <pre ng-show="selectedObject.meta != undefined" style="background: #ffffff; border: hidden">{{ selectedObject.meta | json}}</pre>
       </div>
     </div>
-    <!--
-    <div ng-show="globals.currentUser != undefined" class="panel panel-default">
-      <div class="panel-heading"><i class="glyphicon glyphicon-plus"></i> Add Node</div>
-      <div class="panel-body">
-        <form novalidate name="newNodeForm" role="form">
-          <div class="form-group"> <!--ng-class="{ 'has-error' : newNodeForm.addNode.$invalid}"
-            <label for="addNode">Node Text</label>
-            <input type="text" class="form-control" id="addNode" ng-model="vm.newNode.text" name="addNode"
-                   placeholder="Node Text" required>
-          </div>
-          <div class="form-action">
-            <button type="button" ng-disabled="vm.isAddNodeDisabled()" ng-click="vm.addNewNode()"
-                    class="btn btn-success">Add Node
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>-->
   </div>
   <div class="col-xs-7">
     <div class="panel panel-info">
       <div class="panel-heading"><i class="glyphicon glyphicon-share-alt"></i> References</div>
       <div class="panel-body">
-        <pre ng-show="repo.selectedObject.references != undefined" style="background: #ffffff; border: hidden">{{ repo.selectedObject.references | json}}</pre>
+        <pre ng-show="selectedObject.references != undefined" style="background: #ffffff; border: hidden">{{ selectedObject.references | json}}</pre>
       </div>
     </div>
   </div>

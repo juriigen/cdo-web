@@ -2,21 +2,21 @@
 
 /**
  * @ngdoc function
- * @name cdoWebApp.controller:TreeCtrl
+ * @name cdoWebApp.controller:RepoTreeCtrl
  * @description
- * # TreeCtrl
+ * # RepoTreeCtrl
  * Controller of the cdoWebApp
  */
 angular.module('cdoWebApp')
-  .controller('TreeCtrl', function ($rootScope, $scope, $log, TreeModelService, RepoAccessService, ContextService) {
+  .controller('RepoTreeCtrl', function ($rootScope, $scope, $log, TreeModelService, RepoAccessService, ContextService) {
     var newId = 0;
-    var vm = this;
+    var repoTree = this;
 
-    vm.newNode = {};
+    repoTree.newNode = {};
 
-    //vm.selectedObject;
+    //repoTree.selectedObject;
 
-    vm.treeConfig = {
+    repoTree.treeConfig = {
       core : {
         multiple : false,
         animation: true,
@@ -33,27 +33,27 @@ angular.module('cdoWebApp')
       version : 1
     };
 
-    vm.readyCB = function() {
-      $log.debug('TreeCtrl.readyCB');
+    repoTree.readyCB = function() {
+      $log.debug('RepoTreeCtrl.readyCB');
 
       if ($rootScope.globals.currentUser !== undefined) {
 
         RepoAccessService.get('/node?crefs', function (data, status) {
           if (status === 200) {
-            vm.treeData.length = 0;
+            repoTree.treeData.length = 0;
 
             if (data.data.references.contents !== undefined) {
 
               var children = TreeModelService.transformChildren(data.data.references.contents, '#');
               children.forEach(function(node) {
-                vm.treeData.push(node);
+                repoTree.treeData.push(node);
 
                 RepoAccessService.get(node.url + '/references?crefs', function (data, status) {
                   if (status === 200) {
 
                     var children = TreeModelService.transformChildren(data.data, node.id);
                     children.forEach(function(node) {
-                      vm.treeData.push(node);
+                      repoTree.treeData.push(node);
                     });
                     node.resolved = true;
                   } else if (status === 404) {
@@ -67,37 +67,37 @@ angular.module('cdoWebApp')
       }
     };
 
-    vm.selectNodeCB = function(e, item) {
-      vm.selectedObject = item.node.data;
-      $log.debug('TreeCtrl.selectNodeCB - ' + item.node.id);
-      ContextService.setSelectedObject(vm.selectedObject);
+    repoTree.selectNodeCB = function(e, item) {
+      repoTree.selectedObject = item.node.data;
+      $log.debug('RepoTreeCtrl.selectNodeCB - ' + item.node.id);
+      ContextService.setSelectedObject(repoTree.selectedObject);
 
       //$scope.$apply();
     };
 
-    vm.applyModelChanges = function() {
-      $log.debug('TreeCtrl.applyModelChanges');
+    repoTree.applyModelChanges = function() {
+      $log.debug('RepoTreeCtrl.applyModelChanges');
       return true;
     };
 
-    vm.isAddNodeDisabled = function() {
-      if (vm.newNode.parent === undefined) {
+    repoTree.isAddNodeDisabled = function() {
+      if (repoTree.newNode.parent === undefined) {
         return true;
       }
-      if (vm.newNode.text === undefined) {
+      if (repoTree.newNode.text === undefined) {
         return true;
       }
       return false;
     };
 
-    vm.beforeOpenNodeCB = function(e, item) {
-      $log.debug('TreeCtrl.beforeOpenNodeCB - ' + item.node.id);
+    repoTree.beforeOpenNodeCB = function(e, item) {
+      $log.debug('RepoTreeCtrl.beforeOpenNodeCB - ' + item.node.id);
     };
 
-    vm.openNodeCB = function(e, item) {
-      $log.debug('TreeCtrl.openNodeCB - ' + item.node.id);
+    repoTree.openNodeCB = function(e, item) {
+      $log.debug('RepoTreeCtrl.openNodeCB - ' + item.node.id);
 
-      vm.treeData.forEach(function(entry) {
+      repoTree.treeData.forEach(function(entry) {
         if (entry.parent.id === item.node.id && entry.resolved === false) {
           $log.debug('>> resolve childen');
 
@@ -106,7 +106,7 @@ angular.module('cdoWebApp')
 
               var children = TreeModelService.transformChildren(data.data, entry.id);
               children.forEach(function(node) {
-                vm.treeData.push(node);
+                repoTree.treeData.push(node);
               });
               entry.resolved = true;
             } else if (status === 404) {
@@ -118,25 +118,25 @@ angular.module('cdoWebApp')
 
     };
 
-    vm.addNewNode = function() {
-      vm.treeData.push({ id : (newId++).toString(), parent : vm.newNode.parent, text : vm.newNode.text });
+    repoTree.addNewNode = function() {
+      repoTree.treeData.push({ id : (newId++).toString(), parent : repoTree.newNode.parent, text : repoTree.newNode.text });
     };
 
-    vm.treeData = [];
+    repoTree.treeData = [];
 
     $scope.$on('repoRootNodeUpdated', function (scope, data) {
-      $log.debug('TreeCtrl.repoRootNodeUpdated - received event');
+      $log.debug('RepoTreeCtrl.repoRootNodeUpdated - received event');
 
-      vm.treeData.length = 0;
+      repoTree.treeData.length = 0;
       var children = TreeModelService.transformChildren(data.data.references.contents, '#');
       children.forEach(function(node) {
-        vm.treeData.push(node);
+        repoTree.treeData.push(node);
         RepoAccessService.get(node.url + '/references?crefs', function (data, status) {
           if (status === 200) {
 
             var children = TreeModelService.transformChildren(data.data, node.id);
             children.forEach(function(node) {
-              vm.treeData.push(node);
+              repoTree.treeData.push(node);
             });
             node.resolved = true;
           } else if (status === 404) {
