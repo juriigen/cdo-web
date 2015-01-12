@@ -38,8 +38,8 @@ angular
         controller: 'LoginController',
         templateUrl: 'modules/authentication/views/login.html'
       })
-      .state('/', {
-        url: '/',
+      .state('repo', {
+        url: '/repo',
         templateUrl: 'views/repo.html'
       });
 
