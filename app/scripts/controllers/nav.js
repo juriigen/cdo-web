@@ -10,7 +10,7 @@
 angular.module('cdoWebApp')
   .controller('NavCtrl', function ($scope, $location) {
     $scope.isActive = function (viewLocation) {
-      var active = (viewLocation === $location.path());
+      var active = (viewLocation === $location.path() || viewLocation.split('/')[1] === $location.path().split('/')[1]);
       return active;
     };
   });

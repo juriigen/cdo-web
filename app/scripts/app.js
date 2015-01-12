@@ -1,7 +1,7 @@
 'use strict';
 
 /* exported endpoint */
-var endpoint = 'https://cdo-flatland.rhcloud.com';
+var endpoint = 'https://localhost:9080';
 
 // declare modules
 angular.module('Authentication', []);
@@ -42,6 +42,12 @@ angular
         url: '/repo',
         controller: 'RepoCtrl',
         templateUrl: 'views/repo.html'
+      })
+      .state('repo.references', {
+        url: '/references'
+      })
+      .state('repo.meta', {
+        url: '/meta'
       });
 
   })

@@ -15,7 +15,7 @@ angular.module('cdoWebApp')
       selectedObject = newObj;
       $log.debug('ContextService.setSelectedObject - id ' + selectedObject.id);
 
-      RepoAccessService.get(selectedObject._links.self.href + '?crefs&rrefs&meta', function (data, status) {
+      RepoAccessService.get(selectedObject._links.self.href + '?rrefs&meta', function (data, status) {
         if (status === 200) {
           selectedObject = data.data;
           $log.debug('ContextService.objectedSelected - broadcast event');
