@@ -1,8 +1,8 @@
 'use strict';
 
 /* exported endpoint */
-//var endpoint = 'https://localhost:9080';
-var endpoint = 'https://cdo-flatland.rhcloud.com';
+var endpoint = 'https://localhost:9080';
+//var endpoint = 'https://cdo-flatland.rhcloud.com';
 
 // declare modules
 angular.module('Authentication', []);

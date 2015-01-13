@@ -1,0 +1,35 @@
+<div class="panel panel-default">
+  <div class="panel-heading"><i class="glyphicon glyphicon-barcode"></i> Object Identity</div>
+  <div class="panel-body">
+    <table ng-show="selectedObject != undefined" >
+      <tr>
+        <td style="width: 150px;"><label>id</label></td>
+        <td>{{selectedObject.id}}</td>
+      </tr>
+      <tr>
+        <td><label>revision</label></td>
+        <td>{{selectedObject.revision}}</td>
+      </tr>
+      <tr>
+        <td><label>date</label></td>
+        <td>{{selectedObject.date | date : 'dd MMMM yyyy - HH:mm:ss'}}</td>
+      </tr>
+      <tr>
+        <td><label>uri</label></td>
+        <td>{{selectedObject._links.self.href}}</td>
+      </tr>
+      <tr>
+        <td><label>permission</label></td>
+        <td>{{selectedObject.permission}}</td>
+      </tr>
+      <tr>
+        <td><label>author</label></td>
+        <td>{{selectedObject.author}}</td>
+      </tr>
+      <tr>
+        <td><label>type</label></td>
+        <td>{{selectedObject.type}}</td>
+      </tr>
+    </table>
+  </div>
+</div>
