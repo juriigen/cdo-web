@@ -22,7 +22,7 @@
     <h3 class="text-muted"></h3>
     <div class="panel panel-default">
       <div class="panel-body">
-        <pre ng-show="tab == 'repo'" style="background: #ffffff; border: hidden">{{ selectedObject.attributes | json}}</pre>
+        <attributes-form ng-show="tab == 'repo'"></attributes-form>
         <pre ng-show="tab == 'repo.references'" style="background: #ffffff; border: hidden">{{ selectedObject.references | json}}</pre>
         <pre ng-show="tab == 'repo.meta'" style="background: #ffffff; border: hidden">{{ selectedObject.meta | json}}</pre>
       </div>
