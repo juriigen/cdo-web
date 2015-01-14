@@ -13,6 +13,13 @@ angular.module('cdoWebApp')
     var repoTree = this;
     repoTree.treeData = [];
 
+    var treeReady = false;
+
+    repoTree.isReady = function() {
+      $log.debug('RepoTreeCtrl.isReady - ' + treeReady);
+      return treeReady;
+    }
+
     repoTree.treeConfig = {
       core : {
         multiple : false,
@@ -84,6 +91,9 @@ angular.module('cdoWebApp')
 
     // either login or reload is triggered
     $scope.$on('repoRootNodeUpdated', function (scope, data) {
+
+      treeReady = false;
+
       $log.debug('RepoTreeCtrl.repoRootNodeUpdated - received event');
 
       repoTree.treeData.length = 0;
@@ -106,5 +116,7 @@ angular.module('cdoWebApp')
           });
         });
       }
+
+      treeReady = true;
     });
   });
