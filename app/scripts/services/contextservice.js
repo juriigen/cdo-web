@@ -17,7 +17,7 @@ angular.module('cdoWebApp')
 
       //$rootScope.$broadcast('objectSelected', selectedObject);
 
-      RepoAccessService.get(selectedObject._links.self.href + '?rrefs&meta&arrayAccessor', function (data, status) {
+      RepoAccessService.get(selectedObject._links.self.href + '?rrefs&meta', function (data, status) {
         if (status === 200) {
           selectedObject = data.data;
           $log.debug('ContextService.objectedSelected - broadcast event');

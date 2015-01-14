@@ -3,32 +3,32 @@
   <div class="panel-body">
     <table ng-show="selectedObject != undefined" >
       <tr>
-        <td class="control-label col-sm-2"><label>id</label></td>
-        <td>{{selectedObject.id}}</td>
+        <td class="col-sm-3"><label>id</label></td>
+        <td class="col-sm-9">{{selectedObject.id}}</td>
       </tr>
       <tr>
-        <td class="control-label col-sm-2"><label>revision</label></td>
-        <td>{{selectedObject.revision}}</td>
+        <td class="col-sm-3"><label>revision</label></td>
+        <td class="col-sm-9">{{selectedObject.revision}}</td>
       </tr>
       <tr>
-        <td class="control-label col-sm-2"><label>date</label></td>
-        <td>{{selectedObject.date | date : dateFormat}}</td>
+        <td class="col-sm-3"><label>date</label></td>
+        <td class="col-sm-9">{{selectedObject.date | date : dateFormat}}</td>
       </tr>
       <tr>
-        <td class="control-label col-sm-2"><label>uri</label></td>
-        <td>{{selectedObject._links.self.href}}</td>
+        <td class="col-sm-3"><label>uri</label></td>
+        <td class="col-sm-9">{{selectedObject._links.self.href}}</td>
       </tr>
       <tr>
-        <td class="control-label col-sm-2"><label>permission</label></td>
-        <td>{{selectedObject.permission}}</td>
+        <td class="col-sm-3"><label>permission</label></td>
+        <td class="col-sm-9">{{selectedObject.permission}}</td>
       </tr>
       <tr>
-        <td class="control-label col-sm-2"><label>author</label></td>
-        <td>{{selectedObject.author}}</td>
+        <td class="col-sm-3"><label>author</label></td>
+        <td class="col-sm-9">{{selectedObject.author}}</td>
       </tr>
       <tr>
-        <td class="control-label col-sm-2"><label>type</label></td>
-        <td>{{selectedObject.type}}</td>
+        <td class="col-sm-3"><label>type</label></td>
+        <td class="col-sm-9">{{selectedObject.type}}</td>
       </tr>
     </table>
   </div>
