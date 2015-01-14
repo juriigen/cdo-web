@@ -18,7 +18,7 @@ angular.module('cdoWebApp')
     repoTree.isReady = function() {
       $log.debug('RepoTreeCtrl.isReady - ' + treeReady);
       return treeReady;
-    }
+    };
 
     repoTree.treeConfig = {
       core : {
