@@ -8,11 +8,11 @@
  * Service in the cdoWebApp.
  */
 angular.module('cdoWebApp')
-  .service('CalculateUrlService', function () {
+  .service('CalculateUrlService', function ($rootScope) {
     var service = {};
     service.getUrl = function(relativeUrl) {
-      /* global endpoint:true */
-      return endpoint + relativeUrl;
+
+      return $rootScope.endpoint + relativeUrl;
     };
     return service;
   });

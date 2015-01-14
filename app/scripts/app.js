@@ -1,9 +1,5 @@
 'use strict';
 
-/* exported endpoint */
-var endpoint = 'https://localhost:9080';
-//var endpoint = 'https://cdo-flatland.rhcloud.com';
-
 // declare modules
 angular.module('Authentication', []);
 
@@ -70,4 +66,8 @@ angular
           $location.path('/login');
         }
       });
+
+      /* Global Variables */
+      $rootScope.endpoint = 'https://cdo-flatland.rhcloud.com';
+      $rootScope.dateFormat = 'dd MMMM yyyy - HH:mm:ss';
     }]);

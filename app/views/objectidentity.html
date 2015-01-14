@@ -3,31 +3,31 @@
   <div class="panel-body">
     <table ng-show="selectedObject != undefined" >
       <tr>
-        <td style="width: 150px;"><label>id</label></td>
+        <td class="control-label col-sm-2"><label>id</label></td>
         <td>{{selectedObject.id}}</td>
       </tr>
       <tr>
-        <td><label>revision</label></td>
+        <td class="control-label col-sm-2"><label>revision</label></td>
         <td>{{selectedObject.revision}}</td>
       </tr>
       <tr>
-        <td><label>date</label></td>
-        <td>{{selectedObject.date | date : 'dd MMMM yyyy - HH:mm:ss'}}</td>
+        <td class="control-label col-sm-2"><label>date</label></td>
+        <td>{{selectedObject.date | date : dateFormat}}</td>
       </tr>
       <tr>
-        <td><label>uri</label></td>
+        <td class="control-label col-sm-2"><label>uri</label></td>
         <td>{{selectedObject._links.self.href}}</td>
       </tr>
       <tr>
-        <td><label>permission</label></td>
+        <td class="control-label col-sm-2"><label>permission</label></td>
         <td>{{selectedObject.permission}}</td>
       </tr>
       <tr>
-        <td><label>author</label></td>
+        <td class="control-label col-sm-2"><label>author</label></td>
         <td>{{selectedObject.author}}</td>
       </tr>
       <tr>
-        <td><label>type</label></td>
+        <td class="control-label col-sm-2"><label>type</label></td>
         <td>{{selectedObject.type}}</td>
       </tr>
     </table>
