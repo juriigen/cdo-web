@@ -11,12 +11,12 @@
          ng-class="{ 'has-error' : (attributesForm[attribute.feature].$error.required
          || attributesForm[attribute.feature].$error.pattern
          || attributesForm[attribute.feature].$error.number
-         || attributesForm[attribute.feature].$error.datetimelocal)}">
+         || attributesForm[attribute.feature].$error.date)}">
 
       <div ng-show="(attributesForm[attribute.feature].$error.required
         || attributesForm[attribute.feature].$error.pattern
         || attributesForm[attribute.feature].$error.number
-        || attributesForm[attribute.feature].$error.datetimelocal)" class="alert-danger" role="alert">
+        || attributesForm[attribute.feature].$error.date)" class="alert-danger" role="alert">
         <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
         <span class="sr-only">Error:</span>
         <span class="error" ng-show="attributesForm[attribute.feature].$error.required">
@@ -28,7 +28,7 @@
         <span class="error" ng-show="attributesForm[attribute.feature].$error.number">
           value of {{attribute.feature}} is not a valid number
         </span>
-        <span class="error" ng-show="attributesForm[attribute.feature].$error.datetimelocal">
+        <span class="error" ng-show="attributesForm[attribute.feature].$error.date">
           value of {{attribute.feature}} is not a valid date and time
         </span>
       </div>
@@ -52,8 +52,8 @@
              ng-disabled="selectedObject.permission === 'READ' || attribute.derived === true">
 
       <!-- jsType === date -->
-      <input ng-if="attribute.jsType === 'date'" ng-model="selectedObject.attributes[attribute.feature]" type="datetime-local" class="form-control"
-             id="{{attribute.feature}}" name="{{attribute.feature}}"
+      <input ng-if="attribute.jsType === 'date'" ng-model="selectedObject.attributes[attribute.feature]" type="date" class="form-control"
+             id="{{attribute.feature}}" name="{{attribute.feature}}" value="{{selectedObject.attributes[attribute.feature] | date: 'yyyy-MM-dd'}}"
              ng-required="{{attribute.required}}"
              pattern="{{attribute.pattern}}" ng-readonly="selectedObject.permission === 'READ' || attribute.derived === true">
 
