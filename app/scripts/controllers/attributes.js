@@ -8,7 +8,7 @@
  * Controller of the cdoWebApp
  */
 angular.module('cdoWebApp')
-  .controller('AttributesctrlCtrl', function ($scope, $log, RepoAccessService, ContextService, toaster) {
+  .controller('AttributesctrlCtrl', function ($scope, $log, RepoAccessService, ContextService) {
 
     $scope.save = function() {
 
@@ -28,9 +28,6 @@ angular.module('cdoWebApp')
         if (status === 200) {
 
           ContextService.updateSelectedObject(data.data);
-          if (data.status.revisionDeltas !== undefined) {
-            toaster.pop('success', 'Save', data.status.revisionDeltas[0].revisionDelta);
-          }
           $scope.dataLoading = false;
 
         } else {
@@ -38,7 +35,17 @@ angular.module('cdoWebApp')
           ContextService.setSelectedObject(data.data);
           $scope.dataLoading = false;
         }
+        $scope.status = data.status;
       });
     };
+
+    $scope.closeAlert = function() {
+      $scope.status = undefined;
+    };
+
+    $scope.$on('objectSelected', function () {
+      $scope.status = undefined;
+      $log.debug('AttributesctrlCtrl.objectSelected - reset status ' + $scope.selectedObject.id);
+    });
 
   });

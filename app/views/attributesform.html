@@ -1,4 +1,9 @@
 <form ng-controller="AttributesctrlCtrl" ng-submit="save()" name="attributesForm" class="form-horizontal" role="form" novalidate>
+
+  <alert ng-show="status.revisionDeltas != undefined" type="success" close="closeAlert()">
+    <li ng-repeat="revisionDelta in status.revisionDeltas[0].revisionDelta">{{revisionDelta.message}}</li>
+  </alert>
+
   <div ng-repeat="attribute in selectedObject.meta.attributes" class="form-group">
     <label class="control-label col-sm-4" for="{{attribute.feature}}">{{attribute.feature}}</label>
 

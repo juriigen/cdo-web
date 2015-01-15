@@ -33,15 +33,6 @@ angular.module('cdoWebApp')
       $log.debug('ContextService.updateSelectedObject - broadcast event');
       $rootScope.$broadcast('updateSelectedObject', selectedObject);
 
-      /*
-      RepoAccessService.get(selectedObject._links.self.href + '?rrefs&meta', function (data, status) {
-        if (status === 200) {
-          selectedObject = data.data;
-          $log.debug('ContextService.objectedSelected - broadcast event');
-          $rootScope.$broadcast('objectSelected', selectedObject);
-        }
-      });
-      */
     };
 
     var getSelectedObject = function () {
