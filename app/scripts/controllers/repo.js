@@ -22,4 +22,9 @@ angular.module('cdoWebApp')
       $scope.selectedObject = data;
       $log.debug('RepoCtrl.objectSelected - received event - id ' + $scope.selectedObject.id);
     });
+
+    $scope.$on('updateSelectedObject', function (scope, data) {
+      $scope.selectedObject = data;
+      $log.debug('RepoCtrl.updateSelectedObject - received event - id ' + $scope.selectedObject.id);
+    });
   });

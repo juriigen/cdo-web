@@ -119,4 +119,25 @@ angular.module('cdoWebApp')
 
       treeReady = true;
     });
+
+    $scope.$on('updateSelectedObject', function (scope, data) {
+
+      $log.debug('RepoTreeCtrl.updateSelectedObject - received event - id ' + data.id);
+
+      var index = -1;
+      repoTree.treeData.forEach(function(entry) {
+        index++;
+        if (entry.id === (data.id.toString())) {
+          $log.debug('>> Found node to update - ' + data.id);
+
+          var newLabel = data.label;
+          if (data.type === 'eresource.CDOResourceFolder') {
+            newLabel = data.attributes.name;
+          }
+          entry.data = data;
+          repoTree.treeInstance.jstree('rename_node', entry, newLabel);
+          //entry.text = newLabel;
+        }
+      });
+    });
   });

@@ -13,16 +13,33 @@ angular.module('cdoWebApp')
 
     service.get = function (relativeUrl, callback) {
       var url = CalculateUrlService.getUrl(relativeUrl);
-      $http.get(url).
-        success(function (data, status) {
+      $http.get(url)
+        .success(function (data, status) {
 
           $log.debug('RepoAccessService.get - ' + url + ' - status ' + status);
 
           callback(data, status);
-        }).
-        error(function (data, status) {
+        })
+        .error(function (data, status) {
 
           $log.debug('RepoAccessService.get - ' + url + ' - status ' + status);
+
+          callback(data, status);
+        });
+    };
+
+    service.put = function (relativeUrl, object, callback) {
+      var url = CalculateUrlService.getUrl(relativeUrl);
+      $http.put(url, object)
+        .success(function (data, status) {
+
+          $log.debug('RepoAccessService.put - ' + url + ' - status ' + status);
+
+          callback(data, status);
+        })
+        .error(function (data, status) {
+
+          $log.debug('RepoAccessService.put - ' + url + ' - status ' + status);
 
           callback(data, status);
         });
