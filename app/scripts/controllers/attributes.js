@@ -16,7 +16,7 @@ angular.module('cdoWebApp')
       // set empty strings to null
       $scope.selectedObject.meta.attributes.forEach(function(attributeMeta) {
         var attribute = $scope.selectedObject.attributes[attributeMeta.feature];
-        if (attribute === undefined || attribute.length === 0) {
+        if (attribute === undefined || attribute === null || attribute.length === 0) {
           attributes[attributeMeta.feature] = null;
         } else {
           attributes[attributeMeta.feature] = attribute;
