@@ -75,6 +75,7 @@
              ng-required="{{attribute.required}}"
              pattern="{{attribute.pattern}}"
              ng-readonly="selectedObject.permission === 'READ' || attribute.derived === true"/>
+      <!--<input type="text" class="form-control" value="{{selectedObject.attributes[attribute.feature] | date : dateFormat}}" ng-if="attribute.jsType === 'date'" ng-readonly="true"/>-->
 
       <!-- jsType === boolean -->
       <input ng-if="attribute.jsType === 'boolean'"
