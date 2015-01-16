@@ -16,7 +16,7 @@ angular.module('cdoWebApp')
       // set empty strings to null
       $scope.selectedObject.meta.attributes.forEach(function(attributeMeta) {
         var attribute = $scope.selectedObject.attributes[attributeMeta.feature];
-        $log.debug('AttributesCtrl check attribute - ' + attribute)
+        $log.debug('AttributesCtrl check attribute - ' + attribute);
         if (attribute === undefined || attribute === null || attribute.length === 0) {
           attributes[attributeMeta.feature] = null;
         } else {
@@ -30,13 +30,15 @@ angular.module('cdoWebApp')
 
           ContextService.updateSelectedObject(data.data);
           $scope.dataLoading = false;
+          $scope.status = data.status;
 
         } else {
+          $scope.status = {};
+          $scope.status.error = 'Technical problem udpdating ' + $scope.selectedObject._links.self.href;
           // reload from repo in case of failed!
-          ContextService.setSelectedObject(data.data);
           $scope.dataLoading = false;
         }
-        $scope.status = data.status;
+
       });
     };
 
@@ -44,8 +46,12 @@ angular.module('cdoWebApp')
       $scope.status = undefined;
     };
 
-    $scope.$on('objectSelected', function () {
-      $scope.status = undefined;
+    $scope.$on('objectSelected', function (scope, data, status) {
+      if (status.status === 'INVALID') {
+        $scope.status = status;
+      } else {
+        $scope.status = undefined;
+      }
       $log.debug('AttributesctrlCtrl.objectSelected - reset status ' + $scope.selectedObject.id);
     });
 

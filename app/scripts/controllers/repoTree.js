@@ -44,6 +44,8 @@ angular.module('cdoWebApp')
         RepoAccessService.get('/node?crefs', function (data, status) {
           if (status === 200) {
             $scope.$broadcast('repoRootNodeUpdated', data);
+          } else {
+              repoTree.status = 'Technical problem loading /node';
           }
         });
       }
@@ -83,6 +85,8 @@ angular.module('cdoWebApp')
               entry.resolved = true;
             } else if (status === 404) {
               entry.resolved = true;
+            } else {
+              repoTree.status = 'Technical problem loading ' + entry.url;
             }
           });
         }
@@ -112,6 +116,8 @@ angular.module('cdoWebApp')
               node.resolved = true;
             } else if (status === 404) {
               node.resolved = true;
+            } else {
+              repoTree.status = 'Technical problem loading ' + node.url;
             }
           });
         });
@@ -124,7 +130,6 @@ angular.module('cdoWebApp')
 
       $log.debug('RepoTreeCtrl.updateSelectedObject - received event - id ' + data.id);
 
-      var index = -1;
       repoTree.treeData.forEach(function(entry) {
 
         if (entry.id === (data.id.toString())) {
@@ -139,5 +144,14 @@ angular.module('cdoWebApp')
           //entry.text = newLabel;
         }
       });
+    });
+
+    repoTree.closeAlert = function() {
+      repoTree.status = undefined;
+    };
+
+    $scope.$on('objectSelected', function () {
+      repoTree.status = undefined;
+      $log.debug('TreeCtrl.objectSelected - reset status ' + repoTree.selectedObject.id);
     });
   });

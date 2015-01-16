@@ -21,7 +21,7 @@ angular.module('cdoWebApp')
         if (status === 200) {
           selectedObject = data.data;
           $log.debug('ContextService.objectedSelected - broadcast event');
-          $rootScope.$broadcast('objectSelected', selectedObject);
+          $rootScope.$broadcast('objectSelected', selectedObject, data.status);
         }
       });
     };

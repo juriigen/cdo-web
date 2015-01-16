@@ -1,7 +1,18 @@
 <form ng-controller="AttributesCtrl" ng-submit="save()" name="attributesForm" class="form-horizontal" role="form" novalidate>
 
   <alert ng-show="status.revisionDeltas != undefined" type="success" close="closeAlert()">
+    <i class="glyphicon glyphicon-ok-sign"></i> <label>updated {{status.revisionDeltas[0].origin}}</label>
     <li ng-repeat="revisionDelta in status.revisionDeltas[0].revisionDelta">{{revisionDelta.message}}</li>
+  </alert>
+
+  <alert ng-show="status.diagnostics != undefined" close="closeAlert()">
+    <i class="glyphicon glyphicon-exclamation-sign"></i> <label>constraint violation {{status.diagnostics[0].origin}}</label>
+    <li ng-repeat="revisionDelta in status.diagnostics[0].diagnostic">{{revisionDelta.message}}</li>
+    <li ng-repeat="detail in status.diagnostics[0].diagnostic[0].details">{{detail}}</li>
+  </alert>
+
+  <alert ng-show="status.error != undefined" type="danger" close="closeAlert()">
+    {{status.error}}
   </alert>
 
   <div ng-repeat="attribute in selectedObject.meta.attributes" class="form-group">

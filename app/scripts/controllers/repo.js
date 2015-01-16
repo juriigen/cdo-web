@@ -18,8 +18,9 @@ angular.module('cdoWebApp')
         $scope.tab = toState.name;
       });
 
-    $scope.$on('objectSelected', function (scope, data) {
+    $scope.$on('objectSelected', function (scope, data, status) {
       $scope.selectedObject = data;
+      $scope.status = status;
       $log.debug('RepoCtrl.objectSelected - received event - id ' + $scope.selectedObject.id);
     });
 
