@@ -126,7 +126,7 @@ angular.module('cdoWebApp')
 
       var index = -1;
       repoTree.treeData.forEach(function(entry) {
-        index++;
+
         if (entry.id === (data.id.toString())) {
           $log.debug('>> Found node to update - ' + data.id);
 
