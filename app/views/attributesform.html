@@ -68,7 +68,8 @@
       <!-- jsType === date -->
       <input ng-if="attribute.jsType === 'date'"
              ng-model="selectedObject.attributes[attribute.feature]"
-             type="date" class="form-control"
+             type="text"
+             class="form-control"
              id="{{attribute.feature}}"
              name="{{attribute.feature}}"
              ng-required="{{attribute.required}}"
