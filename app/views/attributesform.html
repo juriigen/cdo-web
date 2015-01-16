@@ -1,4 +1,4 @@
-<form ng-controller="AttributesctrlCtrl" ng-submit="save()" name="attributesForm" class="form-horizontal" role="form" novalidate>
+<form ng-controller="AttributesCtrl" ng-submit="save()" name="attributesForm" class="form-horizontal" role="form" novalidate>
 
   <alert ng-show="status.revisionDeltas != undefined" type="success" close="closeAlert()">
     <li ng-repeat="revisionDelta in status.revisionDeltas[0].revisionDelta">{{revisionDelta.message}}</li>
@@ -34,33 +34,54 @@
       </div>
 
       <!-- jsType === string -->
-      <input ng-if="attribute.jsType === 'string'" ng-model="selectedObject.attributes[attribute.feature]" type="text" class="form-control"
-             id="{{attribute.feature}}" name="{{attribute.feature}}"
+      <input ng-if="attribute.jsType === 'string'"
+             ng-model="selectedObject.attributes[attribute.feature]"
+             type="text"
+             class="form-control"
+             id="{{attribute.feature}}"
+             name="{{attribute.feature}}"
              ng-required="{{attribute.required}}"
-             pattern="{{attribute.pattern}}" ng-readonly="selectedObject.permission === 'READ' || attribute.derived === true">
+             pattern="{{attribute.pattern}}"
+             ng-readonly="selectedObject.permission === 'READ' || attribute.derived === true"/>
 
       <!-- jsType === number -->
-      <input ng-if="attribute.jsType === 'number'" ng-model="selectedObject.attributes[attribute.feature]" type="number" class="form-control"
-             id="{{attribute.feature}}" name="{{attribute.feature}}"
+      <input ng-if="attribute.jsType === 'number'"
+             ng-model="selectedObject.attributes[attribute.feature]"
+             type="number"
+             class="form-control"
+             id="{{attribute.feature}}"
+             name="{{attribute.feature}}"
              ng-required="{{attribute.required}}"
-             pattern="{{attribute.pattern}}" ng-readonly="selectedObject.permission === 'READ' || attribute.derived === true">
+             pattern="{{attribute.pattern}}"
+             ng-readonly="selectedObject.permission === 'READ' || attribute.derived === true"/>
 
       <!-- jsType === enum -->
-      <select ng-if="attribute.jsType === 'enum'" ng-model="selectedObject.attributes[attribute.feature]" ng-options="opt as opt for opt in attribute.literals" class="form-control"
-             id="{{attribute.feature}}" name="{{attribute.feature}}"
-             ng-required="{{attribute.required}}"
-             ng-disabled="selectedObject.permission === 'READ' || attribute.derived === true">
+      <select ng-if="attribute.jsType === 'enum'"
+              ng-model="selectedObject.attributes[attribute.feature]"
+              ng-options="opt as opt for opt in attribute.literals"
+              class="form-control"
+              id="{{attribute.feature}}"
+              name="{{attribute.feature}}"
+              ng-required="{{attribute.required}}"
+              ng-disabled="selectedObject.permission === 'READ' || attribute.derived === true"/>
 
       <!-- jsType === date -->
-      <input ng-if="attribute.jsType === 'date'" ng-model="selectedObject.attributes[attribute.feature]" type="date" class="form-control"
-             id="{{attribute.feature}}" name="{{attribute.feature}}" value="{{selectedObject.attributes[attribute.feature] | date: 'yyyy-MM-dd'}}"
+      <input ng-if="attribute.jsType === 'date'"
+             ng-model="selectedObject.attributes[attribute.feature]"
+             type="date" class="form-control"
+             id="{{attribute.feature}}"
+             name="{{attribute.feature}}"
              ng-required="{{attribute.required}}"
-             pattern="{{attribute.pattern}}" ng-readonly="selectedObject.permission === 'READ' || attribute.derived === true">
+             pattern="{{attribute.pattern}}"
+             ng-readonly="selectedObject.permission === 'READ' || attribute.derived === true"/>
 
       <!-- jsType === boolean -->
-      <input ng-if="attribute.jsType === 'boolean'" ng-model="selectedObject.attributes[attribute.feature]" type="checkbox"
-             id="{{attribute.feature}}" name="{{attribute.feature}}"
-             ng-disabled="selectedObject.permission === 'READ' || attribute.derived === true">
+      <input ng-if="attribute.jsType === 'boolean'"
+             ng-model="selectedObject.attributes[attribute.feature]"
+             type="checkbox"
+             id="{{attribute.feature}}"
+             name="{{attribute.feature}}"
+             ng-disabled="selectedObject.permission === 'READ' || attribute.derived === true"/>
     </div>
 
   </div>

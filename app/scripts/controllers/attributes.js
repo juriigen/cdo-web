@@ -2,13 +2,13 @@
 
 /**
  * @ngdoc function
- * @name cdoWebApp.controller:AttributesctrlCtrl
+ * @name cdoWebApp.controller:AttributesCtrl
  * @description
- * # AttributesctrlCtrl
+ * # AttributesCtrl
  * Controller of the cdoWebApp
  */
 angular.module('cdoWebApp')
-  .controller('AttributesctrlCtrl', function ($scope, $log, RepoAccessService, ContextService) {
+  .controller('AttributesCtrl', function ($scope, $log, RepoAccessService, ContextService) {
 
     $scope.save = function() {
 
@@ -16,6 +16,7 @@ angular.module('cdoWebApp')
       // set empty strings to null
       $scope.selectedObject.meta.attributes.forEach(function(attributeMeta) {
         var attribute = $scope.selectedObject.attributes[attributeMeta.feature];
+        $log.debug('AttributesCtrl check attribute - ' + attribute)
         if (attribute === undefined || attribute === null || attribute.length === 0) {
           attributes[attributeMeta.feature] = null;
         } else {
