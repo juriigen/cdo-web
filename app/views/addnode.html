@@ -1,0 +1,20 @@
+<div ng-show="globals.currentUser != undefined" class="panel panel-default">
+  <div class="panel-heading"><i class="glyphicon glyphicon-plus"></i> Add Node</div>
+  <div class="panel-body">
+    <form novalidate name="newNodeForm" role="form" class="form-horizontal">
+      <div class="form-group">
+        <label class="control-label col-sm-4" for="addNode">name</label>
+        <div class="col-sm-8" ng-class="{ 'has-error' : false }">
+          <input type="text" class="form-control" id="addNode" ng-model="vm.newNode.text" name="addNode" required>
+        </div>
+      </div>
+
+      <div ng-show="true" class="form-actions">
+        <div class="pull-right">
+          <img ng-if="dataLoading" class="control-label" src="images/loading.gif">&nbsp;
+          <button type="submit" ng-disabled="false" class="btn btn-success pull-right">Add</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

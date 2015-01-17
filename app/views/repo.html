@@ -5,18 +5,23 @@
 
       <div ng-controller="RepoTreeCtrl as repoTree" class="panel-body">
 
-        <alert ng-show="repoTree.status != undefined "type="danger" close="repoTree.closeAlert()">
+        <alert ng-show="repoTree.status != undefined " type="danger" close="repoTree.closeAlert()">
           {{repoTree.status}}
         </alert>
 
-        <div class="col-sm-12" ng-show="repoTree.isReady()" js-tree="repoTree.treeConfig" should-apply="repoTree.applyModelChanges()"
+        <div class="col-sm-12" ng-show="repoTree.isReady()" js-tree="repoTree.treeConfig"
+             should-apply="repoTree.applyModelChanges()"
              ng-model="repoTree.treeData"
              tree="repoTree.treeInstance"
              tree-events="ready:repoTree.readyCB;select_node:repoTree.selectNodeCB;before_open:repoTree.beforeOpenNodeCB;open_node:repoTree.openNodeCB">
         </div>
       </div>
     </div>
+
+    <add-node></add-node>
+
     <object-identity></object-identity>
+
   </div>
   <div class="col-xs-7">
     <ul class="nav nav-tabs" role="tablist">
@@ -26,11 +31,13 @@
     </ul>
 
     <h3 class="text-muted"></h3>
+
     <div class="panel panel-default">
       <div class="panel-body">
         <attributes-form ng-show="tab == 'repo'"></attributes-form>
         <pre ng-show="tab == 'repo.references'" style="background: #ffffff; border: hidden">{{ selectedObject.references | json}}</pre>
-        <pre ng-show="tab == 'repo.meta'" style="background: #ffffff; border: hidden">{{ selectedObject.meta | json}}</pre>
+        <pre ng-show="tab == 'repo.meta'"
+             style="background: #ffffff; border: hidden">{{ selectedObject.meta | json}}</pre>
       </div>
     </div>
   </div>
