@@ -328,6 +328,11 @@ module.exports = function (grunt) {
           cwd: 'bower_components/jstree/dist/themes/default',
           src: '*.png',
           dest: '<%= yeoman.dist %>/styles'
+        }, {
+          expand: true,
+          cwd: 'bower_components/jstree/dist/themes/default',
+          src: '*.gif',
+          dest: '<%= yeoman.dist %>/styles'
         }]
       },
       styles: {

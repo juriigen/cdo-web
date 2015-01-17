@@ -32,10 +32,13 @@ angular.module('cdoWebApp')
           $scope.dataLoading = false;
           $scope.status = data.status;
 
+        } else if (status === 404) {
+          $scope.status = {};
+          $scope.status.error = status + ' - ' + data.error.message;
+          $scope.dataLoading = false;
         } else {
           $scope.status = {};
           $scope.status.error = 'Technical problem udpdating ' + $scope.selectedObject._links.self.href;
-          // reload from repo in case of failed!
           $scope.dataLoading = false;
         }
 

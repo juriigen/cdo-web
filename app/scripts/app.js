@@ -53,6 +53,9 @@ angular
     //Enable cross domain calls
     $httpProvider.defaults.withCredentials = true;
   })
+  .config(function($logProvider){
+    $logProvider.debugEnabled(true);
+  })
   .run(['$rootScope', '$location', '$cookieStore', '$http',
     function ($rootScope, $location, $cookieStore, $http) {
       // keep user logged in after page refresh

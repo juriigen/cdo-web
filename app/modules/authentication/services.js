@@ -10,7 +10,7 @@ angular.module('Authentication')
       service.Login = function (username, password, callback) {
 
         $http.defaults.headers.common.Authorization = 'Basic ' + Base64.encode(username + ':' + password);
-        $http.get(CalculateUrlService.getUrl('/node?crefs'))
+        $http.get(CalculateUrlService.getUrl('/node?crefs&meta'))
           .success(function (data, status) {
             callback(data, status);
 

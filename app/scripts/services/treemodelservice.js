@@ -22,11 +22,7 @@ angular.module('cdoWebApp')
         node.text = object.label;
       }
       node.state = { opened : false};
-      if (object.icon === '/icon/eresource.CDOResource') {
-        node.icon =  CalculateUrlService.getUrl('/icon/security.ResourceFilter');
-      } else {
-        node.icon = CalculateUrlService.getUrl(object.icon);
-      }
+      node.icon = CalculateUrlService.getUrl(object.icon);
       node.url = object._links.self.href;
       node.resolved = false;
       node.data = object;

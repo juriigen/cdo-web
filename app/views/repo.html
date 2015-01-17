@@ -1,9 +1,9 @@
 <div>
-  <div class="col-xs-5">
+  <div ng-controller="RepoTreeCtrl as repoTree" class="col-xs-5">
     <div class="panel panel-primary">
       <div class="panel-heading"><i class="glyphicon glyphicon-globe"></i> Repository Explorer</div>
 
-      <div ng-controller="RepoTreeCtrl as repoTree" class="panel-body">
+      <div class="panel-body">
 
         <alert ng-show="repoTree.status != undefined " type="danger" close="repoTree.closeAlert()">
           {{repoTree.status}}

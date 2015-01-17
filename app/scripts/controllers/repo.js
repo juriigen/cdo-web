@@ -14,14 +14,17 @@ angular.module('cdoWebApp')
 
     $rootScope.$on('$stateChangeStart',
       function(event, toState){
-        $log.debug('RepoCtrl.$stateChangeStart - event received - ' + toState.name);
+        $log.debug('RepoCtrl.$stateChangeStart - received even - ' + toState.name);
         $scope.tab = toState.name;
       });
 
     $scope.$on('objectSelected', function (scope, data, status) {
+
       $scope.selectedObject = data;
-      $scope.status = status;
       $log.debug('RepoCtrl.objectSelected - received event - id ' + $scope.selectedObject.id);
+
+      $scope.status = status;
+      $log.debug('>> set status to scope - ' + status.status);
     });
 
     $scope.$on('updateSelectedObject', function (scope, data) {

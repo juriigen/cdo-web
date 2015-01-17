@@ -1,15 +1,24 @@
-<form ng-controller="AttributesCtrl" ng-submit="save()" name="attributesForm" class="form-horizontal" role="form" novalidate>
+<form ng-controller="AttributesCtrl" ng-submit="save()" name="attributesForm" class="form-horizontal" role="form"
+      novalidate>
 
   <alert ng-show="status.revisionDeltas != undefined" type="success" close="closeAlert()">
     <i class="glyphicon glyphicon-ok-sign"></i> <label>updated {{status.revisionDeltas[0].origin}}</label>
     <li ng-repeat="revisionDelta in status.revisionDeltas[0].revisionDelta">{{revisionDelta.message}}</li>
   </alert>
 
-  <alert ng-show="status.diagnostics != undefined" close="closeAlert()">
-    <i class="glyphicon glyphicon-exclamation-sign"></i> <label>constraint violation {{status.diagnostics[0].origin}}</label>
-    <li ng-repeat="revisionDelta in status.diagnostics[0].diagnostic">{{revisionDelta.message}}</li>
-    <li ng-repeat="detail in status.diagnostics[0].diagnostic[0].details">{{detail}}</li>
-  </alert>
+
+  <div ng-show="status.diagnostics != undefined" ng-repeat="diagnostic in status.diagnostics">
+    <alert ng-show="status.diagnostics != undefined" close="closeAlert()">
+      <i class="glyphicon glyphicon-exclamation-sign"></i> <label>constraint violation {{diagnostic.origin}}</label>
+      <div ng-repeat="revisionDelta in diagnostic.diagnostic">
+        <li>{{revisionDelta.message}}</li>
+        <div ng-repeat="detail in revisionDelta.details">
+          <li>{{detail}}</li>
+        </div>
+      </div>
+    </alert>
+  </div>
+
 
   <alert ng-show="status.error != undefined" type="danger" close="closeAlert()">
     {{status.error}}
@@ -74,7 +83,7 @@
               id="{{attribute.feature}}"
               name="{{attribute.feature}}"
               ng-required="{{attribute.required}}"
-              ng-disabled="selectedObject.permission === 'READ' || attribute.derived === true"/>
+              ng-disabled="selectedObject.permission === 'READ' || attribute.derived === true"></select>
 
       <!-- jsType === date -->
       <input ng-if="attribute.jsType === 'date'"
@@ -98,10 +107,13 @@
     </div>
 
   </div>
-  <div ng-show="selectedObject.meta.attributes.length > 0 && selectedObject.permission === 'WRITE'" class="form-actions">
+  <div ng-show="selectedObject.meta.attributes.length > 0 && selectedObject.permission === 'WRITE'"
+       class="form-actions">
     <div class="pull-right">
       <img ng-if="dataLoading" class="control-label" src="images/loading.gif">&nbsp;
-      <button type="submit" ng-disabled="attributesForm.$invalid || dataLoading" class="btn btn-success pull-right">Save</button>
+      <button type="submit" ng-disabled="attributesForm.$invalid || dataLoading" class="btn btn-success pull-right">
+        Save
+      </button>
     </div>
   </div>
 </form>
