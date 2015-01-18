@@ -9,12 +9,11 @@
  */
 angular.module('cdoWebApp')
   .controller('AttributesCtrl', function ($scope, $log, RepoAccessService, ContextService) {
-
-    $scope.save = function() {
+    $scope.save = function () {
 
       var attributes = {};
       // set empty strings to null
-      $scope.selectedObject.meta.attributes.forEach(function(attributeMeta) {
+      $scope.selectedObject.meta.attributes.forEach(function (attributeMeta) {
         var attribute = $scope.selectedObject.attributes[attributeMeta.feature];
         $log.debug('AttributesCtrl check attribute - ' + attribute);
         if (attribute === undefined || attribute === null || attribute.length === 0) {
@@ -25,7 +24,7 @@ angular.module('cdoWebApp')
       });
 
       $scope.dataLoading = true;
-      RepoAccessService.put($scope.selectedObject._links.self.href + '?rrefs&meta', { 'attributes': attributes }, function (data, status) {
+      RepoAccessService.put($scope.selectedObject._links.self.href + '?rrefs&meta', {'attributes': attributes}, function (data, status) {
         if (status === 200) {
 
           ContextService.updateSelectedObject(data.data);
@@ -46,13 +45,34 @@ angular.module('cdoWebApp')
       });
     };
 
-    $scope.closeAlert = function(index, list) {
+    $scope.closeAlert = function (index, list) {
       $log.debug('AttributesctrlCtrl.closeAlert - index ' + index);
       if (index !== undefined) {
         list.splice(index, 1);
       } else {
         $scope.status = undefined;
       }
+    };
+
+    $scope.showAlertSuccess = function () {
+      if ($scope.status !== undefined && $scope.status.revisionDeltas !== undefined && $scope.status.revisionDeltas.length > 0) {
+        return true;
+      }
+      return false;
+    };
+
+    $scope.showAlertDiagnostics = function () {
+      var result = false;
+      if ($scope.status !== undefined && $scope.status.diagnostics !== undefined) {
+        $scope.status.diagnostics.forEach(function (entry) {
+          entry.diagnostic.forEach(function (diag) {
+            if (diag.feature.indexOf('attributes') === 0) {
+              result = true;
+            }
+          });
+        });
+      }
+      return result;
     };
 
     $scope.$on('objectSelected', function (scope, data, status) {
@@ -67,7 +87,7 @@ angular.module('cdoWebApp')
     $scope.$on('updateSelectedObject', function (scope, data) {
       if (data === undefined) {
         $scope.status = undefined;
-        $log.debug('AttributesctrlCtrl.updateSelectedObject - reset status - undefined' );
+        $log.debug('AttributesctrlCtrl.updateSelectedObject - reset status - undefined');
       }
     });
 
