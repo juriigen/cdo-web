@@ -103,7 +103,7 @@ angular.module('cdoWebApp')
       var types = [];
       if (repoTree.selectedObject !== undefined && repoTree.selectedObject.meta.references !== undefined) {
         repoTree.selectedObject.meta.references.forEach(function (entry) {
-          if (entry.feature === repoTree.selectedObject.containment.feature) {
+          if (repoTree.selectedObject.containment !== undefined && entry.feature === repoTree.selectedObject.containment.feature) {
             $log.debug(' >> search types for feature - ' + entry.feature);
 
             if (entry.abstract === false && entry.type) {
