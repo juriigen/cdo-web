@@ -1,46 +1,49 @@
-<form ng-controller="AttributesCtrl" ng-submit="save()" name="attributesForm" class="form-horizontal" role="form"
-      novalidate>
+<div class="panel panel-default">
+  <div class="panel-heading"><i class="glyphicon glyphicon-th-list"></i> Attributes <label>{{selectedObject.label}}</label></div>
+  <div class="panel-body">
+    <form ng-controller="AttributesCtrl" ng-submit="save()" name="attributesForm" class="form-horizontal" role="form"
+          novalidate>
 
-  <alert ng-show="status.revisionDeltas != undefined && status.revisionDeltas.length > 0" type="success"
-         close="closeAlert(0, status.revisionDeltas)">
-    <i class="glyphicon glyphicon-ok-sign"></i> <label>updated {{status.revisionDeltas[0].origin}}</label>
-    <li ng-repeat="revisionDelta in status.revisionDeltas[0].revisionDelta">{{revisionDelta.message}}</li>
-  </alert>
+      <alert ng-show="status.revisionDeltas != undefined && status.revisionDeltas.length > 0" type="success"
+             close="closeAlert(0, status.revisionDeltas)">
+        <i class="glyphicon glyphicon-ok-sign"></i> <label>updated {{status.revisionDeltas[0].origin}}</label>
+        <li ng-repeat="revisionDelta in status.revisionDeltas[0].revisionDelta">{{revisionDelta.message}}</li>
+      </alert>
 
 
-  <div ng-show="status.diagnostics != undefined" ng-repeat="diagnostic in status.diagnostics">
-    <alert ng-show="status.diagnostics != undefined" close="closeAlert($index, status.diagnostics)">
-      <i class="glyphicon glyphicon-exclamation-sign"></i> <label>constraint violation {{diagnostic.origin}}</label>
+      <div ng-show="status.diagnostics != undefined" ng-repeat="diagnostic in status.diagnostics">
+        <alert ng-show="status.diagnostics != undefined" close="closeAlert($index, status.diagnostics)">
+          <i class="glyphicon glyphicon-exclamation-sign"></i> <label>constraint violation {{diagnostic.origin}}</label>
 
-      <div ng-repeat="revisionDelta in diagnostic.diagnostic">
-        <li>{{revisionDelta.message}}</li>
-        <div ng-repeat="detail in revisionDelta.details">
-          <li>{{detail}}</li>
-        </div>
+          <div ng-repeat="revisionDelta in diagnostic.diagnostic">
+            <li>{{revisionDelta.message}}</li>
+            <div ng-repeat="detail in revisionDelta.details">
+              <li>{{detail}}</li>
+            </div>
+          </div>
+        </alert>
       </div>
-    </alert>
-  </div>
 
 
-  <alert ng-show="status.error != undefined" type="danger" close="closeAlert()">
-    {{status.error}}
-  </alert>
+      <alert ng-show="status.error != undefined" type="danger" close="closeAlert()">
+        {{status.error}}
+      </alert>
 
-  <div ng-repeat="attribute in selectedObject.meta.attributes" class="form-group">
-    <label class="control-label col-sm-4" for="{{attribute.feature}}">{{attribute.feature}}</label>
+      <div ng-repeat="attribute in selectedObject.meta.attributes" class="form-group">
+        <label class="control-label col-sm-4" for="{{attribute.feature}}">{{attribute.feature}}</label>
 
-    <div class="col-sm-8"
-         ng-class="{ 'has-error' : (attributesForm[attribute.feature].$error.required
+        <div class="col-sm-8"
+             ng-class="{ 'has-error' : (attributesForm[attribute.feature].$error.required
          || attributesForm[attribute.feature].$error.pattern
          || attributesForm[attribute.feature].$error.number
          || attributesForm[attribute.feature].$error.date)}">
 
-      <div ng-show="(attributesForm[attribute.feature].$error.required
+          <div ng-show="(attributesForm[attribute.feature].$error.required
         || attributesForm[attribute.feature].$error.pattern
         || attributesForm[attribute.feature].$error.number
         || attributesForm[attribute.feature].$error.date)" class="alert-danger" role="alert">
-        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-        <span class="sr-only">Error:</span>
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            <span class="sr-only">Error:</span>
         <span class="error" ng-show="attributesForm[attribute.feature].$error.required">
           {{attribute.feature}} is mandatory
         </span>
@@ -53,69 +56,71 @@
         <span class="error" ng-show="attributesForm[attribute.feature].$error.date">
           value of {{attribute.feature}} is not a valid date and time
         </span>
+          </div>
+
+          <!-- jsType === string -->
+          <input ng-if="attribute.jsType === 'string'"
+                 ng-model="selectedObject.attributes[attribute.feature]"
+                 type="text"
+                 class="form-control"
+                 id="{{attribute.feature}}"
+                 name="{{attribute.feature}}"
+                 ng-required="{{attribute.required}}"
+                 pattern="{{attribute.pattern}}"
+                 ng-readonly="selectedObject.permission === 'READ' || attribute.derived === true"/>
+
+          <!-- jsType === number -->
+          <input ng-if="attribute.jsType === 'number'"
+                 ng-model="selectedObject.attributes[attribute.feature]"
+                 type="number"
+                 class="form-control"
+                 id="{{attribute.feature}}"
+                 name="{{attribute.feature}}"
+                 ng-required="{{attribute.required}}"
+                 pattern="{{attribute.pattern}}"
+                 ng-readonly="selectedObject.permission === 'READ' || attribute.derived === true"/>
+
+          <!-- jsType === enum -->
+          <select ng-if="attribute.jsType === 'enum'"
+                  ng-model="selectedObject.attributes[attribute.feature]"
+                  ng-options="opt as opt for opt in attribute.literals"
+                  class="form-control"
+                  id="{{attribute.feature}}"
+                  name="{{attribute.feature}}"
+                  ng-required="{{attribute.required}}"
+                  ng-disabled="selectedObject.permission === 'READ' || attribute.derived === true"></select>
+
+          <!-- jsType === date -->
+          <input ng-if="attribute.jsType === 'date'"
+                 ng-model="selectedObject.attributes[attribute.feature]"
+                 type="text"
+                 class="form-control"
+                 id="{{attribute.feature}}"
+                 name="{{attribute.feature}}"
+                 ng-required="{{attribute.required}}"
+                 pattern="{{attribute.pattern}}"
+                 ng-readonly="selectedObject.permission === 'READ' || attribute.derived === true"/>
+          <!--<input type="text" class="form-control" value="{{selectedObject.attributes[attribute.feature] | date : dateFormat}}" ng-if="attribute.jsType === 'date'" ng-readonly="true"/>-->
+
+          <!-- jsType === boolean -->
+          <input ng-if="attribute.jsType === 'boolean'"
+                 ng-model="selectedObject.attributes[attribute.feature]"
+                 type="checkbox"
+                 id="{{attribute.feature}}"
+                 name="{{attribute.feature}}"
+                 ng-disabled="selectedObject.permission === 'READ' || attribute.derived === true"/>
+        </div>
+
       </div>
-
-      <!-- jsType === string -->
-      <input ng-if="attribute.jsType === 'string'"
-             ng-model="selectedObject.attributes[attribute.feature]"
-             type="text"
-             class="form-control"
-             id="{{attribute.feature}}"
-             name="{{attribute.feature}}"
-             ng-required="{{attribute.required}}"
-             pattern="{{attribute.pattern}}"
-             ng-readonly="selectedObject.permission === 'READ' || attribute.derived === true"/>
-
-      <!-- jsType === number -->
-      <input ng-if="attribute.jsType === 'number'"
-             ng-model="selectedObject.attributes[attribute.feature]"
-             type="number"
-             class="form-control"
-             id="{{attribute.feature}}"
-             name="{{attribute.feature}}"
-             ng-required="{{attribute.required}}"
-             pattern="{{attribute.pattern}}"
-             ng-readonly="selectedObject.permission === 'READ' || attribute.derived === true"/>
-
-      <!-- jsType === enum -->
-      <select ng-if="attribute.jsType === 'enum'"
-              ng-model="selectedObject.attributes[attribute.feature]"
-              ng-options="opt as opt for opt in attribute.literals"
-              class="form-control"
-              id="{{attribute.feature}}"
-              name="{{attribute.feature}}"
-              ng-required="{{attribute.required}}"
-              ng-disabled="selectedObject.permission === 'READ' || attribute.derived === true"></select>
-
-      <!-- jsType === date -->
-      <input ng-if="attribute.jsType === 'date'"
-             ng-model="selectedObject.attributes[attribute.feature]"
-             type="text"
-             class="form-control"
-             id="{{attribute.feature}}"
-             name="{{attribute.feature}}"
-             ng-required="{{attribute.required}}"
-             pattern="{{attribute.pattern}}"
-             ng-readonly="selectedObject.permission === 'READ' || attribute.derived === true"/>
-      <!--<input type="text" class="form-control" value="{{selectedObject.attributes[attribute.feature] | date : dateFormat}}" ng-if="attribute.jsType === 'date'" ng-readonly="true"/>-->
-
-      <!-- jsType === boolean -->
-      <input ng-if="attribute.jsType === 'boolean'"
-             ng-model="selectedObject.attributes[attribute.feature]"
-             type="checkbox"
-             id="{{attribute.feature}}"
-             name="{{attribute.feature}}"
-             ng-disabled="selectedObject.permission === 'READ' || attribute.derived === true"/>
-    </div>
-
+      <div ng-show="selectedObject.meta.attributes.length > 0 && selectedObject.permission === 'WRITE'"
+           class="form-actions">
+        <div class="pull-right">
+          <img ng-if="dataLoading" class="control-label" src="images/loading.gif">&nbsp;
+          <button type="submit" ng-disabled="attributesForm.$invalid || dataLoading" class="btn btn-success pull-right">
+            Save
+          </button>
+        </div>
+      </div>
+    </form>
   </div>
-  <div ng-show="selectedObject.meta.attributes.length > 0 && selectedObject.permission === 'WRITE'"
-       class="form-actions">
-    <div class="pull-right">
-      <img ng-if="dataLoading" class="control-label" src="images/loading.gif">&nbsp;
-      <button type="submit" ng-disabled="attributesForm.$invalid || dataLoading" class="btn btn-success pull-right">
-        Save
-      </button>
-    </div>
-  </div>
-</form>
+</div>

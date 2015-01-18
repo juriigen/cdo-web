@@ -25,21 +25,17 @@
   </div>
   <div class="col-xs-7">
     <ul class="nav nav-tabs" role="tablist">
-      <li ng-class="{ active: (tab == 'repo') }"><a ui-sref="repo">Attributes</a></li>
-      <li ng-class="{ active: (tab == 'repo.references') }"><a ui-sref="repo.references">References</a></li>
+      <li ng-class="{ active: (tab == 'repo') }"><a ui-sref="repo">Features</a></li>
       <li ng-class="{ active: (tab == 'repo.meta') }"><a ui-sref="repo.meta"> Meta Data</a></li>
     </ul>
 
     <h3 class="text-muted"></h3>
 
-    <div class="panel panel-default">
-      <div class="panel-body">
-        <attributes-form ng-show="tab == 'repo'"></attributes-form>
-        <pre ng-show="tab == 'repo.references'" style="background: #ffffff; border: hidden">{{ selectedObject.references | json}}</pre>
+    <attributes-form ng-show="tab == 'repo'"></attributes-form>
+    <pre ng-show="tab == 'repo.references'" style="background: #ffffff; border: hidden">{{ selectedObject.references | json}}</pre>
         <pre ng-show="tab == 'repo.meta'"
              style="background: #ffffff; border: hidden">{{ selectedObject.meta | json}}</pre>
-      </div>
-    </div>
+
   </div>
 </div>
 
