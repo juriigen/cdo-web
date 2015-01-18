@@ -77,14 +77,25 @@ angular.module('cdoWebApp')
 
       ContextService.setSelectedObject(repoTree.selectedObject._links.self.href, function (data, status) {
         if (status === 404) {
+          repoTree.removeNode(repoTree.selectedObject.id);
           repoTree.status = status + ' - ' + data.error.message;
           ContextService.updateSelectedObject(undefined);
         } else if (status !== 200) {
           repoTree.status = 'Technical problem loading ' + repoTree.selectedObject._links.self.href;
         }
       });
+    };
 
-      //$scope.$apply();
+    repoTree.removeNode = function(id) {
+      $log.debug('RepoTreeCtrl.removeNode - id ' + id);
+      var index = -1;
+      repoTree.treeData.forEach(function(entry) {
+        index++;
+        if (entry.id === (id.toString())) {
+          $log.debug('>> found node - ' + id);
+          repoTree.treeData.splice(index, 1);
+        }
+      });
     };
 
     repoTree.possibleTypes = function () {
@@ -191,22 +202,25 @@ angular.module('cdoWebApp')
 
     $scope.$on('updateSelectedObject', function (scope, data) {
 
-      $log.debug('RepoTreeCtrl.updateSelectedObject - received event - id ' + data.id);
+      $log.debug('RepoTreeCtrl.updateSelectedObject - received event');
 
-      repoTree.treeData.forEach(function (entry) {
+      // if undefined, node was deleted!
+      if (data !== undefined) {
+        repoTree.treeData.forEach(function (entry) {
 
-        if (entry.id === (data.id.toString())) {
-          $log.debug('>> Found node to update - ' + data.id);
+          if (entry.id === (data.id.toString())) {
+            $log.debug('>> Found node to update - ' + data.id);
 
-          var newLabel = data.label;
-          if (data.type === 'eresource.CDOResourceFolder') {
-            newLabel = data.attributes.name;
+            var newLabel = data.label;
+            if (data.type === 'eresource.CDOResourceFolder') {
+              newLabel = data.attributes.name;
+            }
+            entry.data = data;
+            repoTree.treeInstance.jstree('rename_node', entry, newLabel);
+            //entry.text = newLabel;
           }
-          entry.data = data;
-          repoTree.treeInstance.jstree('rename_node', entry, newLabel);
-          //entry.text = newLabel;
-        }
-      });
+        });
+      }
     });
 
     repoTree.closeAlert = function () {
