@@ -126,9 +126,34 @@ angular.module('cdoWebApp')
 
         if (repoTree.selectedObject.objectType === undefined || types.indexOf(repoTree.selectedObject.objectType) <= 0) {
           repoTree.selectedObject.objectType = types[0];
+
         }
       }
       return types;
+    };
+
+    repoTree.addNode = function() {
+      $log.debug('RepoTreeCtrl.addNode ' + repoTree.selectedObject.objectType + ' to ' + repoTree.selectedObject.id);
+      var newObject = { type: repoTree.selectedObject.objectType };
+      RepoAccessService.post(repoTree.selectedObject._links.self.href + '/references/' + repoTree.selectedObject.containment.feature + '?rrefs&meta', newObject, function (data, status) {
+        if (status === 201) {
+          var newNode = TreeModelService.transformObject(data.data, repoTree.selectedObject.id);
+          repoTree.treeData.push(newNode);
+
+          ContextService.setSelectedObject(newNode.data._links.self.href, function (data, status) {
+            if (status === 404) {
+              repoTree.removeNode(repoTree.selectedObject.id);
+              repoTree.status = status + ' - ' + data.error.message;
+              ContextService.updateSelectedObject(undefined);
+            } else if (status !== 200) {
+              repoTree.status = 'Technical problem loading ' + repoTree.selectedObject._links.self.href;
+            }
+          });
+
+        } else {
+          repoTree.status = 'Technical problem posting ' + repoTree.selectedObject._links.self.href + '/references/' + repoTree.selectedObject.containment.feature;
+        }
+      });
     };
 
     repoTree.applyModelChanges = function () {

@@ -44,5 +44,22 @@ angular.module('cdoWebApp')
           callback(data, status);
         });
     };
+
+    service.post = function (relativeUrl, object, callback) {
+      var url = CalculateUrlService.getUrl(relativeUrl);
+      $http.post(url, object)
+        .success(function (data, status) {
+
+          $log.debug('RepoAccessService.post - ' + url + ' - status ' + status);
+
+          callback(data, status);
+        })
+        .error(function (data, status) {
+
+          $log.debug('RepoAccessService.post - ' + url + ' - status ' + status);
+
+          callback(data, status);
+        });
+    };
     return service;
   });

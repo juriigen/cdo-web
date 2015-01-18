@@ -2,7 +2,7 @@
   <div class="panel-heading"><i class="glyphicon glyphicon-plus"></i> Add child node to
     <label>{{selectedObject.label}}</label></div>
   <div class="panel-body">
-    <form ng-show="selectedObject.permission === 'WRITE' && repoTree.selectedObject.containments.length > 0" novalidate
+    <form ng-submit="repoTree.addNode()" ng-show="selectedObject.permission === 'WRITE' && repoTree.selectedObject.containments.length > 0" novalidate
           name="newNodeForm" role="form" class="form-horizontal">
       <div class="form-group">
         <label class="control-label col-sm-4" for="containments">containment</label>

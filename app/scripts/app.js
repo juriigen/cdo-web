@@ -41,9 +41,6 @@ angular
         controller: 'RepoCtrl',
         templateUrl: 'views/repo.html'
       })
-      .state('repo.references', {
-        url: '/references'
-      })
       .state('repo.meta', {
         url: '/meta'
       });
@@ -72,6 +69,6 @@ angular
       });
 
       /* Global Variables */
-      $rootScope.endpoint = 'https://cdo-flatland.rhcloud.com';
+      $rootScope.endpoint = 'https://localhost:9080';
       $rootScope.dateFormat = 'dd MMMM yyyy - HH:mm:ss';
     }]);
