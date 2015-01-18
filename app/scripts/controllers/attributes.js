@@ -35,6 +35,7 @@ angular.module('cdoWebApp')
         } else if (status === 404) {
           $scope.status = {};
           $scope.status.error = status + ' - ' + data.error.message;
+          $scope.selectedObject = undefined;
           $scope.dataLoading = false;
         } else {
           $scope.status = {};
@@ -45,8 +46,13 @@ angular.module('cdoWebApp')
       });
     };
 
-    $scope.closeAlert = function() {
-      $scope.status = undefined;
+    $scope.closeAlert = function(index, list) {
+      $log.debug('AttributesctrlCtrl.closeAlert - index ' + index);
+      if (index !== undefined) {
+        list.splice(index, 1);
+      } else {
+        $scope.status = undefined;
+      }
     };
 
     $scope.$on('objectSelected', function (scope, data, status) {
@@ -56,6 +62,13 @@ angular.module('cdoWebApp')
         $scope.status = undefined;
       }
       $log.debug('AttributesctrlCtrl.objectSelected - reset status ' + $scope.selectedObject.id);
+    });
+
+    $scope.$on('updateSelectedObject', function (scope, data) {
+      if (data === undefined) {
+        $scope.status = undefined;
+        $log.debug('AttributesctrlCtrl.updateSelectedObject - reset status - undefined' );
+      }
     });
 
   });

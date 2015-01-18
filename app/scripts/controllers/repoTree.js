@@ -78,6 +78,7 @@ angular.module('cdoWebApp')
       ContextService.setSelectedObject(repoTree.selectedObject._links.self.href, function (data, status) {
         if (status === 404) {
           repoTree.status = status + ' - ' + data.error.message;
+          ContextService.updateSelectedObject(undefined);
         } else if (status !== 200) {
           repoTree.status = 'Technical problem loading ' + repoTree.selectedObject._links.self.href;
         }
