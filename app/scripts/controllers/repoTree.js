@@ -145,14 +145,16 @@ angular.module('cdoWebApp')
         if (status === 201) {
           var newNode = TreeModelService.transformObject(data.data, repoTree.selectedObject.id);
 
-          newNode.state = { selected: true};
+          newNode.state = {selected: true};
           repoTree.treeData.push(newNode);
 
           repoTree.addNodeStatus = data.status;
           repoTree.addNodeStatus.id = data.data.id;
           ContextService.setSelectedObject(newNode.data._links.self.href);
           repoTree.dataLoading = false;
-
+        } else if (status === 409) {
+            repoTree.addNodeStatusFailed = status + ' - ' + data.error.message + ' : ' + newObject.attributes.name;
+            repoTree.dataLoading = false;
         } else {
           repoTree.addNodeStatusFailed = 'Technical problem post ' + repoTree.selectedObject._links.self.href + '/references/' + repoTree.selectedObject.containment.feature;
           repoTree.dataLoading = false;
