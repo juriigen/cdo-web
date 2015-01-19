@@ -135,6 +135,8 @@ angular.module('cdoWebApp')
     repoTree.addNode = function() {
       $log.debug('RepoTreeCtrl.addNode ' + repoTree.selectedObject.objectType + ' to ' + repoTree.selectedObject.id);
       var newObject = { type: repoTree.selectedObject.objectType };
+
+      repoTree.dataLoading = true;
       RepoAccessService.post(repoTree.selectedObject._links.self.href + '/references/' + repoTree.selectedObject.containment.feature + '?rrefs&meta', newObject, function (data, status) {
         if (status === 201) {
           var newNode = TreeModelService.transformObject(data.data, repoTree.selectedObject.id);
@@ -145,9 +147,11 @@ angular.module('cdoWebApp')
           repoTree.addNodeStatus = data.status;
           repoTree.addNodeStatus.id = data.data.id;
           ContextService.setSelectedObject(newNode.data._links.self.href);
+          repoTree.dataLoading = false;
 
         } else {
           repoTree.addNodeStatusFailed = 'Technical problem posting ' + repoTree.selectedObject._links.self.href + '/references/' + repoTree.selectedObject.containment.feature;
+          repoTree.dataLoading = false;
         }
       });
     };
