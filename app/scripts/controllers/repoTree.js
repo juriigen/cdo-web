@@ -188,6 +188,9 @@ angular.module('cdoWebApp')
           repoTree.removeNodeStatus = data.status;
           repoTree.dataLoading2 = false;
 
+        } else if (status === 409) {
+          repoTree.removeNodeStatusFailed = status + ' - ' + data.error.message;
+          repoTree.dataLoading2 = false;
         } else {
           repoTree.removeNodeStatusFailed = 'Technical problem delete ' + repoTree.selectedObject._links.self.href + '/references/' + repoTree.selectedObject.containment.feature;
           repoTree.dataLoading2 = false;
