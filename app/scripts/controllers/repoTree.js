@@ -136,6 +136,10 @@ angular.module('cdoWebApp')
       $log.debug('RepoTreeCtrl.addNode ' + repoTree.selectedObject.objectType + ' to ' + repoTree.selectedObject.id);
       var newObject = { type: repoTree.selectedObject.objectType };
 
+      if (repoTree.selectedObject.objectType.indexOf('eresource.CDOResource') === 0) {
+        newObject.attributes = { name: 'NEW RESOURCE'};
+      }
+
       repoTree.dataLoading = true;
       RepoAccessService.post(repoTree.selectedObject._links.self.href + '/references/' + repoTree.selectedObject.containment.feature + '?rrefs&meta', newObject, function (data, status) {
         if (status === 201) {
@@ -150,7 +154,7 @@ angular.module('cdoWebApp')
           repoTree.dataLoading = false;
 
         } else {
-          repoTree.addNodeStatusFailed = 'Technical problem posting ' + repoTree.selectedObject._links.self.href + '/references/' + repoTree.selectedObject.containment.feature;
+          repoTree.addNodeStatusFailed = 'Technical problem post ' + repoTree.selectedObject._links.self.href + '/references/' + repoTree.selectedObject.containment.feature;
           repoTree.dataLoading = false;
         }
       });
@@ -170,6 +174,42 @@ angular.module('cdoWebApp')
     repoTree.closeAddNodeFailed = function () {
       repoTree.addNodeStatusFailed = undefined;
     };
+
+    repoTree.deleteNode = function() {
+      $log.debug('RepoTreeCtrl.removeNode - ' + repoTree.selectedObject.id);
+
+      repoTree.dataLoading2 = true;
+      RepoAccessService.delete(repoTree.selectedObject._links.self.href, function (data, status) {
+        if (status === 200) {
+
+          repoTree.removeNode(repoTree.selectedObject.id);
+          ContextService.updateSelectedObject(undefined);
+
+          repoTree.removeNodeStatus = data.status;
+          repoTree.dataLoading2 = false;
+
+        } else {
+          repoTree.removeNodeStatusFailed = 'Technical problem delete ' + repoTree.selectedObject._links.self.href + '/references/' + repoTree.selectedObject.containment.feature;
+          repoTree.dataLoading2 = false;
+        }
+      });
+    };
+
+    repoTree.showRemoveNodeSuccess = function () {
+      if (repoTree.removeNodeStatus !== undefined && repoTree.removeNodeStatus.revisionDeltas !== undefined && repoTree.removeNodeStatus.revisionDeltas.length > 0) {
+        return true;
+      }
+      return false;
+    };
+
+    repoTree.closeRemoveNodeSuccess = function () {
+      repoTree.removeNodeStatus = undefined;
+    };
+
+    repoTree.closeRemoveNodeFailed = function () {
+      repoTree.removeNodeStatusFailed = undefined;
+    };
+
 
     repoTree.applyModelChanges = function () {
       $log.debug('RepoTreeCtrl.applyModelChanges');
@@ -262,7 +302,7 @@ angular.module('cdoWebApp')
           }
         });
 
-        // remove all child and them force re sort
+        // remove all child and then force re sort
         var index = -1;
         var size = 0;
         var startIndex = -1;
@@ -294,9 +334,13 @@ angular.module('cdoWebApp')
     $scope.$on('objectSelected', function (scope, data) {
       repoTree.status = undefined;
       repoTree.addNodeStatusFailed = undefined;
+
       if (repoTree.addNodeStatus !== undefined && repoTree.addNodeStatus.id !== data.id) {
         repoTree.addNodeStatus = undefined;
       }
+
+      repoTree.removeNodeStatus = undefined;
+      repoTree.removeNodeStatusFailed = undefined;
       $log.debug('TreeCtrl.objectSelected - reset status');
     });
   });
