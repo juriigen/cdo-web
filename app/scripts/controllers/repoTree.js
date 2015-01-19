@@ -142,12 +142,29 @@ angular.module('cdoWebApp')
           newNode.state = { selected: true};
           repoTree.treeData.push(newNode);
 
+          repoTree.addNodeStatus = data.status;
+          repoTree.addNodeStatus.id = data.data.id;
           ContextService.setSelectedObject(newNode.data._links.self.href);
 
         } else {
-          repoTree.status = 'Technical problem posting ' + repoTree.selectedObject._links.self.href + '/references/' + repoTree.selectedObject.containment.feature;
+          repoTree.addNodeStatusFailed = 'Technical problem posting ' + repoTree.selectedObject._links.self.href + '/references/' + repoTree.selectedObject.containment.feature;
         }
       });
+    };
+
+    repoTree.showAddNodeSuccess = function () {
+      if (repoTree.addNodeStatus !== undefined && repoTree.addNodeStatus.revisionDeltas !== undefined && repoTree.addNodeStatus.revisionDeltas.length > 0) {
+        return true;
+      }
+      return false;
+    };
+
+    repoTree.closeAddNodeSuccess = function () {
+      repoTree.addNodeStatus = undefined;
+    };
+
+    repoTree.closeAddNodeFailed = function () {
+      repoTree.addNodeStatusFailed = undefined;
     };
 
     repoTree.applyModelChanges = function () {
@@ -270,8 +287,12 @@ angular.module('cdoWebApp')
       repoTree.status = undefined;
     };
 
-    $scope.$on('objectSelected', function () {
+    $scope.$on('objectSelected', function (scope, data) {
       repoTree.status = undefined;
+      repoTree.addNodeStatusFailed = undefined;
+      if (repoTree.addNodeStatus !== undefined && repoTree.addNodeStatus.id !== data.id) {
+        repoTree.addNodeStatus = undefined;
+      }
       $log.debug('TreeCtrl.objectSelected - reset status');
     });
   });
