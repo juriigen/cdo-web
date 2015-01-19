@@ -73,6 +73,7 @@ angular.module('cdoWebApp')
         });
 
         repoTree.selectedObject.containment = repoTree.selectedObject.containments[0];
+        repoTree.resetStatus();
       }
 
       ContextService.setSelectedObject(repoTree.selectedObject._links.self.href, function (data, status) {
@@ -149,7 +150,6 @@ angular.module('cdoWebApp')
           repoTree.treeData.push(newNode);
 
           repoTree.addNodeStatus = data.status;
-          repoTree.addNodeStatus.id = data.data.id;
           ContextService.setSelectedObject(newNode.data._links.self.href);
           repoTree.dataLoading = false;
         } else if (status === 409) {
@@ -336,16 +336,13 @@ angular.module('cdoWebApp')
       repoTree.status = undefined;
     };
 
-    $scope.$on('objectSelected', function (scope, data) {
+    repoTree.resetStatus = function() {
       repoTree.status = undefined;
-      repoTree.addNodeStatusFailed = undefined;
 
-      if (repoTree.addNodeStatus !== undefined && repoTree.addNodeStatus.id !== data.id) {
-        repoTree.addNodeStatus = undefined;
-      }
+      repoTree.addNodeStatusFailed = undefined;
+      repoTree.addNodeStatus = undefined;
 
       repoTree.removeNodeStatus = undefined;
       repoTree.removeNodeStatusFailed = undefined;
-      $log.debug('TreeCtrl.objectSelected - reset status');
-    });
+    };
   });
