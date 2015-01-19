@@ -36,7 +36,7 @@ angular.module('cdoWebApp')
         /* jshint camelcase:true */
         worker: true
       },
-      plugins: ['wholerow']
+      plugins: ['wholerow', 'sort']
     };
 
     repoTree.readyCB = function () {
@@ -138,17 +138,11 @@ angular.module('cdoWebApp')
       RepoAccessService.post(repoTree.selectedObject._links.self.href + '/references/' + repoTree.selectedObject.containment.feature + '?rrefs&meta', newObject, function (data, status) {
         if (status === 201) {
           var newNode = TreeModelService.transformObject(data.data, repoTree.selectedObject.id);
+
+          newNode.state = { selected: true};
           repoTree.treeData.push(newNode);
 
-          ContextService.setSelectedObject(newNode.data._links.self.href, function (data, status) {
-            if (status === 404) {
-              repoTree.removeNode(repoTree.selectedObject.id);
-              repoTree.status = status + ' - ' + data.error.message;
-              ContextService.updateSelectedObject(undefined);
-            } else if (status !== 200) {
-              repoTree.status = 'Technical problem loading ' + repoTree.selectedObject._links.self.href;
-            }
-          });
+          ContextService.setSelectedObject(newNode.data._links.self.href);
 
         } else {
           repoTree.status = 'Technical problem posting ' + repoTree.selectedObject._links.self.href + '/references/' + repoTree.selectedObject.containment.feature;
@@ -229,13 +223,14 @@ angular.module('cdoWebApp')
 
       $log.debug('RepoTreeCtrl.updateSelectedObject - received event');
 
+      var parent = {};
       // if undefined, node was deleted!
       if (data !== undefined) {
         repoTree.treeData.forEach(function (entry) {
 
           if (entry.id === (data.id.toString())) {
             $log.debug('>> Found node to update - ' + data.id);
-
+            parent = entry.parent;
             var newLabel = data.label;
             if (data.type === 'eresource.CDOResourceFolder') {
               newLabel = data.attributes.name;
@@ -244,6 +239,29 @@ angular.module('cdoWebApp')
             repoTree.treeInstance.jstree('rename_node', entry, newLabel);
             //entry.text = newLabel;
           }
+        });
+
+        // remove all child and them force re sort
+        var index = -1;
+        var size = 0;
+        var startIndex = -1;
+        var startFound = false;
+        repoTree.treeData.forEach(function (entry) {
+          index++;
+          if (entry.parent.id === (parent.id.toString())) {
+            size++;
+            if (startFound !== true) {
+              startIndex = index;
+              startFound = true;
+            }
+            $log.debug('>> Found node to resfresh - ' + entry.text + ' ' + index);
+          }
+        });
+        $log.debug('>> to splice for sort - start - ' + startIndex + ' size ' + size);
+        var toSort = repoTree.treeData.splice(startIndex, size);
+
+        toSort.forEach(function(entry) {
+          repoTree.treeData.push(entry);
         });
       }
     });
