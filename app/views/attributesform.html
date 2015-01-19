@@ -1,5 +1,6 @@
 <div class="panel panel-default">
-  <div class="panel-heading"><i class="glyphicon glyphicon-th-list"></i> Attributes <label>{{selectedObject.label}}</label></div>
+  <div class="panel-heading"><i class="glyphicon glyphicon-th-list"></i> Attributes
+    <label>{{selectedObject.label}}</label></div>
   <div class="panel-body">
     <form ng-controller="AttributesCtrl" ng-submit="save()" name="attributesForm" class="form-horizontal" role="form"
           novalidate>
@@ -33,29 +34,28 @@
         <label class="control-label col-sm-4" for="{{attribute.feature}}">{{attribute.feature}}</label>
 
         <div class="col-sm-8"
-             ng-class="{ 'has-error' : (attributesForm[attribute.feature].$error.required
-         || attributesForm[attribute.feature].$error.pattern
-         || attributesForm[attribute.feature].$error.number
-         || attributesForm[attribute.feature].$error.date)}">
+             ng-class="{ 'has-warning' : (attributesForm[attribute.feature].$error.required
+             || attributesForm[attribute.feature].$error.pattern
+             || attributesForm[attribute.feature].$error.number
+             || attributesForm[attribute.feature].$error.date)}">
 
           <div ng-show="(attributesForm[attribute.feature].$error.required
-        || attributesForm[attribute.feature].$error.pattern
-        || attributesForm[attribute.feature].$error.number
-        || attributesForm[attribute.feature].$error.date)" class="alert-danger" role="alert">
+          || attributesForm[attribute.feature].$error.pattern
+          || attributesForm[attribute.feature].$error.number
+          || attributesForm[attribute.feature].$error.date)" class="alert-warning" role="alert">
             <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-            <span class="sr-only">Error:</span>
-        <span class="error" ng-show="attributesForm[attribute.feature].$error.required">
-          {{attribute.feature}} is mandatory
-        </span>
-        <span class="error" ng-show="attributesForm[attribute.feature].$error.pattern">
-          value of {{attribute.feature}} not matches pattern {{attribute.pattern}}
-        </span>
-        <span class="error" ng-show="attributesForm[attribute.feature].$error.number">
-          value of {{attribute.feature}} is not a valid number
-        </span>
-        <span class="error" ng-show="attributesForm[attribute.feature].$error.date">
-          value of {{attribute.feature}} is not a valid date and time
-        </span>
+            <span class="warning" ng-show="attributesForm[attribute.feature].$error.required">
+              {{attribute.feature}} is mandatory
+            </span>
+            <span class="warning" ng-show="attributesForm[attribute.feature].$error.pattern">
+              value of {{attribute.feature}} not matches pattern {{attribute.pattern}}
+            </span>
+            <span class="warning" ng-show="attributesForm[attribute.feature].$error.number">
+              value of {{attribute.feature}} is not a valid number
+            </span>
+            <span class="warning" ng-show="attributesForm[attribute.feature].$error.date">
+              value of {{attribute.feature}} is not a valid date and time
+            </span>
           </div>
 
           <!-- jsType === string -->
