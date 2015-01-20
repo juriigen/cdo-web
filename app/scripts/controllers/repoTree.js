@@ -26,7 +26,7 @@ angular.module('cdoWebApp')
     repoTree.treeConfig = {
       core: {
         multiple: false,
-        animation: false,
+        animation: true,
         error : function(error) {
           $log.error('treeCtrl: error from js tree - ' + angular.toJson(error));
         },
