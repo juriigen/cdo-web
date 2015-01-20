@@ -90,13 +90,17 @@ angular.module('cdoWebApp')
         }
       }
 
-      repoTree.indexOfItem = function(obj) {
+      repoTree.indexOfItem = function(id) {
         for(var i = 0, len = repoTree.treeData.length; i < len; i++) {
-          if (repoTree.treeData[i].id === (obj.id.toString())) {
+          if (repoTree.treeData[i].id === (id.toString())) {
             return i;
           }
         }
         return -1;
+      };
+
+      repoTree.getNode = function(id) {
+        return repoTree.treeData[repoTree.indexOfItem(id)];
       };
 
       ContextService.setSelectedObject(repoTree.selectedObject._links.self.href, function (data, status) {
@@ -173,6 +177,9 @@ angular.module('cdoWebApp')
           repoTree.treeData.push(newNode);
 
           repoTree.addNodeStatus = data.status;
+
+          var currentSelectedNode = repoTree.getNode(repoTree.selectedObject.id);
+          repoTree.treeInstance.jstree('deselect_node', currentSelectedNode);
 
           // set the new created object as context for repo tree
           repoTree.setSelectedObject(newNode.data, false);
