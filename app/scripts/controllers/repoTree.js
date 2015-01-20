@@ -27,6 +27,9 @@ angular.module('cdoWebApp')
       core: {
         multiple: false,
         animation: true,
+        error : function(error) {
+          $log.error('treeCtrl: error from js tree - ' + angular.toJson(error));
+        },
         themes: {
           dots: false,
           variant: 'small'
@@ -55,8 +58,17 @@ angular.module('cdoWebApp')
     };
 
     repoTree.selectNodeCB = function (e, item) {
-      repoTree.selectedObject = item.node.data;
       $log.debug('RepoTreeCtrl.selectNodeCB - ' + item.node.id);
+      repoTree.setSelectedObject(item.node.data);
+    };
+
+    repoTree.setSelectedObject = function(newObj, resetStatus) {
+      var reset = true;
+      if (resetStatus !== undefined) {
+        reset = resetStatus;
+      }
+      $log.debug('RepoTreeCtrl.setSelectedObject - ' + newObj.id);
+      repoTree.selectedObject = newObj;
 
       repoTree.selectedObject.containments = [];
       if (repoTree.selectedObject.meta.references !== undefined) {
@@ -73,7 +85,9 @@ angular.module('cdoWebApp')
         });
 
         repoTree.selectedObject.containment = repoTree.selectedObject.containments[0];
-        repoTree.resetStatus();
+        if (reset) {
+          repoTree.resetStatus();
+        }
       }
 
       ContextService.setSelectedObject(repoTree.selectedObject._links.self.href, function (data, status) {
@@ -151,8 +165,8 @@ angular.module('cdoWebApp')
 
           repoTree.addNodeStatus = data.status;
           // set the new created object as context for repo tree
-          repoTree.selectedObject = data.data;
-          ContextService.setSelectedObject(newNode.data._links.self.href);
+          repoTree.setSelectedObject(newNode.data, false);
+
           repoTree.dataLoading = false;
         } else if (status === 409) {
             repoTree.addNodeStatusFailed = status + ' - ' + data.error.message + ' : ' + newObject.attributes.name;
