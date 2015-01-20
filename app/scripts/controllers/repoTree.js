@@ -90,6 +90,15 @@ angular.module('cdoWebApp')
         }
       }
 
+      repoTree.indexOfItem = function(obj) {
+        for(var i = 0, len = repoTree.treeData.length; i < len; i++) {
+          if (repoTree.treeData[i].id === (obj.id.toString())) {
+            return i;
+          }
+        }
+        return -1;
+      };
+
       ContextService.setSelectedObject(repoTree.selectedObject._links.self.href, function (data, status) {
         if (status === 404) {
           repoTree.removeNode(repoTree.selectedObject.id);
@@ -164,6 +173,7 @@ angular.module('cdoWebApp')
           repoTree.treeData.push(newNode);
 
           repoTree.addNodeStatus = data.status;
+
           // set the new created object as context for repo tree
           repoTree.setSelectedObject(newNode.data, false);
 
