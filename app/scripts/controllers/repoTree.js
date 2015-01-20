@@ -26,7 +26,7 @@ angular.module('cdoWebApp')
     repoTree.treeConfig = {
       core: {
         multiple: false,
-        animation: true,
+        animation: false,
         error : function(error) {
           $log.error('treeCtrl: error from js tree - ' + angular.toJson(error));
         },
@@ -127,7 +127,6 @@ angular.module('cdoWebApp')
     };
 
     repoTree.possibleTypes = function () {
-      $log.debug('RepoTreeCtrl.possibleTypes');
       var types = [];
       if (repoTree.selectedObject !== undefined && repoTree.selectedObject.meta.references !== undefined) {
         repoTree.selectedObject.meta.references.forEach(function (entry) {
@@ -258,27 +257,30 @@ angular.module('cdoWebApp')
       $log.debug('RepoTreeCtrl.beforeOpenNodeCB - ' + item.node.id);
     };
 
+    repoTree.resolveChildren = function(parentNode) {
+      $log.debug('>> resolve childen');
+      RepoAccessService.get(parentNode.url + '/references?crefs&meta', function (data, status) {
+        if (status === 200) {
+
+          var children = TreeModelService.transformChildren(data.data, parentNode.id);
+          children.forEach(function (node) {
+            repoTree.treeData.push(node);
+          });
+          parentNode.resolved = true;
+        } else if (status === 404) {
+          parentNode.resolved = true;
+        } else {
+          repoTree.status = 'Technical problem loading ' + parentNode.url;
+        }
+      });
+    }
+
     repoTree.openNodeCB = function (e, item) {
       $log.debug('RepoTreeCtrl.openNodeCB - ' + item.node.id);
 
       repoTree.treeData.forEach(function (entry) {
         if (entry.parent.id === item.node.id && entry.resolved === false) {
-          $log.debug('>> resolve childen');
-
-          RepoAccessService.get(entry.url + '/references?crefs&meta', function (data, status) {
-            if (status === 200) {
-
-              var children = TreeModelService.transformChildren(data.data, entry.id);
-              children.forEach(function (node) {
-                repoTree.treeData.push(node);
-              });
-              entry.resolved = true;
-            } else if (status === 404) {
-              entry.resolved = true;
-            } else {
-              repoTree.status = 'Technical problem loading ' + entry.url;
-            }
-          });
+          repoTree.resolveChildren(entry);
         }
       });
     };
@@ -298,20 +300,7 @@ angular.module('cdoWebApp')
         var children = TreeModelService.transformChildren(data.data.references.contents, '#');
         children.forEach(function (node) {
           repoTree.treeData.push(node);
-          RepoAccessService.get(node.url + '/references?crefs&meta', function (data, status) {
-            if (status === 200) {
-
-              var children = TreeModelService.transformChildren(data.data, node.id);
-              children.forEach(function (node) {
-                repoTree.treeData.push(node);
-              });
-              node.resolved = true;
-            } else if (status === 404) {
-              node.resolved = true;
-            } else {
-              repoTree.status = 'Technical problem loading ' + node.url;
-            }
-          });
+          repoTree.resolveChildren(node);
         });
       }
 
