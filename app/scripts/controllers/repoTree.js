@@ -19,7 +19,6 @@ angular.module('cdoWebApp')
     var treeReady = false;
 
     repoTree.isReady = function () {
-      $log.debug('RepoTreeCtrl.isReady - ' + treeReady);
       return treeReady;
     };
 
@@ -131,15 +130,12 @@ angular.module('cdoWebApp')
       if (repoTree.selectedObject !== undefined && repoTree.selectedObject.meta.references !== undefined) {
         repoTree.selectedObject.meta.references.forEach(function (entry) {
           if (repoTree.selectedObject.containment !== undefined && entry.feature === repoTree.selectedObject.containment.feature) {
-            $log.debug(' >> search types for feature - ' + entry.feature);
 
             if (entry.abstract === false && entry.type) {
-              $log.debug(' >> add type - ' + entry.type);
               types.push(entry.type);
             }
             if (entry.extendedFrom !== undefined) {
               entry.extendedFrom.forEach(function (exType) {
-                $log.debug(' >> add extended from type - ' + exType);
                 types.push(exType);
               });
             }
