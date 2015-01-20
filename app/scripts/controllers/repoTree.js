@@ -325,20 +325,14 @@ angular.module('cdoWebApp')
       var parent = {};
       // if undefined, node was deleted!
       if (data !== undefined) {
-        repoTree.treeData.forEach(function (entry) {
-
-          if (entry.id === (data.id.toString())) {
-            $log.debug('>> Found node to update - ' + data.id);
-            parent = entry.parent;
-            var newLabel = data.label;
-            if (data.type === 'eresource.CDOResourceFolder') {
-              newLabel = data.attributes.name;
-            }
-            entry.data = data;
-            repoTree.treeInstance.jstree('rename_node', entry, newLabel);
-            //entry.text = newLabel;
-          }
-        });
+        var node = repoTree.getNode(data.id);
+        parent = node.parent;
+        var newLabel = data.label;
+        if (data.type === 'eresource.CDOResourceFolder') {
+          newLabel = data.attributes.name;
+        }
+        node.data = data;
+        repoTree.treeInstance.jstree('rename_node', node, newLabel);
 
         // remove all child and then force re sort
         var index = -1;
