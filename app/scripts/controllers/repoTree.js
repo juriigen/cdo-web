@@ -150,6 +150,8 @@ angular.module('cdoWebApp')
           repoTree.treeData.push(newNode);
 
           repoTree.addNodeStatus = data.status;
+          // set the new created object as context for repo tree
+          repoTree.selectedObject = data.data;
           ContextService.setSelectedObject(newNode.data._links.self.href);
           repoTree.dataLoading = false;
         } else if (status === 409) {
