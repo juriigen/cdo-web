@@ -15,7 +15,6 @@ angular.module('cdoWebApp')
     repoTree.root = {};
     repoTree.treeData = [];
 
-
     var treeReady = false;
 
     repoTree.isReady = function () {
@@ -62,11 +61,15 @@ angular.module('cdoWebApp')
     };
 
     repoTree.setSelectedObject = function(newObj, resetStatus) {
+      $log.debug('RepoTreeCtrl.setSelectedObject - ' + newObj.id);
       var reset = true;
       if (resetStatus !== undefined) {
         reset = resetStatus;
       }
-      $log.debug('RepoTreeCtrl.setSelectedObject - ' + newObj.id);
+      if (reset) {
+        repoTree.resetStatus();
+      }
+
       repoTree.selectedObject = newObj;
 
       repoTree.selectedObject.containments = [];
@@ -84,23 +87,7 @@ angular.module('cdoWebApp')
         });
 
         repoTree.selectedObject.containment = repoTree.selectedObject.containments[0];
-        if (reset) {
-          repoTree.resetStatus();
-        }
       }
-
-      repoTree.indexOfItem = function(id) {
-        for(var i = 0, len = repoTree.treeData.length; i < len; i++) {
-          if (repoTree.treeData[i].id === (id.toString())) {
-            return i;
-          }
-        }
-        return -1;
-      };
-
-      repoTree.getNode = function(id) {
-        return repoTree.treeData[repoTree.indexOfItem(id)];
-      };
 
       ContextService.setSelectedObject(repoTree.selectedObject._links.self.href, function (data, status) {
         if (status === 404) {
@@ -111,6 +98,19 @@ angular.module('cdoWebApp')
           repoTree.status = 'Technical problem loading ' + repoTree.selectedObject._links.self.href;
         }
       });
+    };
+
+    repoTree.indexOfItem = function(id) {
+      for(var i = 0, len = repoTree.treeData.length; i < len; i++) {
+        if (repoTree.treeData[i].id === (id.toString())) {
+          return i;
+        }
+      }
+      return -1;
+    };
+
+    repoTree.getNode = function(id) {
+      return repoTree.treeData[repoTree.indexOfItem(id)];
     };
 
     repoTree.removeNode = function(id) {
@@ -191,7 +191,7 @@ angular.module('cdoWebApp')
     };
 
     repoTree.showAddNodeSuccess = function () {
-      if (repoTree.addNodeStatus !== undefined && repoTree.addNodeStatus.revisionDeltas !== undefined && repoTree.addNodeStatus.revisionDeltas.length > 0) {
+      if (repoTree.addNodeStatus !== undefined && repoTree.addNodeStatus.revisionDeltas.length > 0) {
         return true;
       }
       return false;
@@ -229,7 +229,7 @@ angular.module('cdoWebApp')
     };
 
     repoTree.showRemoveNodeSuccess = function () {
-      if (repoTree.removeNodeStatus !== undefined && repoTree.removeNodeStatus.revisionDeltas !== undefined && repoTree.removeNodeStatus.revisionDeltas.length > 0) {
+      if (repoTree.removeNodeStatus !== undefined && repoTree.removeNodeStatus.revisionDeltas.length > 0) {
         return true;
       }
       return false;
