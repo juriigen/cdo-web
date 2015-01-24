@@ -269,7 +269,7 @@ angular.module('cdoWebApp')
           repoTree.status = 'Technical problem loading ' + parentNode.url;
         }
       });
-    }
+    };
 
     repoTree.openNodeCB = function (e, item) {
       $log.debug('RepoTreeCtrl.openNodeCB - ' + item.node.id);
