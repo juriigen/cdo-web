@@ -2,38 +2,29 @@
 
 /**
  * @ngdoc function
- * @name cdoWebApp.controller:AttributesCtrl
+ * @name cdoWebApp.controller:ReferencesCtrl
  * @description
- * # AttributesCtrl
+ * # ReferencesCtrl
  * Controller of the cdoWebApp
  */
 angular.module('cdoWebApp')
-  .controller('AttributesCtrl', function ($scope, $log, RepoAccessService, ContextService) {
-    $scope.save = function () {
+  .controller('ReferencesCtrl', function ($scope, $log, CalculateUrlService, RepoAccessService, ContextService) {
 
-      var attributes = {};
-      // set empty strings to null
-      $scope.selectedObject.meta.attributes.forEach(function (attributeMeta) {
-        var attribute = $scope.selectedObject.attributes[attributeMeta.feature];
-        $log.debug('AttributesCtrl check attribute - ' + attribute);
-        if (attribute === undefined || attribute === null || attribute.length === 0) {
-          attributes[attributeMeta.feature] = null;
-        } else {
-          attributes[attributeMeta.feature] = attribute;
-        }
-      });
+    $scope.getIcon = function (url) {
+      return CalculateUrlService.getUrl(url);
+    };
+
+    $scope.removeReference = function (id, reference) {
+      var url = $scope.selectedObject._links.self.href + '/references/' + reference + '/' + id;
+      $log.debug('ReferencesCtrl.removeReference - ' + url);
 
       $scope.dataLoading = true;
-      RepoAccessService.put($scope.selectedObject._links.self.href + '?rrefs&meta', {'attributes': attributes}, function (data, status) {
+      RepoAccessService.delete(url + '?rrefs&meta', function (data, status) {
         if (status === 200) {
 
           ContextService.updateSelectedObject(data.data);
           $scope.dataLoading = false;
           $scope.status = data.status;
-        } else if (status === 409) {
-          $scope.status = {};
-          $scope.status.error = status + ' - ' + data.error.message + ' : ' + attributes.name;
-          $scope.dataLoading = false;
         } else if (status === 404) {
           $scope.status = {};
           $scope.status.error = status + ' - ' + data.error.message;
@@ -48,7 +39,7 @@ angular.module('cdoWebApp')
     };
 
     $scope.closeAlert = function (index, list) {
-      $log.debug('AttributesCtrl.closeAlert - index ' + index);
+      $log.debug('ReferencesCtrl.closeAlert - index ' + index);
       if (index !== undefined) {
         list.splice(index, 1);
       } else {
@@ -68,7 +59,7 @@ angular.module('cdoWebApp')
       if ($scope.status !== undefined && $scope.status.diagnostics !== undefined) {
         $scope.status.diagnostics.forEach(function (entry) {
           entry.diagnostic.forEach(function (diag) {
-            if (diag.feature.indexOf('attributes') === 0) {
+            if (diag.feature.indexOf('references') === 0) {
               result = true;
             }
           });
@@ -83,14 +74,16 @@ angular.module('cdoWebApp')
       } else {
         $scope.status = undefined;
       }
-      $log.debug('AttributesCtrl.objectSelected - reset status ' + $scope.selectedObject.id);
+      $log.debug('ReferencesCtrl.objectSelected - reset status ' + $scope.selectedObject.id);
     });
 
     $scope.$on('updateSelectedObject', function (scope, data) {
       if (data === undefined) {
         $scope.status = undefined;
-        $log.debug('AttributesCtrl.updateSelectedObject - reset status - undefined');
+        $log.debug('ReferencesCtrl.updateSelectedObject - reset status - undefined');
       }
     });
+
+
 
   });

@@ -33,7 +33,8 @@
     <h3 class="text-muted"></h3>
 
     <attributes-form ng-show="tab == 'repo'"></attributes-form>
-    <pre ng-show="tab == 'repo.references'" style="background: #ffffff; border: hidden">{{ selectedObject.references | json}}</pre>
+    <references-form ng-show="tab == 'repo'"></references-form>
+
         <pre ng-show="tab == 'repo.meta'"
              style="background: #ffffff; border: hidden">{{ selectedObject.meta | json}}</pre>
 

@@ -1,0 +1,128 @@
+<div ng-controller="ReferencesCtrl">
+  <div class="panel panel-default">
+    <div class="panel-heading"><i class="glyphicon glyphicon-share-alt"></i> References
+      <label>{{selectedObject.label}}</label><img ng-if="dataLoading" class="pull-right" src="images/loading.gif"></div>
+    <div class="panel-body">
+      <form ng-submit="save()" name="referencesForm" class="form-horizontal" role="form"
+            novalidate>
+
+        <alert ng-show="showAlertSuccess()" type="success"
+               close="closeAlert(0, status.revisionDeltas)">
+          <i class="glyphicon glyphicon-ok-sign"></i> <label>updated {{status.revisionDeltas[0].origin}}</label>
+          <div ng-repeat="revisionDelta in status.revisionDeltas[0].revisionDelta">
+            <li>{{revisionDelta.message}}</li>
+            <li ng-repeat="detail in revisionDelta.details">{{detail}}</li>
+          </div>
+        </alert>
+
+        <div ng-show="showAlertDiagnostics()" ng-repeat="diagnostic in status.diagnostics">
+          <alert ng-show="status.diagnostics != undefined" close="closeAlert($index, status.diagnostics)">
+            <i class="glyphicon glyphicon-exclamation-sign"></i> <label>constraint violation
+            {{diagnostic.origin}}</label>
+
+            <div ng-repeat="revisionDelta in diagnostic.diagnostic">
+              <li>{{revisionDelta.message}}</li>
+              <div ng-repeat="detail in revisionDelta.details">
+                <li>{{detail}}</li>
+              </div>
+            </div>
+          </alert>
+        </div>
+
+        <alert ng-show="status.error != undefined" type="danger" close="closeAlert()">
+          {{status.error}}
+        </alert>
+
+        <div ng-repeat="reference in selectedObject.meta.references"
+             ng-if="reference.derived === false && reference.containment === false && reference.upperBound === 1"
+             class="form-group">
+          <label class="control-label col-sm-4">{{reference.feature}}</label>
+
+          <div ng-if="selectedObject.references[reference.feature] !== undefined" class="col-sm-8">
+            <ul class="list-group">
+              <li class="list-group-item">
+                <div>
+                  <img src="{{getIcon(selectedObject.references[reference.feature].icon)}}">
+                  <label>{{ selectedObject.references[reference.feature].label }}</label> <i class="small">- {{
+                  selectedObject.references[reference.feature].id }} - {{
+                  selectedObject.references[reference.feature].type }}</i>
+
+                  <button ng-if="selectedObject.permission === 'WRITE'"
+                          ng-click="removeReference(selectedObject.references[reference.feature].id, reference.feature)"
+                          ng-disabled="dataLoading"
+                          class="btn btn-xs btn-danger pull-right">Remove
+                  </button>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div ng-repeat="reference in selectedObject.meta.references"
+             ng-if="reference.derived === false && reference.containment === false && reference.upperBound !== 1"
+             class="form-group">
+          <label class="control-label col-sm-4">{{reference.feature}}</label>
+
+          <div class="col-sm-8">
+            <ul class="list-group">
+              <li ng-repeat="feature in selectedObject.references[reference.feature]" class="list-group-item">
+                <div>
+                  <img src="{{getIcon(feature.icon)}}">
+                  <label>{{ feature.label }}</label> <i class="small">- {{ feature.id }} - {{ feature.type }}</i>
+
+                  <button ng-if="selectedObject.permission === 'WRITE'"
+                          ng-disabled="dataLoading"
+                          ng-click="removeReference(feature.id, reference.feature)"
+                          class="btn btn-xs btn-danger pull-right">Remove
+                  </button>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+      </form>
+    </div>
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading"><i class="glyphicon glyphicon-share-alt"></i> Derived References
+      <label>{{selectedObject.label}}</label></div>
+    <div class="panel-body">
+      <form name="derivedReferencesForm" class="form-horizontal" role="form"
+            novalidate>
+        <div ng-repeat="reference in selectedObject.meta.references"
+             ng-if="reference.derived === true && reference.upperBound === 1 && selectedObject.references[reference.feature] !== undefined"
+             class="form-group">
+          <label class="control-label col-sm-4">{{reference.feature}}</label>
+
+          <div class="col-sm-8">
+            <ul class="list-group">
+              <li class="list-group-item">
+                <img src="{{getIcon(selectedObject.references[reference.feature].icon)}}">
+                <label>{{ selectedObject.references[reference.feature].label }}</label> <i class="small">- {{
+                selectedObject.references[reference.feature].id }} - {{
+                selectedObject.references[reference.feature].type
+                }}</i></li>
+            </ul>
+          </div>
+        </div>
+
+        <div ng-repeat="reference in selectedObject.meta.references"
+             ng-if="reference.derived === true && reference.upperBound !== 1 && selectedObject.references[reference.feature] !== undefined"
+             class="form-group">
+          <label class="control-label col-sm-4">{{reference.feature}}</label>
+
+          <div class="col-sm-8">
+            <ul class="list-group">
+              <li ng-repeat="feature in selectedObject.references[reference.feature]" class="list-group-item">
+                <img src="{{getIcon(feature.icon)}}">
+                <label>{{ feature.label }}</label> <i class="small">- {{ feature.id }} - {{ feature.type }}</i>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

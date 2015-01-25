@@ -1,8 +1,8 @@
-<div class="panel panel-default">
+<div ng-controller="AttributesCtrl" class="panel panel-default">
   <div class="panel-heading"><i class="glyphicon glyphicon-th-list"></i> Attributes
-    <label>{{selectedObject.label}}</label></div>
+    <label>{{selectedObject.label}}</label><img ng-if="dataLoading" class="pull-right" src="images/loading.gif"></div>
   <div class="panel-body">
-    <form ng-controller="AttributesCtrl" ng-submit="save()" name="attributesForm" class="form-horizontal" role="form"
+    <form ng-submit="save()" name="attributesForm" class="form-horizontal" role="form"
           novalidate>
 
       <alert ng-show="showAlertSuccess()" type="success"
@@ -115,7 +115,6 @@
       <div ng-show="selectedObject.meta.attributes.length > 0 && selectedObject.permission === 'WRITE'"
            class="form-actions">
         <div class="pull-right">
-          <img ng-if="dataLoading" class="control-label" src="images/loading.gif">&nbsp;
           <button type="submit" ng-disabled="attributesForm.$invalid || dataLoading" class="btn btn-success pull-right">
             Save
           </button>
