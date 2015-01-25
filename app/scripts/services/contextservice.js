@@ -14,18 +14,21 @@ angular.module('cdoWebApp')
     var setSelectedObject = function (newObj, callback) {
 
       $log.debug('ContextService.setSelectedObject - url ' + newObj);
-
+      $rootScope.update = true;
       RepoAccessService.get(newObj + '?rrefs&meta', function (data, status) {
+
         if (status === 200) {
           selectedObject = data.data;
           $log.debug('ContextService.objectedSelected - broadcast event');
           if (callback !== undefined) {
             callback(data, status);
           }
+          $rootScope.update = false;
 
           $rootScope.$broadcast('objectSelected', selectedObject, data.status);
         } else {
           callback(data, status);
+          $rootScope.update = false;
         }
       });
     };
