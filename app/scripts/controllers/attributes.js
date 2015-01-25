@@ -30,7 +30,10 @@ angular.module('cdoWebApp')
           ContextService.updateSelectedObject(data.data);
           $scope.dataLoading = false;
           $scope.status = data.status;
-
+        } else if (status === 409) {
+          $scope.status = {};
+          $scope.status.error = status + ' - ' + data.error.message + ' : ' + attributes.name;
+          $scope.dataLoading = false;
         } else if (status === 404) {
           $scope.status = {};
           $scope.status.error = status + ' - ' + data.error.message;
@@ -41,7 +44,6 @@ angular.module('cdoWebApp')
           $scope.status.error = 'Technical problem udpdating ' + $scope.selectedObject._links.self.href;
           $scope.dataLoading = false;
         }
-
       });
     };
 
