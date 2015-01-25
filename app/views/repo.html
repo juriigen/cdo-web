@@ -18,8 +18,8 @@
       </div>
     </div>
 
-    <add-node></add-node>
-    <remove-node></remove-node>
+    <add-node ng-if="selectedObject.permission === 'WRITE'"></add-node>
+    <remove-node ng-if="selectedObject.permission === 'WRITE'"></remove-node>
 
     <object-identity></object-identity>
 
