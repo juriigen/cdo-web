@@ -44,7 +44,7 @@
                 <div>
                   <img src="{{getIcon(selectedObject.references[reference.feature].icon)}}">
                   <a href ng-click="setNewObject(selectedObject.references[reference.feature]._links.self.href)">
-                    <label class="reflink">{{ selectedObject.references[reference.feature].label }}</label>
+                    <strong class="reflink">{{ selectedObject.references[reference.feature].label }}</strong>
                   </a><i class="small"> - {{selectedObject.references[reference.feature].id }} - {{ selectedObject.references[reference.feature].type}}</i>
 
                   <button ng-if="selectedObject.permission === 'WRITE'"
@@ -69,7 +69,7 @@
                 <div>
                   <img src="{{getIcon(feature.icon)}}">
                   <a ng-click="setNewObject(feature._links.self.href)">
-                    <label class="reflink">{{ feature.label }}</label></a><i class="small"> - {{ feature.id }} - {{ feature.type }}</i>
+                    <strong class="reflink">{{ feature.label }}</strong></a><i class="small"> - {{ feature.id }} - {{ feature.type }}</i>
 
                   <button ng-if="selectedObject.permission === 'WRITE'"
                           ng-disabled="dataLoading"
@@ -102,7 +102,7 @@
               <li class="list-group-item">
                 <img src="{{getIcon(selectedObject.references[reference.feature].icon)}}">
                 <a href ng-click="setNewObject(selectedObject.references[reference.feature]._links.self.href)">
-                  <label class="reflink">{{ selectedObject.references[reference.feature].label }}</label>
+                  <strong class="reflink">{{ selectedObject.references[reference.feature].label }}</strong>
                 </a><i class="small"> - {{selectedObject.references[reference.feature].id }} - {{ selectedObject.references[reference.feature].type}}</i>
               </li>
             </ul>
@@ -119,7 +119,7 @@
               <li ng-repeat="feature in selectedObject.references[reference.feature]" class="list-group-item">
                 <img src="{{getIcon(feature.icon)}}">
                 <a ng-click="setNewObject(feature._links.self.href)">
-                  <label class="reflink">{{ feature.label }}</label>
+                  <strong class="reflink">{{ feature.label }}</strong>
                 </a><i class="small"> - {{ feature.id }} - {{ feature.type }}</i>
               </li>
             </ul>
