@@ -3,7 +3,7 @@
     <div class="panel-heading"><i class="glyphicon glyphicon-share-alt"></i> References
       <label>{{selectedObject.label}}</label><img ng-if="dataLoading" class="pull-right" src="images/loading.gif"></div>
     <div class="panel-body">
-      <form ng-submit="save()" name="referencesForm" class="form-horizontal" role="form"
+      <form name="referencesForm" class="form-horizontal" role="form"
             novalidate>
 
         <alert ng-show="showAlertSuccess()" type="success"
@@ -40,9 +40,9 @@
                class="form-group">
             <label class="control-label col-sm-4">{{reference.feature}}</label>
 
-            <div ng-if="selectedObject.references[reference.feature] !== undefined" class="col-sm-8">
+            <div class="col-sm-8">
               <ul class="list-group">
-                <li class="list-group-item">
+                <li ng-if="selectedObject.references[reference.feature] !== undefined" class="list-group-item">
                   <div>
                     <ref-link ref-object="selectedObject.references[reference.feature]"
                               ref-feature="reference.feature"></ref-link>
@@ -51,6 +51,26 @@
                             ng-disabled="dataLoading"
                             class="btn btn-xs btn-danger pull-right">Remove
                     </button>
+                  </div>
+                </li>
+                <li class="list-group-item">
+                  <div>
+                    <input type="text"
+                           ng-model="new"
+                           typeahead-editable="false"
+                           placeholder="object name for reference"
+                           typeahead="ref as (ref.label + ' - ' + ref.id + ' - ' + ref.type)  for ref in refCandidates($viewValue, reference.type)"
+                           class="form-control"/>
+                  </div>
+                  <br>
+                  <div ng-show="new !== undefined" class="form-actions">
+
+                    <button ng-click="newRef(new.id, reference.feature)" ng-disabled="attributesForm.$invalid || dataLoading"
+                            class="btn btn-xs btn-success pull-right">
+                      Add
+                    </button>
+                    <br>
+                    <br>
                   </div>
                 </li>
               </ul>
@@ -71,6 +91,25 @@
                             ng-click="removeReference(feature.id, reference.feature)"
                             class="btn btn-xs btn-danger pull-right">Remove
                     </button>
+                  </div>
+                </li>
+                <li class="list-group-item">
+                  <div>
+                    <input type="text"
+                           ng-model="new"
+                           typeahead-editable="false"
+                           placeholder="object name reference"
+                           typeahead="ref as (ref.label + ' - ' + ref.id + ' - ' + ref.type) for ref in refCandidates($viewValue, reference.type)"
+                           class="form-control"/>
+                  </div>
+                  <br>
+                  <div ng-show="new !== undefined" class="form-actions">
+                    <button ng-click="newRef(new.id, reference.feature)" ng-disabled="attributesForm.$invalid || dataLoading"
+                            class="btn btn-xs btn-success pull-right">
+                      Add
+                    </button>
+                    <br>
+                    <br>
                   </div>
                 </li>
               </ul>

@@ -8,7 +8,7 @@
  * Controller of the cdoWebApp
  */
 angular.module('cdoWebApp')
-  .controller('ReferencesCtrl', function ($scope, $log, CalculateUrlService, RepoAccessService, ContextService) {
+  .controller('ReferencesCtrl', function ($scope, $log, $http, CalculateUrlService, RepoAccessService, ContextService) {
 
     $scope.getIcon = function (url) {
       return CalculateUrlService.getUrl(url);
@@ -16,6 +16,41 @@ angular.module('cdoWebApp')
 
     $scope.setNewObject = function(url) {
       ContextService.setSelectedObject(url);
+    };
+
+    $scope.refCandidates = function(val, type) {
+      var url = CalculateUrlService.getUrl('/obj/' + type + '?name=' + val);
+      $log.debug('ReferencesCtrl.getObjects - ' + url);
+      return $http.get(url).then(function(response){
+        return response.data.data.map(function(item){
+          return item;
+        });
+      });
+    };
+
+    $scope.newRef = function (id, reference) {
+      var relUrl = $scope.selectedObject._links.self.href + '/references/' + reference + '/' + id + '?rrefs&meta';
+      $log.debug('ReferencesCtrl.newReference - ' + relUrl);
+      var url = CalculateUrlService.getUrl(relUrl);
+      $scope.dataLoading = true;
+      $http.put(url)
+        .success(function (data) {
+          ContextService.updateSelectedObject(data.data);
+          $scope.dataLoading = false;
+          $scope.status = data.status;
+        })
+        .error(function (data, status) {
+          if (status === 404) {
+            $scope.status = {};
+            $scope.status.error = status + ' - ' + data.error.message;
+            $scope.selectedObject = undefined;
+            $scope.dataLoading = false;
+          } else {
+            $scope.status = {};
+            $scope.status.error = 'Technical problem udpdating ' + $scope.selectedObject._links.self.href;
+            $scope.dataLoading = false;
+          }
+        });
     };
 
     $scope.removeReference = function (id, reference) {
