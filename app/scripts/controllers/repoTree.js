@@ -57,7 +57,9 @@ angular.module('cdoWebApp')
 
     repoTree.selectNodeCB = function (e, item) {
       $log.debug('RepoTreeCtrl.selectNodeCB - ' + item.node.id);
-      repoTree.setSelectedObject(item.node.data);
+      if (repoTree.selectedObject === undefined || repoTree.selectedObject.id !== item.node.data.id) {
+        repoTree.setSelectedObject(item.node.data);
+      }
     };
 
     repoTree.setSelectedObject = function(newObj, resetStatus) {
@@ -110,7 +112,13 @@ angular.module('cdoWebApp')
     };
 
     repoTree.getNode = function(id) {
-      return repoTree.treeData[repoTree.indexOfItem(id)];
+      var index = repoTree.indexOfItem(id);
+      if (index > -1) {
+        return repoTree.treeData[repoTree.indexOfItem(id)];
+      } else {
+        return undefined;
+      }
+
     };
 
     repoTree.removeNode = function(id) {
@@ -301,6 +309,18 @@ angular.module('cdoWebApp')
       }
 
       treeReady = true;
+    });
+
+    $scope.$on('objectSelected', function(scope, data) {
+      if (repoTree.selectedObject.id !== data.id) {
+        var oldSelectedNode = repoTree.getNode(repoTree.selectedObject.id);
+        repoTree.treeInstance.jstree('deselect_node', oldSelectedNode);
+
+        var newSelectedNode = repoTree.getNode(data.id);
+        if (newSelectedNode !== undefined) {
+          repoTree.treeInstance.jstree('select_node', newSelectedNode);
+        }
+      }
     });
 
     $scope.$on('updateSelectedObject', function (scope, data) {
