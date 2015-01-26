@@ -12,6 +12,10 @@ body {
   color: #000000;
 }
 
+.reflink {
+  cursor: pointer;
+}
+
 .form-horizontal .control-label{
   /* text-align:right; */
   text-align:left;

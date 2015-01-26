@@ -14,6 +14,10 @@ angular.module('cdoWebApp')
       return CalculateUrlService.getUrl(url);
     };
 
+    $scope.setNewObject = function(url) {
+      ContextService.setSelectedObject(url);
+    };
+
     $scope.removeReference = function (id, reference) {
       var url = $scope.selectedObject._links.self.href + '/references/' + reference + '/' + id;
       $log.debug('ReferencesCtrl.removeReference - ' + url);

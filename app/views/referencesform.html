@@ -43,9 +43,9 @@
               <li class="list-group-item">
                 <div>
                   <img src="{{getIcon(selectedObject.references[reference.feature].icon)}}">
-                  <label>{{ selectedObject.references[reference.feature].label }}</label> <i class="small">- {{
-                  selectedObject.references[reference.feature].id }} - {{
-                  selectedObject.references[reference.feature].type }}</i>
+                  <a href ng-click="setNewObject(selectedObject.references[reference.feature]._links.self.href)">
+                    <label class="reflink">{{ selectedObject.references[reference.feature].label }}</label>
+                  </a><i class="small"> - {{selectedObject.references[reference.feature].id }} - {{ selectedObject.references[reference.feature].type}}</i>
 
                   <button ng-if="selectedObject.permission === 'WRITE'"
                           ng-click="removeReference(selectedObject.references[reference.feature].id, reference.feature)"
@@ -68,7 +68,8 @@
               <li ng-repeat="feature in selectedObject.references[reference.feature]" class="list-group-item">
                 <div>
                   <img src="{{getIcon(feature.icon)}}">
-                  <label>{{ feature.label }}</label> <i class="small">- {{ feature.id }} - {{ feature.type }}</i>
+                  <a ng-click="setNewObject(feature._links.self.href)">
+                    <label class="reflink">{{ feature.label }}</label></a><i class="small"> - {{ feature.id }} - {{ feature.type }}</i>
 
                   <button ng-if="selectedObject.permission === 'WRITE'"
                           ng-disabled="dataLoading"
@@ -100,10 +101,10 @@
             <ul class="list-group">
               <li class="list-group-item">
                 <img src="{{getIcon(selectedObject.references[reference.feature].icon)}}">
-                <label>{{ selectedObject.references[reference.feature].label }}</label> <i class="small">- {{
-                selectedObject.references[reference.feature].id }} - {{
-                selectedObject.references[reference.feature].type
-                }}</i></li>
+                <a href ng-click="setNewObject(selectedObject.references[reference.feature]._links.self.href)">
+                  <label class="reflink">{{ selectedObject.references[reference.feature].label }}</label>
+                </a><i class="small"> - {{selectedObject.references[reference.feature].id }} - {{ selectedObject.references[reference.feature].type}}</i>
+              </li>
             </ul>
           </div>
         </div>
@@ -117,7 +118,9 @@
             <ul class="list-group">
               <li ng-repeat="feature in selectedObject.references[reference.feature]" class="list-group-item">
                 <img src="{{getIcon(feature.icon)}}">
-                <label>{{ feature.label }}</label> <i class="small">- {{ feature.id }} - {{ feature.type }}</i>
+                <a ng-click="setNewObject(feature._links.self.href)">
+                  <label class="reflink">{{ feature.label }}</label>
+                </a><i class="small"> - {{ feature.id }} - {{ feature.type }}</i>
               </li>
             </ul>
           </div>
