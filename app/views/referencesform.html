@@ -59,16 +59,23 @@
                            ng-model="new"
                            typeahead-editable="false"
                            placeholder="object name for reference"
+                           typeahead-loading="searchingRef"
                            typeahead="ref as (ref.label + ' - ' + ref.id + ' - ' + ref.type)  for ref in refCandidates($viewValue, reference.type)"
                            class="form-control"/>
                   </div>
+                  <img ng-if="searchingRef" class="pull-right" src="images/loading.gif">
                   <br>
-                  <div ng-show="new !== undefined" class="form-actions">
 
-                    <button ng-click="newRef(new.id, reference.feature)" ng-disabled="attributesForm.$invalid || dataLoading"
-                            class="btn btn-xs btn-success pull-right">
-                      Add
-                    </button>
+                  <div class="form-actions">
+                    <span class="pull-right">
+                      <button ng-click="new = undefined" class="btn btn-xs btn-danger">
+                        Clear
+                      </button>
+                      <button ng-click="newRef(new.id, reference.feature)"
+                              ng-disabled="new.id === undefined || dataLoading" class="btn btn-xs btn-success">
+                        Add
+                      </button>
+                    </span>
                     <br>
                     <br>
                   </div>
@@ -99,15 +106,23 @@
                            ng-model="new"
                            typeahead-editable="false"
                            placeholder="object name reference"
+                           typeahead-loading="searchingRef"
                            typeahead="ref as (ref.label + ' - ' + ref.id + ' - ' + ref.type) for ref in refCandidates($viewValue, reference.type)"
                            class="form-control"/>
                   </div>
+                  <img ng-if="searchingRef" class="pull-right" src="images/loading.gif">
                   <br>
-                  <div ng-show="new !== undefined" class="form-actions">
-                    <button ng-click="newRef(new.id, reference.feature)" ng-disabled="attributesForm.$invalid || dataLoading"
-                            class="btn btn-xs btn-success pull-right">
-                      Add
-                    </button>
+
+                  <div class="form-actions">
+                    <span class="pull-right">
+                      <button ng-click="new = undefined" class="btn btn-xs btn-danger">
+                        Clear
+                      </button>
+                      <button ng-click="newRef(new.id, reference.feature)"
+                              ng-disabled="new.id === undefined || dataLoading" class="btn btn-xs btn-success">
+                        Add
+                      </button>
+                    </span>
                     <br>
                     <br>
                   </div>
