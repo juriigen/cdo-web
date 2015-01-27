@@ -134,7 +134,7 @@
           <div
             ng-if="reference.derived === true && reference.upperBound === 1 && selectedObject.references[reference.feature] !== undefined"
             class="form-group">
-            <label class="control-label col-sm-4">{{reference.feature}}</label>
+            <label class="control-label col-sm-4">/{{reference.feature}}</label>
 
             <div class="col-sm-8">
               <ul class="list-group">
@@ -149,7 +149,7 @@
           <div
             ng-if="reference.derived === true && reference.upperBound !== 1 && selectedObject.references[reference.feature] !== undefined"
             class="form-group">
-            <label class="control-label col-sm-4">{{reference.feature}}</label>
+            <label class="control-label col-sm-4">/{{reference.feature}}</label>
 
             <div class="col-sm-8">
               <ul class="list-group">
