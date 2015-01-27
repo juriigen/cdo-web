@@ -53,7 +53,7 @@
                     </button>
                   </div>
                 </li>
-                <li class="list-group-item">
+                <li ng-show="selectedObject.permission === 'WRITE'" class="list-group-item">
                   <div>
                     <input type="text"
                            ng-model="new"
@@ -93,7 +93,7 @@
                     </button>
                   </div>
                 </li>
-                <li class="list-group-item">
+                <li ng-show="selectedObject.permission === 'WRITE'" class="list-group-item">
                   <div>
                     <input type="text"
                            ng-model="new"
