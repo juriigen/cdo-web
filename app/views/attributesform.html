@@ -59,7 +59,17 @@
           </div>
 
           <!-- jsType === string -->
-          <input ng-if="attribute.jsType === 'string'"
+          <input ng-if="attribute.jsType === 'string' && attribute.type !== 'base.FLMarkdown'"
+                 ng-model="selectedObject.attributes[attribute.feature]"
+                 type="text"
+                 class="form-control"
+                 id="{{attribute.feature}}"
+                 name="{{attribute.feature}}"
+                 ng-required="{{attribute.required}}"
+                 pattern="{{attribute.pattern}}"
+                 ng-readonly="selectedObject.permission === 'READ' || attribute.derived === true"/>
+
+          <textarea rows="5" ng-if="attribute.jsType === 'string' && attribute.type === 'base.FLMarkdown'"
                  ng-model="selectedObject.attributes[attribute.feature]"
                  type="text"
                  class="form-control"
