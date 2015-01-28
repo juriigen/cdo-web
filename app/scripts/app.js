@@ -51,8 +51,8 @@ angular
     $httpProvider.defaults.withCredentials = true;
   })
   .config(function($logProvider){
-    //$logProvider.debugEnabled(false);
-    $logProvider.debugEnabled(true);
+    $logProvider.debugEnabled(false);
+    //$logProvider.debugEnabled(true);
   })
   .run(['$rootScope', '$location', '$cookieStore', '$http',
     function ($rootScope, $location, $cookieStore, $http) {
@@ -70,7 +70,7 @@ angular
       });
 
       /* Global Variables */
-      //$rootScope.endpoint = 'https://cdo-flatland.rhcloud.com';
-      $rootScope.endpoint = 'https://localhost:9080';
+      $rootScope.endpoint = 'https://cdo-flatland.rhcloud.com';
+      //$rootScope.endpoint = 'https://localhost:9080';
       $rootScope.dateFormat = 'dd MMMM yyyy - HH:mm:ss';
     }]);
