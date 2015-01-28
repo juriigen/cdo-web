@@ -6,15 +6,17 @@
       <form name="referencesForm" class="form-horizontal" role="form"
             novalidate>
 
-        <alert ng-show="showAlertSuccess()" type="success"
-               close="closeAlert(0, status.revisionDeltas)">
-          <i class="glyphicon glyphicon-ok-sign"></i> <label>updated {{status.revisionDeltas[0].origin}}</label>
+        <span ng-show="showAlertSuccess()" ng-repeat="origin in status.revisionDeltas">
+          <alert ng-show="showAlertSuccess()" type="success"
+                 close="closeAlert(0, status.revisionDeltas)">
+            <i class="glyphicon glyphicon-ok-sign"></i> <label>updated {{origin.origin}}</label>
 
-          <div ng-repeat="revisionDelta in status.revisionDeltas[0].revisionDelta">
-            <li>{{revisionDelta.message}}</li>
-            <li ng-repeat="detail in revisionDelta.details">{{detail}}</li>
-          </div>
-        </alert>
+            <div ng-repeat="revisionDelta in origin.revisionDelta">
+              <li>{{revisionDelta.message}}</li>
+              <li ng-repeat="detail in revisionDelta.details">{{detail}}</li>
+            </div>
+          </alert>
+        </span>
 
         <div ng-show="showAlertDiagnostics()" ng-repeat="diagnostic in status.diagnostics">
           <alert ng-show="status.diagnostics != undefined" close="closeAlert($index, status.diagnostics)">
