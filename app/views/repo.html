@@ -13,7 +13,7 @@
              should-apply="repoTree.applyModelChanges()"
              ng-model="repoTree.treeData"
              tree="repoTree.treeInstance"
-             tree-events="ready:repoTree.readyCB;select_node:repoTree.selectNodeCB;before_open:repoTree.beforeOpenNodeCB;open_node:repoTree.openNodeCB">
+             tree-events="ready:repoTree.readyCB;select_node:repoTree.selectNodeCB;before_open:repoTree.beforeOpenNodeCB;open_node:repoTree.openNodeCB;after_close:repoTree.afterCloseNodeCB">
         </div>
       </div>
     </div>

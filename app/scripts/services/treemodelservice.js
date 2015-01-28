@@ -25,7 +25,6 @@ angular.module('cdoWebApp')
       node.icon = CalculateUrlService.getUrl(object.icon);
       node.url = object._links.self.href;
       node.resolved = false;
-      node.data = object;
 
       /* jshint ignore:start */
       if (object.permission === 'READ') {
