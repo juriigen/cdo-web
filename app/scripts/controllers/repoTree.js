@@ -10,11 +10,9 @@
 angular.module('cdoWebApp')
   .controller('RepoTreeCtrl', function ($rootScope, $scope, $log, TreeModelService, RepoAccessService, ContextService) {
 
-    /**
-     * The repository tree controller holds all functions
-     */
     var repoTree = this;
 
+    repoTree.root = {};
     repoTree.treeData = [];
 
     var treeReady = false;
@@ -42,18 +40,8 @@ angular.module('cdoWebApp')
       plugins: ['wholerow', 'sort']
     };
 
-
-    /**********************************************************************
-     * jsTree event callbacks
-     */
-
-    /**
-     * Load's the repo root resource and fires
-     * notification 'repoRootNodeUpdated'
-     * with root node with direct containment
-     * references
-     */
     repoTree.readyCB = function () {
+      $log.debug('RepoTreeCtrl.readyCB');
 
       if ($rootScope.globals.currentUser !== undefined) {
         // page reload
@@ -68,17 +56,14 @@ angular.module('cdoWebApp')
     };
 
     repoTree.selectNodeCB = function (e, item) {
-      var node = repoTree.getNode(item.node.id);
-      $log.debug('EVENT - select node - ' + node.url);
-      if (repoTree.selectedObject === undefined || repoTree.selectedObject.id !== node.id) {
-
-        repoTree.setSelectedObject(node.url);
+      $log.debug('RepoTreeCtrl.selectNodeCB - ' + item.node.id);
+      if (repoTree.selectedObject === undefined || repoTree.selectedObject.id !== item.node.data.id) {
+        repoTree.setSelectedObject(item.node.data);
       }
     };
 
-
-    repoTree.setSelectedObject = function(url, resetStatus) {
-
+    repoTree.setSelectedObject = function(newObj, resetStatus) {
+      $log.debug('RepoTreeCtrl.setSelectedObject - ' + newObj.id);
       var reset = true;
       if (resetStatus !== undefined) {
         reset = resetStatus;
@@ -87,7 +72,26 @@ angular.module('cdoWebApp')
         repoTree.resetStatus();
       }
 
-      ContextService.setSelectedObject(url, function (data, status) {
+      repoTree.selectedObject = newObj;
+
+      repoTree.selectedObject.containments = [];
+      if (repoTree.selectedObject.meta.references !== undefined) {
+        repoTree.selectedObject.meta.references.forEach(function (entry) {
+          if (entry.containment) {
+            $log.debug('>> found containment meta - ' + entry.feature);
+            repoTree.selectedObject.containments.push(entry);
+          }
+        });
+        repoTree.selectedObject.containments.sort(function (a, b) {
+          var x = a;
+          var y = b;
+          return ((x < y) ? -1 : ((x > y) ? 0 : 1));
+        });
+
+        repoTree.selectedObject.containment = repoTree.selectedObject.containments[0];
+      }
+
+      ContextService.setSelectedObject(repoTree.selectedObject._links.self.href, function (data, status) {
         if (status === 404) {
           repoTree.removeNode(repoTree.selectedObject.id);
           repoTree.status = status + ' - ' + data.error.message;
@@ -96,7 +100,6 @@ angular.module('cdoWebApp')
           repoTree.status = 'Technical problem loading ' + repoTree.selectedObject._links.self.href;
         }
       });
-
     };
 
     repoTree.indexOfItem = function(id) {
@@ -115,6 +118,7 @@ angular.module('cdoWebApp')
       } else {
         return undefined;
       }
+
     };
 
     repoTree.removeNode = function(id) {
@@ -131,7 +135,7 @@ angular.module('cdoWebApp')
 
     repoTree.possibleTypes = function () {
       var types = [];
-      if (repoTree.selectedObject !== undefined && repoTree.selectedObject.meta !== undefined &&repoTree.selectedObject.meta.references !== undefined) {
+      if (repoTree.selectedObject !== undefined && repoTree.selectedObject.meta.references !== undefined) {
         repoTree.selectedObject.meta.references.forEach(function (entry) {
           if (repoTree.selectedObject.containment !== undefined && entry.feature === repoTree.selectedObject.containment.feature) {
 
@@ -181,7 +185,7 @@ angular.module('cdoWebApp')
           repoTree.treeInstance.jstree('deselect_node', currentSelectedNode);
 
           // set the new created object as context for repo tree
-          repoTree.setSelectedObject(newNode.url, false);
+          repoTree.setSelectedObject(newNode.data, false);
 
           repoTree.dataLoading = false;
         } else if (status === 409) {
@@ -257,11 +261,6 @@ angular.module('cdoWebApp')
       $log.debug('RepoTreeCtrl.beforeOpenNodeCB - ' + item.node.id);
     };
 
-    repoTree.afterCloseNodeCB = function (e, item) {
-      $log.debug('RepoTreeCtrl.afterCloseNodeCB - ' + item.node.id);
-      repoTree.getNode(item.node.id).state.opened = false;
-    };
-
     repoTree.resolveChildren = function(parentNode) {
       $log.debug('>> resolve childen');
       RepoAccessService.get(parentNode.url + '/references?crefs&meta', function (data, status) {
@@ -288,7 +287,6 @@ angular.module('cdoWebApp')
           repoTree.resolveChildren(entry);
         }
       });
-      repoTree.getNode(item.node.id).state.opened = true;
     };
 
     // either login or reload is triggered
@@ -299,6 +297,8 @@ angular.module('cdoWebApp')
       $log.debug('RepoTreeCtrl.repoRootNodeUpdated - received event');
 
       repoTree.treeData.length = 0;
+
+      repoTree.root = data.data;
 
       if (data.data.references.contents !== undefined) {
         var children = TreeModelService.transformChildren(data.data.references.contents, '#');
@@ -312,36 +312,13 @@ angular.module('cdoWebApp')
     });
 
     $scope.$on('objectSelected', function(scope, data) {
-      if (repoTree.selectedObject !== undefined && repoTree.selectedObject.id !== data.id) {
+      if (repoTree.selectedObject.id !== data.id) {
         var oldSelectedNode = repoTree.getNode(repoTree.selectedObject.id);
         repoTree.treeInstance.jstree('deselect_node', oldSelectedNode);
 
         var newSelectedNode = repoTree.getNode(data.id);
-        if (newSelectedNode !== undefined) {
-          repoTree.treeInstance.jstree('select_node', newSelectedNode);
-        }
+        repoTree.treeInstance.jstree('select_node', newSelectedNode);
       }
-
-      repoTree.selectedObject = data;
-
-      repoTree.selectedObject.containments = [];
-      if (repoTree.selectedObject.meta.references !== undefined) {
-        repoTree.selectedObject.meta.references.forEach(function (entry) {
-          if (entry.containment) {
-            $log.debug('>> found containment meta - ' + entry.feature);
-            repoTree.selectedObject.containments.push(entry);
-          }
-        });
-        repoTree.selectedObject.containments.sort(function (a, b) {
-          var x = a;
-          var y = b;
-          return ((x < y) ? -1 : ((x > y) ? 0 : 1));
-        });
-
-        repoTree.selectedObject.containment = repoTree.selectedObject.containments[0];
-      }
-
-
     });
 
     $scope.$on('updateSelectedObject', function (scope, data) {
@@ -352,75 +329,38 @@ angular.module('cdoWebApp')
       // if undefined, node was deleted!
       if (data !== undefined) {
         var node = repoTree.getNode(data.id);
-
-        if (node.parent.id !== (data.containerId.toString())) {
-          // node was moved
-          node.data = data;
-          node.parent.id = data.containerId.toString();
-          node.state.selected = true;
-          repoTree.refresh();
-          // node was renamed
-        } else {
-          parent = node.parent;
-
-          var newLabel = data.label;
-          if (data.type === 'eresource.CDOResourceFolder') {
-            newLabel = data.attributes.name;
-          }
-          node.data = data;
-          repoTree.treeInstance.jstree('rename_node', node, newLabel);
-
-          // remove all child and then force re sort
-          var index = -1;
-          var size = 0;
-          var startIndex = -1;
-          var startFound = false;
-          repoTree.treeData.forEach(function (entry) {
-            index++;
-            if (entry.parent.id === (parent.id.toString())) {
-              size++;
-              if (startFound !== true) {
-                startIndex = index;
-                startFound = true;
-              }
-              $log.debug('>> Found node to resfresh - ' + entry.text + ' ' + index);
-            }
-          });
-          $log.debug('>> to splice for sort - start - ' + startIndex + ' size ' + size);
-          var toSort = repoTree.treeData.splice(startIndex, size);
-
-          toSort.forEach(function(entry) {
-            repoTree.treeData.push(entry);
-          });
+        parent = node.parent;
+        var newLabel = data.label;
+        if (data.type === 'eresource.CDOResourceFolder') {
+          newLabel = data.attributes.name;
         }
+        node.data = data;
+        repoTree.treeInstance.jstree('rename_node', node, newLabel);
+
+        // remove all child and then force re sort
+        var index = -1;
+        var size = 0;
+        var startIndex = -1;
+        var startFound = false;
+        repoTree.treeData.forEach(function (entry) {
+          index++;
+          if (entry.parent.id === (parent.id.toString())) {
+            size++;
+            if (startFound !== true) {
+              startIndex = index;
+              startFound = true;
+            }
+            $log.debug('>> Found node to resfresh - ' + entry.text + ' ' + index);
+          }
+        });
+        $log.debug('>> to splice for sort - start - ' + startIndex + ' size ' + size);
+        var toSort = repoTree.treeData.splice(startIndex, size);
+
+        toSort.forEach(function(entry) {
+          repoTree.treeData.push(entry);
+        });
       }
     });
-
-    repoTree.refresh = function() {
-      var refreshedNodes = [];
-
-      var temp = repoTree.treeData.splice(0, repoTree.treeData.length);
-      temp.forEach(function (entry) {
-        var freshNode = {};
-        freshNode.id = entry.id.toString();
-        freshNode.parent = entry.parent;
-        freshNode.text = entry.text;
-        freshNode.state = entry.state;
-        freshNode.icon = entry.icon;
-        freshNode.url = entry.url;
-        freshNode.resolved = entry.resolved;
-        /* jshint camelcase:false */
-        freshNode.li_attr = entry.li_attr;
-        /* jshint camelcase:true */
-        freshNode.data = entry.data;
-        refreshedNodes.push(freshNode);
-      });
-
-      refreshedNodes.forEach(function(entry) {
-        $log.debug(JSON.stringify(entry));
-        repoTree.treeData.push(entry);
-      });
-    };
 
     repoTree.closeAlert = function () {
       repoTree.status = undefined;
