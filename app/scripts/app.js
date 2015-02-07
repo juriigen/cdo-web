@@ -70,7 +70,8 @@ angular
       });
 
       /* Global Variables */
-      $rootScope.endpoint = 'https://cdo-flatland.rhcloud.com';
-      //$rootScope.endpoint = 'https://localhost:9080';
+      //$rootScope.endpoint = 'https://cdo-flatland.rhcloud.com';
+      //$rootScope.endpoint = 'https://192.168.0.127:8091';
+      $rootScope.endpoint = 'https://localhost:9080';
       $rootScope.dateFormat = 'dd MMMM yyyy - HH:mm:ss';
     }]);

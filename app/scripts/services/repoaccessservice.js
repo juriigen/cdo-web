@@ -8,23 +8,26 @@
  * Service in the cdoWebApp.
  */
 angular.module('cdoWebApp')
-  .service('RepoAccessService', function ($http, $log, CalculateUrlService) {
+  .service('RepoAccessService', function ($rootScope, $http, $log, CalculateUrlService) {
     var service = {};
 
     service.get = function (relativeUrl, callback) {
       var url = CalculateUrlService.getUrl(relativeUrl);
+      $rootScope.update = true;
       $http.get(url)
         .success(function (data, status) {
 
           $log.debug('RepoAccessService.get - ' + url + ' - status ' + status);
 
           callback(data, status);
+          $rootScope.update = false;
         })
         .error(function (data, status) {
 
           $log.debug('RepoAccessService.get - ' + url + ' - status ' + status);
 
           callback(data, status);
+          $rootScope.update = false;
         });
     };
 
