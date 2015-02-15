@@ -300,7 +300,7 @@ angular.module('cdoWebApp')
 
       if (data.data !== undefined) {
         data.data.reverse().forEach(function(root) {
-          var node = TreeModelService.transformObject(root, '#')
+          var node = TreeModelService.transformObject(root, '#');
           repoTree.treeData.push(node);
           repoTree.resolveChildren(node);
         });
