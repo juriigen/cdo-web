@@ -329,6 +329,11 @@ angular.module('cdoWebApp')
         var node = repoTree.getNode(data.id);
         parent = node.parent;
         var newLabel = data.label;
+
+        if (newLabel.length > 60) {
+          newLabel = newLabel.substring(0, 60) + ' ...';
+        }
+
         if (data.type === 'eresource.CDOResourceFolder') {
           newLabel = data.attributes.name;
         }

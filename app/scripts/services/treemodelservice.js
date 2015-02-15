@@ -19,7 +19,12 @@ angular.module('cdoWebApp')
       if (object.type === 'eresource.CDOResourceFolder') {
         node.text = object.attributes.name;
       } else {
-        node.text = object.label;
+        var label = object.label;
+        if (label.length > 60) {
+          node.text = object.label.substring(0, 60) + ' ...';
+        } else {
+          node.text = object.label;
+        }
       }
       node.state = { opened : false};
       node.icon = CalculateUrlService.getUrl(object.icon);
