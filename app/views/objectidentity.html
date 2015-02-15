@@ -3,32 +3,32 @@
   <div class="panel-body">
     <table ng-show="selectedObject != undefined" >
       <tr>
-        <td class="col-sm-3"><label>id</label></td>
-        <td class="col-sm-9">{{selectedObject.id}}</td>
+        <td class="control-label col-sm-4"><label>id</label></td>
+        <td class="col-sm-8">{{selectedObject.id}}</td>
       </tr>
       <tr>
-        <td class="col-sm-3"><label>revision</label></td>
-        <td class="col-sm-9">{{selectedObject.revision}}</td>
+        <td class="control-label col-sm-4"><label>revision</label></td>
+        <td class="col-sm-8">{{selectedObject.revision}}</td>
       </tr>
       <tr>
-        <td class="col-sm-3"><label>date</label></td>
-        <td class="col-sm-9">{{selectedObject.date | date : dateFormat}}</td>
+        <td class="control-label col-sm-4"><label>date</label></td>
+        <td class="col-sm-8">{{selectedObject.date | date : dateFormat}}</td>
       </tr>
       <tr>
-        <td class="col-sm-3"><label>uri</label></td>
-        <td class="col-sm-9">{{selectedObject._links.self.href}}</td>
+        <td class="control-label col-sm-4"><label>uri</label></td>
+        <td class="col-sm-8">{{selectedObject._links.self.href}}</td>
       </tr>
       <tr>
-        <td class="col-sm-3"><label>permission</label></td>
-        <td class="col-sm-9">{{selectedObject.permission}}</td>
+        <td class="control-label col-sm-4"><label>permission</label></td>
+        <td class="col-sm-8">{{selectedObject.permission}}</td>
       </tr>
       <tr>
-        <td class="col-sm-3"><label>author</label></td>
-        <td class="col-sm-9">{{selectedObject.author}}</td>
+        <td class="control-label col-sm-4"><label>author</label></td>
+        <td class="col-sm-8">{{selectedObject.author}}</td>
       </tr>
       <tr>
-        <td class="col-sm-3"><label>type</label></td>
-        <td class="col-sm-9">{{selectedObject.type}}</td>
+        <td class="control-label col-sm-4"><label>type</label></td>
+        <td class="col-sm-8">{{selectedObject.type}}</td>
       </tr>
     </table>
   </div>

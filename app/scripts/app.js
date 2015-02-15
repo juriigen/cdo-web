@@ -41,8 +41,8 @@ angular
         controller: 'RepoCtrl',
         templateUrl: 'views/repo.html'
       })
-      .state('repo.meta', {
-        url: '/meta'
+      .state('repo.json', {
+        url: '/json'
       });
 
   })

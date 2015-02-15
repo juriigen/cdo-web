@@ -36,7 +36,8 @@ angular.module('cdoWebApp')
         check_callback: true,
         /* jshint camelcase:true */
         worker: true
-      }
+      },
+      plugins: ['sort']
       //plugins: ['wholerow', 'sort']
     };
 
