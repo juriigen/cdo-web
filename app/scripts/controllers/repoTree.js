@@ -36,8 +36,8 @@ angular.module('cdoWebApp')
         check_callback: true,
         /* jshint camelcase:true */
         worker: true
-      },
-      plugins: ['wholerow', 'sort']
+      }
+      //plugins: ['wholerow', 'sort']
     };
 
     repoTree.readyCB = function () {
@@ -45,7 +45,7 @@ angular.module('cdoWebApp')
 
       if ($rootScope.globals.currentUser !== undefined) {
         // page reload
-        RepoAccessService.get('/node?crefs&meta', function (data, status) {
+        RepoAccessService.get('/obj/eresource.CDOResource/1/references/contents?meta&orderBy=name', function (data, status) {
           if (status === 200) {
             $scope.$broadcast('repoRootNodeUpdated', data);
           } else {
@@ -298,11 +298,9 @@ angular.module('cdoWebApp')
 
       repoTree.treeData.length = 0;
 
-      repoTree.root = data.data;
-
-      if (data.data.references.contents !== undefined) {
-        var children = TreeModelService.transformChildren(data.data.references.contents, '#');
-        children.forEach(function (node) {
+      if (data.data !== undefined) {
+        data.data.reverse().forEach(function(root) {
+          var node = TreeModelService.transformObject(root, '#')
           repoTree.treeData.push(node);
           repoTree.resolveChildren(node);
         });
