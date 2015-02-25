@@ -71,7 +71,8 @@ angular
 
       /* Global Variables */
       //$rootScope.endpoint = 'https://cdo-flatland.rhcloud.com';
-      //$rootScope.endpoint = 'https://192.168.0.127:8091';
-      $rootScope.endpoint = 'https://localhost:9080';
+      //$rootScope.endpoint = 'http://192.168.0.127';
+      $rootScope.endpoint = 'http://localhost:8080';
+      //$rootScope.endpoint = 'https://swisscom.3ap.ch';
       $rootScope.dateFormat = 'dd MMMM yyyy - HH:mm:ss';
     }]);

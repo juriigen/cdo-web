@@ -262,21 +262,24 @@ angular.module('cdoWebApp')
     };
 
     repoTree.resolveChildren = function(parentNode) {
+      console.log("parentNode " + (parentNode.icon.indexOf("/ppm.") > -1))
       $log.debug('>> resolve childen');
-      RepoAccessService.get(parentNode.url + '/references?crefs&meta', function (data, status) {
-        if (status === 200) {
+      if ((parentNode.icon.indexOf("Backlog") === -1)) {
+        RepoAccessService.get(parentNode.url + '/references?crefs&meta', function (data, status) {
+          if (status === 200) {
 
-          var children = TreeModelService.transformChildren(data.data, parentNode.id);
-          children.forEach(function (node) {
-            repoTree.treeData.push(node);
-          });
-          parentNode.resolved = true;
-        } else if (status === 404) {
-          parentNode.resolved = true;
-        } else {
-          repoTree.status = 'Technical problem loading ' + parentNode.url;
-        }
-      });
+            var children = TreeModelService.transformChildren(data.data, parentNode.id);
+            children.forEach(function (node) {
+              repoTree.treeData.push(node);
+            });
+            parentNode.resolved = true;
+          } else if (status === 404) {
+            parentNode.resolved = true;
+          } else {
+            repoTree.status = 'Technical problem loading ' + parentNode.url;
+          }
+        });
+      }
     };
 
     repoTree.openNodeCB = function (e, item) {
