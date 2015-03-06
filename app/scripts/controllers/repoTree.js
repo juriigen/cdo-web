@@ -45,7 +45,7 @@ angular.module('cdoWebApp')
 
       if ($rootScope.globals.currentUser !== undefined) {
         // page reload
-        RepoAccessService.get('/obj/eresource.CDOResource/1/references/contents?meta&orderBy=name', function (data, status) {
+        RepoAccessService.get('/obj/eresource.CDOResourceFolder/35/references/nodes?meta&orderBy=name', function (data, status) {
           if (status === 200) {
             $scope.$broadcast('repoRootNodeUpdated', data);
           } else {
@@ -262,10 +262,13 @@ angular.module('cdoWebApp')
     };
 
     repoTree.resolveChildren = function(parentNode) {
-      console.log("parentNode " + (parentNode.icon.indexOf("/ppm.") > -1))
       $log.debug('>> resolve childen');
-      if ((parentNode.icon.indexOf("Backlog") === -1)) {
-        RepoAccessService.get(parentNode.url + '/references?crefs&meta', function (data, status) {
+      if (parentNode.icon.indexOf("AgileTeam") === -1 && parentNode.icon.indexOf("Program") === -1) {
+        var url = parentNode.url + '/references?crefs&meta';
+        if (parentNode.text === 'Portfolios') {
+          url = parentNode.url + '/references/contents?meta';
+        }
+        RepoAccessService.get(url, function (data, status) {
           if (status === 200) {
 
             var children = TreeModelService.transformChildren(data.data, parentNode.id);

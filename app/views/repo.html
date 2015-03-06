@@ -27,7 +27,7 @@
   <div class="col-xs-7">
     <ul class="nav nav-tabs" role="tablist">
       <li ng-class="{ active: (tab == 'repo') }"><a ui-sref="repo">Features</a> </li>
-      <li ng-class="{ active: (tab == 'repo.json') }"><a ui-sref="repo.json"> Json</a></li>
+
     </ul>
 
     <h3 class="text-muted"></h3>
@@ -35,8 +35,7 @@
     <attributes-form ng-show="tab == 'repo'"></attributes-form>
     <references-form ng-show="tab == 'repo'"></references-form>
 
-        <pre ng-show="tab == 'repo.json'"
-             style="background: #ffffff; border: hidden">{{ selectedObject | json}}</pre>
+
 
   </div>
 </div>
