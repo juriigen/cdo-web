@@ -8,7 +8,7 @@
  * Controller of the cdoWebApp
  */
 angular.module('cdoWebApp')
-  .controller('ReferencesCtrl', function ($scope, $log, $http, CalculateUrlService, RepoAccessService, ContextService) {
+  .controller('ReferencesCtrl', function ($rootScope, $scope, $log, $http, CalculateUrlService, RepoAccessService, ContextService) {
 
     $scope.getIcon = function (url) {
       return CalculateUrlService.getUrl(url);
@@ -19,7 +19,7 @@ angular.module('cdoWebApp')
     };
 
     $scope.refCandidates = function(val, type) {
-      var url = CalculateUrlService.getUrl('/obj/' + type + '?name=' + val);
+      var url = CalculateUrlService.getUrl('/obj/' + $rootScope.repository + '/' + type + '?name=' + val);
       $log.debug('ReferencesCtrl.getObjects - ' + url);
       return $http.get(url).then(function(response){
         return response.data.data.map(function(item){

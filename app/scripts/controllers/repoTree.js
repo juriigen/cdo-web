@@ -36,7 +36,8 @@ angular.module('cdoWebApp')
         check_callback: true,
         /* jshint camelcase:true */
         worker: true
-      }
+      },
+      plugins: ['sort']
       //plugins: ['wholerow', 'sort']
     };
 
@@ -45,7 +46,7 @@ angular.module('cdoWebApp')
 
       if ($rootScope.globals.currentUser !== undefined) {
         // page reload
-        RepoAccessService.get('/obj/eresource.CDOResourceFolder/35/references/nodes?meta&orderBy=name', function (data, status) {
+        RepoAccessService.get('/obj/' + $rootScope.repository + '/eresource.CDOResource/1/references/contents?meta&orderBy=name', function (data, status) {
           if (status === 200) {
             $scope.$broadcast('repoRootNodeUpdated', data);
           } else {
@@ -265,9 +266,6 @@ angular.module('cdoWebApp')
       $log.debug('>> resolve childen');
       if (parentNode.icon.indexOf("AgileTeam") === -1 && parentNode.icon.indexOf("Program") === -1) {
         var url = parentNode.url + '/references?crefs&meta';
-        if (parentNode.text === 'Portfolios') {
-          url = parentNode.url + '/references/contents?meta';
-        }
         RepoAccessService.get(url, function (data, status) {
           if (status === 200) {
 

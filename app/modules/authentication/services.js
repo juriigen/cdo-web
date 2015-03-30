@@ -10,7 +10,7 @@ angular.module('Authentication')
       service.Login = function (username, password, callback) {
 
         $http.defaults.headers.common.Authorization = 'Basic ' + Base64.encode(username + ':' + password);
-        $http.get(CalculateUrlService.getUrl('/obj/eresource.CDOResourceFolder/35/references/nodes?meta&orderBy=name'))
+        $http.get(CalculateUrlService.getUrl('/obj/' + $rootScope.repository + '/eresource.CDOResource/1/references/contents?meta&orderBy=name'))
           .success(function (data, status) {
             callback(data, status);
 
