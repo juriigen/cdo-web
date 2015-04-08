@@ -69,15 +69,10 @@
                  pattern="{{attribute.pattern}}"
                  ng-readonly="selectedObject.permission === 'READ' || attribute.derived === true"/>
 
-          <textarea rows="8" ng-if="attribute.jsType === 'string' && attribute.type === 'base.FLMarkdown'"
-                 ng-model="selectedObject.attributes[attribute.feature]"
-                 type="text"
-                 class="form-control"
-                 id="{{attribute.feature}}"
-                 name="{{attribute.feature}}"
-                 ng-required="{{attribute.required}}"
-                 pattern="{{attribute.pattern}}"
-                 ng-readonly="selectedObject.permission === 'READ' || attribute.derived === true"></textarea>
+          <textarea markdown-editor name="{{attribute.feature}}" data-provide="markdown-editable" rows="10" ng-if="attribute.jsType === 'string' && attribute.type === 'base.FLMarkdown'"
+                    ng-model="selectedObject.attributes[attribute.feature]"></textarea>
+
+
 
           <!-- jsType === number -->
           <input ng-if="attribute.jsType === 'number'"

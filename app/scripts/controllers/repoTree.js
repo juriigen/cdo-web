@@ -264,7 +264,7 @@ angular.module('cdoWebApp')
 
     repoTree.resolveChildren = function(parentNode) {
       $log.debug('>> resolve childen');
-      if (parentNode.icon.indexOf("AgileTeam") === -1 && parentNode.icon.indexOf("Program") === -1) {
+
         var url = parentNode.url + '/references?crefs&meta';
         RepoAccessService.get(url, function (data, status) {
           if (status === 200) {
@@ -280,7 +280,7 @@ angular.module('cdoWebApp')
             repoTree.status = 'Technical problem loading ' + parentNode.url;
           }
         });
-      }
+
     };
 
     repoTree.openNodeCB = function (e, item) {
