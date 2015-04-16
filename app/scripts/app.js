@@ -73,7 +73,7 @@ angular
       //$rootScope.endpoint = 'https://cdo-flatland.rhcloud.com';
       //$rootScope.endpoint = 'http://192.168.0.127';
       $rootScope.endpoint = 'http://localhost:8080';
-      $rootScope.repository = 'repo';
+      $rootScope.repository = 'repo/';
       //$rootScope.endpoint = 'https://swisscom.3ap.ch';
       $rootScope.dateFormat = 'dd MMMM yyyy - HH:mm:ss';
     }]);

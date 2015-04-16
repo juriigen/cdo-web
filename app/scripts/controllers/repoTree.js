@@ -46,7 +46,7 @@ angular.module('cdoWebApp')
 
       if ($rootScope.globals.currentUser !== undefined) {
         // page reload
-        RepoAccessService.get('/obj/' + $rootScope.repository + '/eresource.CDOResource/1/references/contents?meta&orderBy=name', function (data, status) {
+        RepoAccessService.get('/obj/' + $rootScope.repository + 'eresource.CDOResource/1/references/contents?meta&orderBy=name', function (data, status) {
           if (status === 200) {
             $scope.$broadcast('repoRootNodeUpdated', data);
           } else {
