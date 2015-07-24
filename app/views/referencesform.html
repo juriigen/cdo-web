@@ -40,9 +40,10 @@
 
           <div ng-if="reference.derived === false && reference.containment === false && reference.upperBound === 1"
                class="form-group">
-            <label class="control-label col-sm-2">{{reference.feature}}</label>
 
-            <div class="col-sm-10">
+
+            <div class="col-sm-12">
+              <label class="control-label">{{reference.feature}}</label>
               <ul class="list-group">
                 <li ng-if="selectedObject.references[reference.feature] !== undefined" class="list-group-item">
                   <div>
@@ -88,9 +89,8 @@
 
           <div ng-if="reference.derived === false && reference.containment === false && reference.upperBound !== 1"
                class="form-group">
-            <label class="control-label col-sm-2">{{reference.feature}}</label>
-
-            <div class="col-sm-10">
+            <div class="col-sm-12">
+              <label class="control-label">{{reference.feature}}</label>
               <ul class="list-group">
                 <li ng-repeat="feature in selectedObject.references[reference.feature]" class="list-group-item">
                   <div>
@@ -136,9 +136,8 @@
           <div
             ng-if="reference.derived === true && reference.upperBound === 1 && selectedObject.references[reference.feature] !== undefined"
             class="form-group">
-            <label class="control-label col-sm-2">/{{reference.feature}}</label>
-
-            <div class="col-sm-10">
+            <div class="col-sm-12">
+              <label class="control-label">{{reference.feature}}</label>
               <ul class="list-group">
                 <li class="list-group-item">
                   <ref-link ref-object="selectedObject.references[reference.feature]"
@@ -151,9 +150,8 @@
           <div
             ng-if="reference.derived === true && reference.upperBound !== 1 && selectedObject.references[reference.feature] !== undefined"
             class="form-group">
-            <label class="control-label col-sm-2">/{{reference.feature}}</label>
-
-            <div class="col-sm-10">
+            <div class="col-sm-12">
+              <label class="control-label">{{reference.feature}}</label>
               <ul class="list-group">
                 <li ng-repeat="feature in selectedObject.references[reference.feature]" class="list-group-item">
                   <ref-link ref-object="feature" ref-feature="reference.feature"></ref-link>
