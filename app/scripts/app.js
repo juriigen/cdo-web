@@ -22,7 +22,8 @@ angular
     'ngSanitize',
     'ngTouch',
     'ngJsTree',
-    'toaster'
+    'toaster',
+    'smart-table'
   ])
   .config(function($stateProvider, $urlRouterProvider) {
 
@@ -46,8 +47,14 @@ angular
         controller: 'GovernanceCtrl',
         templateUrl: 'views/governance.html'
       })
-      .state('governance.deputy', {
-        url: '/deputy'
+      .state('governance.employee', {
+        url: '/employee'
+      })
+      .state('governance.datafamily', {
+        url: '/datafamily'
+      })
+      .state('governance.ownershiparea', {
+        url: '/ownershiparea'
       })
       .state('app', {
         url: '/app',

@@ -1,25 +1,58 @@
 <div>
-  <div class="col-xs-3">
-
-    <div class="panel panel-default">
-      <div class="panel-heading">Governance</div>
-
-      <div class="panel-body">
-      </div>
-    </div>
-
-
-
-  </div>
-  <div class="col-xs-9">
+  <div class="col-xs-12">
     <ul class="nav nav-tabs" role="tablist">
-      <li ng-class="{ active: (tab == 'governance') }"><a ui-sref="governance">As Owner</a> </li>
-      <li ng-class="{ active: (tab == 'governance.deputy') }"><a ui-sref="governance.deputy">As Deputy</a> </li>
+      <li ng-class="{ active: (tab == 'governance') }"><a ui-sref="governance">Attributes</a> </li>
+      <li ng-class="{ active: (tab == 'governance.employee') }"><a ui-sref="governance.employee">Employees</a> </li>
+      <li ng-class="{ active: (tab == 'governance.datafamily') }"><a ui-sref="governance.datafamily">Data Families</a> </li>
+      <li ng-class="{ active: (tab == 'governance.ownershiparea') }"><a ui-sref="governance.ownershiparea">Ownership Areas</a> </li>
 
     </ul>
 
     <h3 class="text-muted"></h3>
-    <div ng-show="tab == 'governance'">Hello Owner</div>
+    <div ng-show="tab == 'governance'">
+      <div ng-controller="GovattributesCtrl" >
+        <table st-table="rowCollection" class="table table-striped">
+          <thead>
+          <tr>
+            <th>Name</th>
+            <th>ID</th>
+            <th>Description</th>
+            <th>Owner</th>
+            <th>Deputy</th>
+            <th>Area</th>
+            <th>Family</th>
+            <th>State</th>
+
+          </tr>
+        <!--  <tr>
+            <th colspan="5">
+              <input st-search placeholder="global search" class="input-sm form-control" type="search"/>
+            </th>
+          </tr>-->
+          </thead>
+          <tbody>
+          <tr ng-repeat="row in rowCollection">
+            <td>{{row.attributes.name }}</td>
+            <td>{{row.attributes.CDA_ID}}</td>
+            <td>{{row.attributes.description}}</td>
+            <td>{{row.references.owner.attributes.name}}</td>
+            <td>{{row.references.deputy.attributes.name}}</td>
+            <td>{{row.references.ownerShipArea.attributes.name}}</td>
+            <td>{{row.references.dataFamily.attributes.name}}</td>
+            <td>{{row.attributes.lifecycleState}}</td>
+          </tr>
+          </tbody>
+          <tfoot>
+          <tr>
+            <td colspan="5" class="text-center">
+              <div st-pagination="" st-items-by-page="itemsByPage" st-displayed-pages="7"></div>
+            </td>
+          </tr>
+          </tfoot>
+        </table>
+      </div>
+
+    </div>
     <div ng-show="tab == 'governance.deputy'">Hello Deputy</div>
 
   </div>
