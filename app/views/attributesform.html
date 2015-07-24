@@ -69,7 +69,18 @@
                  pattern="{{attribute.pattern}}"
                  ng-readonly="selectedObject.permission === 'READ' || attribute.derived === true"/>
 
-          <textarea markdown-editor name="{{attribute.feature}}" data-provide="markdown-editable" rows="10" ng-if="attribute.jsType === 'string' && attribute.type === 'base.FLMarkdown'"
+          <textarea ng-if="attribute.jsType === 'string' && attribute.type === 'base.FLMarkdown' && selectedObject.permission === 'READ'"
+                    rows="5" ng-model="selectedObject.attributes[attribute.feature]"
+                 type="text"
+                 class="form-control"
+                 id="{{attribute.feature}}"
+                 name="{{attribute.feature}}"
+                 ng-required="{{attribute.required}}"
+                 pattern="{{attribute.pattern}}"
+                 ng-readonly="selectedObject.permission === 'READ' || attribute.derived === true"/>
+
+
+          <textarea markdown-editor name="{{attribute.feature}}" data-provide="markdown-editable" rows="10" ng-if="attribute.jsType === 'string' && attribute.type === 'base.FLMarkdown' && selectedObject.permission === 'WRITE'"
                     ng-model="selectedObject.attributes[attribute.feature]"></textarea>
 
 
