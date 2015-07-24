@@ -30,7 +30,7 @@
         {{status.error}}
       </alert>
 
-      <div ng-repeat="attribute in selectedObject.meta.attributes" class="form-group">
+      <div ng-repeat="attribute in selectedObject.meta.attributes" ng-show="selectedObject.attributes[attribute.feature] !== undefined || selectedObject.permission === 'WRITE'" class="form-group">
         <label class="control-label col-sm-2" for="{{attribute.feature}}"><span ng-if="attribute.derived === true">/</span>{{attribute.feature}}</label>
 
         <div class="col-sm-10"
@@ -114,7 +114,6 @@
                  name="{{attribute.feature}}"
                  ng-disabled="selectedObject.permission === 'READ' || attribute.derived === true"/>
         </div>
-
       </div>
       <div ng-show="selectedObject.meta.attributes.length > 0 && selectedObject.permission === 'WRITE'"
            class="form-actions">
