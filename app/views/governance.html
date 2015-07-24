@@ -1,0 +1,27 @@
+<div>
+  <div class="col-xs-3">
+
+    <div class="panel panel-default">
+      <div class="panel-heading">Governance</div>
+
+      <div class="panel-body">
+      </div>
+    </div>
+
+
+
+  </div>
+  <div class="col-xs-9">
+    <ul class="nav nav-tabs" role="tablist">
+      <li ng-class="{ active: (tab == 'governance') }"><a ui-sref="governance">As Owner</a> </li>
+      <li ng-class="{ active: (tab == 'governance.deputy') }"><a ui-sref="governance.deputy">As Deputy</a> </li>
+
+    </ul>
+
+    <h3 class="text-muted"></h3>
+    <div ng-show="tab == 'governance'">Hello Owner</div>
+    <div ng-show="tab == 'governance.deputy'">Hello Deputy</div>
+
+  </div>
+</div>
+

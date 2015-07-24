@@ -25,19 +25,23 @@
 <![endif]-->
 
 <!-- Add your site or application content here -->
-<div class="container-fluid">
+<div class="container">
 
   <div class="header">
 
     <ul ng-controller="NavCtrl" class="nav nav-pills pull-right">
+      <li ng-class="{ active: isActive('/governance') }"><a ng-href="#/governance">Governance</a></li>
+      <li ng-class="{ active: isActive('/app') }"><a ng-href="#/app">Applications</a></li>
+      <li ng-class="{ active: isActive('/db') }"><a ng-href="#/db">Data Bases</a></li>
+      <li ng-class="{ active: isActive('/interface') }"><a ng-href="#/interface">Interfaces</a></li>
       <li ng-class="{ active: isActive('/repo') }"><a ng-href="#/repo">Repository</a></li>
       <li ng-class="{ active: isActive('/login') }" ng-show="globals.currentUser != undefined"><a ng-href="#/login">Log
         out</a></li>
       <li ng-class="{ active: isActive('/login') }" ng-show="globals.currentUser == undefined"><a ng-href="#/login">Log
         in</a></li>
     </ul>
-
-    <h3 class="text-muted">CDO Web <img ng-if="update" src="images/loading.gif"></h3>
+    <img src="images/logo_cs.png">
+    <div class="text-info">TMDR - Tactical Meta Data Repository<img ng-if="update" src="images/loading.gif"></div>
   </div>
 
   <div class="row">
@@ -88,6 +92,7 @@
 <script src="scripts/controllers/nav.js"></script>
 <script src="scripts/controllers/attributes.js"></script>
 <script src="scripts/controllers/references.js"></script>
+<script src="scripts/controllers/governance.js"></script>
 <script src="modules/authentication/services.js"></script>
 <script src="modules/authentication/controllers.js"></script>
 <script src="scripts/services/calculateurlservice.js"></script>

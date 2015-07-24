@@ -41,6 +41,29 @@ angular
         controller: 'RepoCtrl',
         templateUrl: 'views/repo.html'
       })
+      .state('governance', {
+        url: '/governance',
+        controller: 'GovernanceCtrl',
+        templateUrl: 'views/governance.html'
+      })
+      .state('governance.deputy', {
+        url: '/deputy'
+      })
+      .state('app', {
+        url: '/app',
+        controller: 'RepoCtrl',
+        templateUrl: 'views/repo.html'
+      })
+      .state('db', {
+        url: '/db',
+        controller: 'RepoCtrl',
+        templateUrl: 'views/repo.html'
+      })
+      .state('interface', {
+        url: '/interface',
+        controller: 'RepoCtrl',
+        templateUrl: 'views/repo.html'
+      })
       .state('repo.json', {
         url: '/json'
       });
