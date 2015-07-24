@@ -19,8 +19,8 @@
             <th>Description</th>
             <th>Owner</th>
             <th>Deputy</th>
-            <th>Area</th>
-            <th>Family</th>
+            <th class="text-nowrap">Owner Ship Area</th>
+            <th class="text-nowrap">Data Family</th>
             <th>State</th>
 
           </tr>
@@ -43,18 +43,90 @@
             <td>{{row.state}}</td>
           </tr>
           </tbody>
-          <tfoot>
-          <tr>
-            <td colspan="8" class="text-center">
-              <div st-pagination="" st-items-by-page="itemsByPage" st-displayed-pages="7"></div>
-            </td>
-          </tr>
-          </tfoot>
         </table>
       </div>
 
     </div>
-    <div ng-show="tab == 'governance.deputy'">Hello Deputy</div>
+
+    <div ng-show="tab == 'governance.employee'">
+      <div ng-controller="GovemployeesCtrl" >
+        <table st-table="rowCollection" class="table table-striped">
+          <thead>
+          <tr>
+            <th>Name</th>
+            <th>First Name</th>
+            <th>PID</th>
+            <th>OE</th>
+
+          </tr>
+          <tr>
+            <th colspan="4">
+              <input ng-model="filterBy" placeholder="filter by" class="input-sm form-control" type="search"/>
+            </th>
+          </tr>
+          </thead>
+          <tbody>
+
+          <tr ng-repeat="row in rowCollection  | filter:filterBy">
+            <td><span class="text-nowrap"><img ng-src="{{row.icon}}"><strong> {{row.name }}</strong></span></td>
+            <td>{{row.firstName}}</td>
+            <td>{{row.PID}}</td>
+            <td>{{row.oe}}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div ng-show="tab == 'governance.datafamily'">
+      <div ng-controller="GovfamiliesCtrl" >
+        <table st-table="rowCollection" class="table table-striped">
+          <thead>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <th colspan="4">
+              <input ng-model="filterBy" placeholder="filter by" class="input-sm form-control" type="search"/>
+            </th>
+          </tr>
+          </thead>
+          <tbody>
+
+          <tr ng-repeat="row in rowCollection  | filter:filterBy">
+            <td><span class="text-nowrap"><img ng-src="{{row.icon}}"><strong> {{row.name }}</strong></span></td>
+            <td>{{row.description}}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div ng-show="tab == 'governance.ownershiparea'">
+      <div ng-controller="GovareasCtrl" >
+        <table st-table="rowCollection" class="table table-striped">
+          <thead>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <th colspan="4">
+              <input ng-model="filterBy" placeholder="filter by" class="input-sm form-control" type="search"/>
+            </th>
+          </tr>
+          </thead>
+          <tbody>
+
+          <tr ng-repeat="row in rowCollection  | filter:filterBy">
+            <td><span class="text-nowrap"><img ng-src="{{row.icon}}"><strong> {{row.name }}</strong></span></td>
+            <td>{{row.description}}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
 
   </div>
 </div>

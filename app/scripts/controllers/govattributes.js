@@ -10,8 +10,6 @@
 angular.module('cdoWebApp')
   .controller('GovattributesCtrl', ['$scope', '$log', 'RepoAccessService', 'CalculateUrlService',  function (scope, log, RepoAccessService, CalculateUrlService) {
     log.info("GovattributesCtrl")
-    scope.itemsByPage=15;
-
 
     scope.rowCollection = [];
 
