@@ -8,11 +8,12 @@
  * Controller of the cdoWebApp
  */
 angular.module('cdoWebApp')
-  .controller('GovattributesCtrl', function ($scope, $log, RepoAccessService, CalculateUrlService) {
+  .controller('GovattributesCtrl', ['$scope', '$log', 'RepoAccessService', 'CalculateUrlService',  function (scope, log, RepoAccessService, CalculateUrlService) {
+    log.info("GovattributesCtrl")
+    scope.itemsByPage=15;
 
-    $scope.itemsByPage=1500;
 
-    $scope.rowCollection = [];
+    scope.rowCollection = [];
 
     RepoAccessService.get('/obj/repo/governance.GovernanceAttribute?rrefs', function (data, status) {
 
@@ -25,7 +26,6 @@ angular.module('cdoWebApp')
           entry.icon = CalculateUrlService.getUrl(result[j].icon);
           entry.id = result[j].attributes.CDA_ID;
           entry.name = result[j].attributes.name;
-          entry.id = result[j].attributes.CDA_ID;
           entry.description = result[j].attributes.description;
           if (result[j].references.owner !== undefined) {
             entry.owner = result[j].references.owner.attributes.firstName + ' ' + result[j].references.owner.attributes.name;
@@ -42,12 +42,13 @@ angular.module('cdoWebApp')
 
           entry.state = result[j].attributes.lifecycleState;
 
-          $scope.rowCollection.push(entry);
+          scope.rowCollection.push(entry);
         }
 
       } else {
 
       }
+
     });
 
-  });
+  }]);
