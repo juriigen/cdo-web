@@ -25,15 +25,15 @@
 <![endif]-->
 
 <!-- Add your site or application content here -->
-<div class="container-fluid">
+<div class="container">
 
   <div class="header">
 
     <ul ng-controller="NavCtrl" class="nav nav-pills pull-right">
       <li ng-class="{ active: isActive('/governance') }"><a ng-href="#/governance">Governance</a></li>
-      <li ng-class="{ active: isActive('/app') }"><a ng-href="#/app">Applications</a></li>
+ <!--     <li ng-class="{ active: isActive('/app') }"><a ng-href="#/app">Applications</a></li>
       <li ng-class="{ active: isActive('/db') }"><a ng-href="#/db">Data Bases</a></li>
-      <li ng-class="{ active: isActive('/interface') }"><a ng-href="#/interface">Interfaces</a></li>
+      <li ng-class="{ active: isActive('/interface') }"><a ng-href="#/interface">Interfaces</a></li>-->
       <li ng-class="{ active: isActive('/repo') }"><a ng-href="#/repo">Repository</a></li>
       <li ng-class="{ active: isActive('/login') }" ng-show="globals.currentUser != undefined"><a ng-href="#/login">Log
         out</a></li>

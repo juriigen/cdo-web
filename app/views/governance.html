@@ -24,22 +24,23 @@
             <th>State</th>
 
           </tr>
-        <!--  <tr>
-            <th colspan="5">
+         <!-- <tr>
+            <th colspan="8">
               <input st-search placeholder="global search" class="input-sm form-control" type="search"/>
             </th>
           </tr>-->
           </thead>
           <tbody>
+
           <tr ng-repeat="row in rowCollection">
-            <td>{{row.attributes.name }}</td>
-            <td>{{row.attributes.CDA_ID}}</td>
-            <td>{{row.attributes.description}}</td>
-            <td>{{row.references.owner.attributes.name}}</td>
-            <td>{{row.references.deputy.attributes.name}}</td>
-            <td>{{row.references.ownerShipArea.attributes.name}}</td>
-            <td>{{row.references.dataFamily.attributes.name}}</td>
-            <td>{{row.attributes.lifecycleState}}</td>
+            <td><div><img ng-src="{{row.icon}}"><strong> {{row.name }}</strong></div></td>
+            <td>{{row.id}}</td>
+            <td>{{row.description}}</td>
+            <td>{{row.owner}}</td>
+            <td>{{row.deputy}}</td>
+            <td>{{row.area}}</td>
+            <td>{{row.family}}</td>
+            <td>{{row.state}}</td>
           </tr>
           </tbody>
           <tfoot>
