@@ -38,7 +38,7 @@
 
         <span ng-repeat="reference in selectedObject.meta.references">
 
-          <div ng-if="reference.derived === false && reference.containment === false && reference.upperBound === 1"
+          <div ng-if="reference.derived === false && reference.upperBound === 1 && (selectedObject.references[reference.feature] !== undefined || selectedObject.permission === 'WRITE')"
                class="form-group">
 
 
@@ -87,7 +87,7 @@
             </div>
           </div>
 
-          <div ng-if="reference.derived === false && reference.containment === false && reference.upperBound !== 1"
+          <div ng-if="reference.derived === false && reference.upperBound !== 1 && (selectedObject.references[reference.feature] !== undefined || selectedObject.permission === 'WRITE')"
                class="form-group">
             <div class="col-sm-12">
               <label class="control-label">{{reference.feature}}</label>

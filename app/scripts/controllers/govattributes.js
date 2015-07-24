@@ -8,7 +8,7 @@
  * Controller of the cdoWebApp
  */
 angular.module('cdoWebApp')
-  .controller('GovattributesCtrl', ['$scope', '$log', 'RepoAccessService', 'CalculateUrlService',  function (scope, log, RepoAccessService, CalculateUrlService) {
+  .controller('GovattributesCtrl', ['$scope', '$log', 'RepoAccessService', 'CalculateUrlService', 'ContextService',  function (scope, log, RepoAccessService, CalculateUrlService, ContextService) {
     log.info("GovattributesCtrl")
 
     scope.rowCollection = [];
@@ -39,7 +39,7 @@ angular.module('cdoWebApp')
           }
 
           entry.state = result[j].attributes.lifecycleState;
-
+          entry.url = result[j]._links.self.href;
           scope.rowCollection.push(entry);
         }
 
@@ -48,5 +48,9 @@ angular.module('cdoWebApp')
       }
 
     });
+
+    scope.setNewObject = function(url) {
+      ContextService.setSelectedObject(url);
+    };
 
   }]);

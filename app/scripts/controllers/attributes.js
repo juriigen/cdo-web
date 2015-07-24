@@ -83,7 +83,7 @@ angular.module('cdoWebApp')
       } else {
         $scope.status = undefined;
       }
-      $log.debug('AttributesCtrl.objectSelected - reset status ' + $scope.selectedObject.id);
+      //$log.debug('AttributesCtrl.objectSelected - reset status ' + $scope.selectedObject.id);
     });
 
     $scope.$on('updateSelectedObject', function (scope, data) {

@@ -8,7 +8,7 @@
  * Controller of the cdoWebApp
  */
 angular.module('cdoWebApp')
-  .controller('GovfamiliesCtrl', ['$scope', '$log', 'RepoAccessService', 'CalculateUrlService',  function (scope, log, RepoAccessService, CalculateUrlService) {
+  .controller('GovfamiliesCtrl', ['$scope', '$log', 'RepoAccessService', 'CalculateUrlService', 'ContextService',  function (scope, log, RepoAccessService, CalculateUrlService, ContextService) {
     log.info("GovfamiliesCtrl")
 
     scope.rowCollection = [];
@@ -24,7 +24,7 @@ angular.module('cdoWebApp')
           entry.icon = CalculateUrlService.getUrl(result[j].icon);
           entry.name = result[j].attributes.name;
           entry.description = result[j].attributes.description;
-
+          entry.url = result[j]._links.self.href;
           scope.rowCollection.push(entry);
         }
 
@@ -33,5 +33,9 @@ angular.module('cdoWebApp')
       }
 
     });
+
+    scope.setNewObject = function(url) {
+      ContextService.setSelectedObject(url);
+    };
 
   }]);

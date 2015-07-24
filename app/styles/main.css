@@ -49,9 +49,9 @@ body {
 }
 
 /* Customize container */
-@media (min-width: 1000px) {
+@media (min-width: 1300px) {
   .container {
-    max-width: 1000px;
+    max-width: 1600px;
   }
 }
 .container-narrow > hr {

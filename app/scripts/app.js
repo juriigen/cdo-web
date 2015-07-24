@@ -81,8 +81,8 @@ angular
     $httpProvider.defaults.withCredentials = true;
   })
   .config(function($logProvider){
-    $logProvider.debugEnabled(false);
-    //$logProvider.debugEnabled(true);
+    //$logProvider.debugEnabled(false);
+    $logProvider.debugEnabled(true);
   })
   .run(['$rootScope', '$location', '$cookieStore', '$http',
     function ($rootScope, $location, $cookieStore, $http) {
