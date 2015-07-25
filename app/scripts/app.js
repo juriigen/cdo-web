@@ -63,8 +63,8 @@ angular
       })
       .state('db', {
         url: '/db',
-        controller: 'RepoCtrl',
-        templateUrl: 'views/repo.html'
+        controller: 'DbCtrl',
+        templateUrl: 'views/db.html'
       })
       .state('interface', {
         url: '/interface',

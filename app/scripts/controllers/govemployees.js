@@ -9,11 +9,11 @@
  */
 angular.module('cdoWebApp')
   .controller('GovemployeesCtrl', ['$scope', '$log', 'RepoAccessService', 'CalculateUrlService', 'ContextService',  function (scope, log, RepoAccessService, CalculateUrlService, ContextService) {
-    log.info("GovemployeesCtrl")
+    log.debug("GovemployeesCtrl")
 
     scope.rowCollection = [];
 
-    RepoAccessService.get('/obj/repo/governance.Employee?rrefs', function (data, status) {
+    RepoAccessService.get('/obj/repo/governance.Employee', function (data, status) {
 
       if (status === 200) {
         var result = data.data

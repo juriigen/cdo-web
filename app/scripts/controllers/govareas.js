@@ -9,11 +9,11 @@
  */
 angular.module('cdoWebApp')
   .controller('GovareasCtrl', ['$scope', '$log', 'RepoAccessService', 'CalculateUrlService', 'ContextService',  function (scope, log, RepoAccessService, CalculateUrlService, ContextService) {
-    log.info("GovareasCtrl")
+    log.debug("GovareasCtrl")
 
     scope.rowCollection = [];
 
-    RepoAccessService.get('/obj/repo/governance.OwnerShipArea?rrefs', function (data, status) {
+    RepoAccessService.get('/obj/repo/governance.OwnerShipArea', function (data, status) {
 
       if (status === 200) {
         var result = data.data

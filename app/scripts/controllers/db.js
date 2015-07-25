@@ -2,16 +2,16 @@
 
 /**
  * @ngdoc function
- * @name cdoWebApp.controller:AppCtrl
+ * @name cdoWebApp.controller:DbCtrl
  * @description
- * # AppCtrl
+ * # DbCtrl
  * Controller of the cdoWebApp
  */
 angular.module('cdoWebApp')
-  .controller('AppCtrl', function ($rootScope, $scope, $state, $log, RepoAccessService, CalculateUrlService, ContextService) {
+  .controller('DbCtrl', function ($rootScope, $scope, $state, $log, RepoAccessService, CalculateUrlService, ContextService) {
     $scope.rowCollection = [];
 
-    RepoAccessService.get('/obj/repo/app.Application', function (data, status) {
+    RepoAccessService.get('/obj/repo/db.Table', function (data, status) {
 
       if (status === 200) {
         var result = data.data
@@ -23,7 +23,6 @@ angular.module('cdoWebApp')
           entry.name = result[j].attributes.name;
           entry.id = result[j].attributes.ID;
           entry.description = result[j].attributes.description;
-          entry.ictoID = result[j].attributes.ICTOiD;
           entry.url = result[j]._links.self.href;
           $scope.rowCollection.push(entry);
         }
@@ -42,7 +41,7 @@ angular.module('cdoWebApp')
     $scope.$on('objectSelected', function (scope, data, status) {
 
       $scope.selectedObject = data;
-      $log.debug('AppCtrl.objectSelected - received event - id ' + $scope.selectedObject.id);
+      $log.debug('DbCtrl.objectSelected - received event - id ' + $scope.selectedObject.id);
 
       $scope.status = status;
       $log.debug('>> set status to scope - ' + status.status);
@@ -50,6 +49,7 @@ angular.module('cdoWebApp')
 
     $scope.$on('updateSelectedObject', function (scope, data) {
       $scope.selectedObject = data;
-      $log.debug('AppCtrl.updateSelectedObject - received event');
+      $log.debug('DbCtrl.updateSelectedObject - received event');
     });
   });
+
