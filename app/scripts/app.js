@@ -58,8 +58,8 @@ angular
       })
       .state('app', {
         url: '/app',
-        controller: 'RepoCtrl',
-        templateUrl: 'views/repo.html'
+        controller: 'AppCtrl',
+        templateUrl: 'views/app.html'
       })
       .state('db', {
         url: '/db',
