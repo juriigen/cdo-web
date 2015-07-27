@@ -32,13 +32,10 @@ angular.module('cdoWebApp')
           var result = data.data
 
           for (var j = 0; j < result.length; j++) {
-
-            var entry = {};
-            entry.icon = CalculateUrlService.getUrl(result[j].icon);
-            entry.name = result[j].attributes.name;
-            entry.id = result[j].attributes.ID;
-            entry.description = result[j].attributes.description;
-            entry.url = result[j]._links.self.href;
+            var label = result[j].label;
+            if (label.length > 50) {
+              result[j].label = label.substring(0, 50) + ' ...';
+            }
             result[j].icon = CalculateUrlService.getUrl(result[j].icon);
             $scope.rowCollection.push(result[j]);
           }
