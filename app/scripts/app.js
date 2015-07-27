@@ -77,6 +77,11 @@ angular
       .state('ifms.corba', {
         url: '/corba'
       })
+      .state('search', {
+        url: '/search',
+        controller: 'IfmsCtrl',
+        templateUrl: 'views/ifms.html'
+      })
       .state('repo.json', {
         url: '/json'
       });
