@@ -79,8 +79,8 @@ angular
       })
       .state('search', {
         url: '/search',
-        controller: 'IfmsCtrl',
-        templateUrl: 'views/ifms.html'
+        controller: 'SearchCtrl',
+        templateUrl: 'views/search.html'
       })
       .state('repo.json', {
         url: '/json'

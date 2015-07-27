@@ -34,15 +34,15 @@
       <li ng-class="{ active: isActive('/app') }"><a ng-href="#/app">Applications</a></li>
       <li ng-class="{ active: isActive('/db') }"><a ng-href="#/db">Data Bases</a></li>
       <li ng-class="{ active: isActive('/ifms') }"><a ng-href="#/ifms">Interfaces</a></li>
-      <li ng-class="{ active: isActive('/search') }"><a ng-href="#/search"><img src="images/search.gif"> Search</a></li>
-      <li ng-class="{ active: isActive('/repo') }"><a ng-href="#/repo"><img src="images/repo.gif"> Repository</a></li>
-      <li ng-class="{ active: isActive('/login') }" ng-show="globals.currentUser != undefined"><a ng-href="#/login">Log
+      <li ng-class="{ active: isActive('/search') }"><a ng-href="#/search"><i class="glyphicon glyphicon-search"></i> Search</a></li>
+      <li ng-class="{ active: isActive('/repo') }"><a ng-href="#/repo"><i class="glyphicon glyphicon-globe"></i> Repository</a></li>
+      <li ng-class="{ active: isActive('/login') }" ng-show="globals.currentUser != undefined"><a ng-href="#/login"><i class="glyphicon glyphicon-off"></i> Log
         out</a></li>
       <li ng-class="{ active: isActive('/login') }" ng-show="globals.currentUser == undefined"><a ng-href="#/login">Log
         in</a></li>
     </ul>
     <img src="images/logo_cs.png">
-    <div class="text-info">TMDR - Tactical Meta Data Repository <img ng-if="update" src="images/loading.gif"></div>
+    <div class="text-info">TMDR - Tactical Meta Data Repository <i ng-if="update" class="loading glyphicon glyphicon-repeat"></i></div>
   </div>
 
   <div class="row">
@@ -117,6 +117,7 @@
 <script src="scripts/controllers/ifmsbulk.js"></script>
 <script src="scripts/controllers/ifmsws.js"></script>
 <script src="scripts/controllers/ifmscorba.js"></script>
+<script src="scripts/controllers/search.js"></script>
 <!-- endbuild -->
 </body>
 </html>

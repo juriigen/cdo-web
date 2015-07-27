@@ -1,0 +1,57 @@
+<div>
+  <div class="col-xs-5">
+    <div class="panel panel-primary">
+      <div class="panel-heading"><i class="glyphicon glyphicon-search"></i> Search</div>
+
+      <div class="panel-body">
+        <form name="searchForm" ng-submit="search()" novalidate role="form">
+          <div class="form-group">
+            <input type="text" name="query" id="query" class="form-control" ng-model="query"
+                   placeholder="Query" required/>
+          </div>
+          <div class="form-group">
+            <select
+                    ng-model="searchType"
+                    ng-options="opt as opt for opt in searchLiterals"
+                    class="form-control"
+                    id="searchType"
+                    name="searchType"
+                    ng-required="true">
+            </select>
+          </div>
+          <div class="form-actions">
+            <button type="submit" ng-disabled="searchForm.$invalid" class="btn btn-success">Search
+            </button>
+          </div>
+        </form>
+      </div>
+
+    </div>
+    <table st-table="rowCollection" class="table table-striped">
+      <thead>
+      <tr>
+        <th>Name</th>
+
+      </tr>
+      <tr>
+        <th colspan="8">
+          <input ng-model="filterBy" placeholder="filter by" class="input-sm form-control" type="search"/>
+        </th>
+      </tr>
+      </thead>
+      <tbody>
+
+      <tr ng-repeat="row in rowCollection  | filter:filterBy">
+        <td><span class="text-nowrap"><img ng-src="{{row.icon}}"><a href ng-click="setNewObject(row.url)"><strong> {{row.name }}</strong></a></span></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="col-xs-7">
+    <attributes-form></attributes-form>
+    <references-form></references-form>
+    <object-identity></object-identity>
+  </div>
+</div>
+
