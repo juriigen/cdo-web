@@ -2,18 +2,18 @@
 
 /**
  * @ngdoc function
- * @name cdoWebApp.controller:GovemployeesCtrl
+ * @name cdoWebApp.controller:IfmscorbaCtrl
  * @description
- * # GovemployeesCtrl
+ * # IfmscorbaCtrl
  * Controller of the cdoWebApp
  */
 angular.module('cdoWebApp')
-  .controller('GovemployeesCtrl', ['$scope', '$log', 'RepoAccessService', 'CalculateUrlService', 'ContextService',  function (scope, log, RepoAccessService, CalculateUrlService, ContextService) {
-    log.debug("GovemployeesCtrl")
+  .controller('IfmscorbaCtrl', ['$scope', '$log', 'RepoAccessService', 'CalculateUrlService', 'ContextService',  function (scope, log, RepoAccessService, CalculateUrlService, ContextService) {
+    log.debug("IfmscorbaCtrl")
 
     scope.rowCollection = [];
 
-    RepoAccessService.get('/obj/repo/governance.Employee', function (data, status) {
+    RepoAccessService.get('/obj/repo/ifms.CorbaInterface', function (data, status) {
 
       if (status === 200) {
         var result = data.data
@@ -23,9 +23,8 @@ angular.module('cdoWebApp')
           var entry = {};
           entry.icon = CalculateUrlService.getUrl(result[j].icon);
           entry.name = result[j].attributes.name;
-          entry.firstName = result[j].attributes.firstName;
-          entry.PID = result[j].attributes.ID;
-          entry.oe = result[j].attributes.oeCode;
+          entry.id = result[j].ID;
+          entry.description = result[j].attributes.description;
           entry.url = result[j]._links.self.href;
           scope.rowCollection.push(entry);
         }
@@ -39,5 +38,4 @@ angular.module('cdoWebApp')
     scope.setNewObject = function(url) {
       ContextService.setSelectedObject(url);
     };
-
   }]);

@@ -22,7 +22,7 @@ angular.module('cdoWebApp')
 
           var entry = {};
           entry.icon = CalculateUrlService.getUrl(result[j].icon);
-          entry.id = result[j].attributes.CDA_ID;
+          entry.id = result[j].attributes.ID;
           entry.name = result[j].attributes.name;
           entry.description = result[j].attributes.description;
 

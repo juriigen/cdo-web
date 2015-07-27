@@ -66,10 +66,16 @@ angular
         controller: 'DbCtrl',
         templateUrl: 'views/db.html'
       })
-      .state('interface', {
-        url: '/interface',
-        controller: 'RepoCtrl',
-        templateUrl: 'views/repo.html'
+      .state('ifms', {
+        url: '/ifms',
+        controller: 'IfmsCtrl',
+        templateUrl: 'views/ifms.html'
+      })
+      .state('ifms.ws', {
+        url: '/ws'
+      })
+      .state('ifms.corba', {
+        url: '/corba'
       })
       .state('repo.json', {
         url: '/json'
