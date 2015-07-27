@@ -15,6 +15,7 @@ angular.module('cdoWebApp')
 
     $scope.search = function() {
       $log.debug('Search ' + $scope.searchType + ' ' + $scope.query);
+      $scope.rowCollection = [];
       var param = '';
       if ($scope.searchType === $scope.searchLiterals[0]) {
         param = 'ID=' + $scope.query;
@@ -38,7 +39,8 @@ angular.module('cdoWebApp')
             entry.id = result[j].attributes.ID;
             entry.description = result[j].attributes.description;
             entry.url = result[j]._links.self.href;
-            $scope.rowCollection.push(entry);
+            result[j].icon = CalculateUrlService.getUrl(result[j].icon);
+            $scope.rowCollection.push(result[j]);
           }
 
         } else {
@@ -46,31 +48,8 @@ angular.module('cdoWebApp')
         }
 
       });
-    }
-/*
-    RepoAccessService.get('/obj/repo/app.Application', function (data, status) {
+    };
 
-      if (status === 200) {
-        var result = data.data
-
-        for (var j = 0; j < result.length; j++) {
-
-          var entry = {};
-          entry.icon = CalculateUrlService.getUrl(result[j].icon);
-          entry.name = result[j].attributes.name;
-          entry.id = result[j].attributes.ID;
-          entry.description = result[j].attributes.description;
-          entry.ictoID = result[j].attributes.ICTOiD;
-          entry.url = result[j]._links.self.href;
-          $scope.rowCollection.push(entry);
-        }
-
-      } else {
-
-      }
-
-    });
-*/
     $scope.setNewObject = function(url) {
       ContextService.setSelectedObject(url);
     };
