@@ -32,7 +32,7 @@
       <li class="list-group-item" ng-repeat="row in rowCollection">
         <img ng-src="{{row.icon}}">
         <a ng-if="row.id !== undefined" href ng-click="setNewObject(row._links.self.href)">
-          <strong class="reflink">{{row.label}}</strong>
+          <strong class="reflink" ng-bind-html="row.label | highlight:query">{{row.label}}</strong>
           <i class="small"> - {{row.id}} - {{row.type}}</i>
         </a>
       </li>
