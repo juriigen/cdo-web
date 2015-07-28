@@ -27,7 +27,7 @@
           <tbody>
 
           <tr ng-repeat="row in rowCollection  | filter:filterBy">
-            <td><span class="text-nowrap"><img ng-src="{{row.icon}}"><a href ng-click="setNewObject(row.url)" ng-bind-html="row.name | highlight:filterBy"><strong> {{row.name }}</strong></a></span></td>
+            <td><span class="text-nowrap"><img ng-src="{{row.icon}}"> <a href ng-click="setNewObject(row.url)" ng-bind-html="row.name | highlight:filterBy"><strong> {{row.name }}</strong></a></span></td>
             <td ng-bind-html="row.description | highlight:filterBy">{{row.description}}</td>
           </tr>
           </tbody>
@@ -56,7 +56,7 @@
           <tbody>
 
           <tr ng-repeat="row in rowCollection  | filter:filterBy">
-            <td><span class="text-nowrap"><img ng-src="{{row.icon}}"><a href ng-click="setNewObject(row.url)" ng-bind-html="row.name | highlight:filterBy"><strong> {{row.name }}</strong></a></span></td>
+            <td><span class="text-nowrap"><img ng-src="{{row.icon}}"> <a href ng-click="setNewObject(row.url)" ng-bind-html="row.name | highlight:filterBy"><strong> {{row.name }}</strong></a></span></td>
             <td ng-bind-html="row.firstName | highlight:filterBy">{{row.firstName}}</td>
             <td ng-bind-html="row.PID | highlight:filterBy">{{row.PID}}</td>
             <td ng-bind-html="row.oe | highlight:filterBy">{{row.oe}}</td>
@@ -83,7 +83,7 @@
           <tbody>
 
           <tr ng-repeat="row in rowCollection  | filter:filterBy">
-            <td><span class="text-nowrap"><img ng-src="{{row.icon}}"><a href ng-bind-html="row.name | highlight:filterBy" ng-click="setNewObject(row.url)"><strong> {{row.name }}</strong></a></span></td>
+            <td><span class="text-nowrap"><img ng-src="{{row.icon}}"> <a href ng-bind-html="row.name | highlight:filterBy" ng-click="setNewObject(row.url)"><strong> {{row.name }}</strong></a></span></td>
             <td ng-bind-html="row.description | highlight:filterBy">{{row.description}}</td>
           </tr>
           </tbody>
@@ -108,7 +108,7 @@
           <tbody>
 
           <tr ng-repeat="row in rowCollection  | filter:filterBy">
-            <td><span class="text-nowrap"><img ng-src="{{row.icon}}"><a href ng-bind-html="row.name | highlight:filterBy" ng-click="setNewObject(row.url)"><strong > {{row.name }}</strong></a></span></span></td>
+            <td><span class="text-nowrap"><img ng-src="{{row.icon}}"> <a href ng-bind-html="row.name | highlight:filterBy" ng-click="setNewObject(row.url)"><strong > {{row.name }}</strong></a></span></span></td>
             <td ng-bind-html="row.description | highlight:filterBy">{{row.description}}</td>
           </tr>
           </tbody>
