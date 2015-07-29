@@ -82,9 +82,13 @@
 
           <textarea markdown-editor name="{{attribute.feature}}" data-provide="markdown-editable" rows="10" ng-if="attribute.jsType === 'string' && attribute.type === 'base.FLMarkdown' && selectedObject.permission === 'WRITE'"
                     ng-model="selectedObject.attributes[attribute.feature]"></textarea>
+          <div ng-if="attribute.jsType === 'string' && attribute.type === 'ecore.xml.type.Base64Binary' && selectedObject.permission === 'WRITE'">
+            <input class="form-control" type="file" ng-model="selectedObject.attributes[attribute.feature]" multiple base-sixty-four-input><br>
+            <img ng-src="data:image/gif;base64,{{selectedObject.attributes[attribute.feature][0].base64}}" ng-if="selectedObject.attributes[attribute.feature] !== undefined">
+          </div>
 
-          <input type="file" ng-model="selectedObject.attributes[attribute.feature]" multiple base-sixty-four-input ng-if="attribute.jsType === 'string' && attribute.type === 'ecore.xml.type.Base64Binary' && selectedObject.permission === 'WRITE'">
 
+          <img ng-src="data:image/gif;base64,{{selectedObject.attributes[attribute.feature]}}" ng-if="attribute.jsType === 'string' && attribute.type === 'ecore.xml.type.Base64Binary' && selectedObject.permission === 'READ'">
           <!-- jsType === number -->
           <input ng-if="attribute.jsType === 'number'"
                  ng-model="selectedObject.attributes[attribute.feature]"
