@@ -23,7 +23,7 @@
             <i class="glyphicon glyphicon-exclamation-sign"></i> <label>constraint violation
             {{diagnostic.origin}}</label>
 
-            <div ng-repeat="revisionDelta in diagnostic.diagnostic">
+            <div ng-repeat="revisionDelta in diagnostic.diagnostic" ng-if="revisionDelta.feature.substring(0, 1) === 'r'">
               <li>{{revisionDelta.message}}</li>
               <div ng-repeat="detail in revisionDelta.details">
                 <li>{{detail}}</li>
