@@ -69,6 +69,11 @@ angular
         controller: 'AppCtrl',
         templateUrl: 'views/app.html'
       })
+      .state('screen', {
+        url: '/screen',
+        controller: 'ScreenCtrl',
+        templateUrl: 'views/screen.html'
+      })
       .state('db', {
         url: '/db',
         controller: 'DbCtrl',
