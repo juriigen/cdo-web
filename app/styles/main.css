@@ -110,3 +110,10 @@ body {
   from {-webkit-transform: rotate(0deg);}
   to   {-webkit-transform: rotate(359deg);}
 }
+
+.screenShot {
+
+  width:100%;
+  height: 100%;
+
+}
