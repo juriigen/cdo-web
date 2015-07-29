@@ -59,7 +59,7 @@
           </div>
 
           <!-- jsType === string -->
-          <input ng-if="attribute.jsType === 'string' && attribute.type !== 'base.FLMarkdown'"
+          <input ng-if="attribute.jsType === 'string' && attribute.type !== 'base.FLMarkdown' && attribute.type !== 'ecore.xml.type.Base64Binary'"
                  ng-model="selectedObject.attributes[attribute.feature]"
                  type="text"
                  class="form-control"
@@ -83,7 +83,7 @@
           <textarea markdown-editor name="{{attribute.feature}}" data-provide="markdown-editable" rows="10" ng-if="attribute.jsType === 'string' && attribute.type === 'base.FLMarkdown' && selectedObject.permission === 'WRITE'"
                     ng-model="selectedObject.attributes[attribute.feature]"></textarea>
 
-
+          <input type="file" ng-model="selectedObject.attributes[attribute.feature]" multiple base-sixty-four-input ng-if="attribute.jsType === 'string' && attribute.type === 'ecore.xml.type.Base64Binary' && selectedObject.permission === 'WRITE'">
 
           <!-- jsType === number -->
           <input ng-if="attribute.jsType === 'number'"
