@@ -123,6 +123,18 @@ angular.module('cdoWebApp')
       }
     });
 
-
+    $scope.showObject = function(meta, obj) {
+      if (obj.permission === 'WRITE') {
+        if (meta.containment === false) {
+          return true;
+        }
+      }
+      if (obj.permission === 'READ') {
+        if (obj.references[meta.feature] !== undefined) {
+          return true;
+        }
+      }
+      return false;
+    }
 
   });
