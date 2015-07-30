@@ -10,7 +10,7 @@
 
     <h3 class="text-muted"></h3>
     <div ng-show="tab == 'governance'">
-      <div ng-controller="GovattributesCtrl" >
+      <div ng-controller="GovattributesCtrl" class="panel panel-default">
         <table st-table="rowCollection" class="table table-striped">
           <thead>
           <tr>
@@ -37,7 +37,7 @@
     </div>
 
     <div ng-show="tab == 'governance.employee'">
-      <div ng-controller="GovemployeesCtrl" >
+      <div ng-controller="GovemployeesCtrl" class="panel panel-default">
         <table st-table="rowCollection" class="table table-striped">
           <thead>
           <tr>
@@ -67,7 +67,7 @@
     </div>
 
     <div ng-show="tab == 'governance.datafamily'">
-      <div ng-controller="GovfamiliesCtrl" >
+      <div ng-controller="GovfamiliesCtrl" class="panel panel-default">
         <table st-table="rowCollection" class="table table-striped">
           <thead>
           <tr>
@@ -92,7 +92,7 @@
     </div>
 
     <div ng-show="tab == 'governance.ownershiparea'">
-      <div ng-controller="GovareasCtrl" >
+      <div ng-controller="GovareasCtrl" class="panel panel-default">
         <table st-table="rowCollection" class="table table-striped">
           <thead>
           <tr>

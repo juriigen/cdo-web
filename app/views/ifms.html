@@ -8,7 +8,7 @@
 
     <h3 class="text-muted"></h3>
     <div ng-show="tab == 'ifms'">
-      <div ng-controller="IfmsbulkCtrl" >
+      <div ng-controller="IfmsbulkCtrl" class="panel panel-default">
         <table st-table="rowCollection" class="table table-striped">
           <thead>
           <tr>
@@ -32,7 +32,7 @@
     </div>
 
     <div ng-show="tab == 'ifms.ws'">
-      <div ng-controller="IfmswsCtrl" >
+      <div ng-controller="IfmswsCtrl" class="panel panel-default">
         <table st-table="rowCollection" class="table table-striped">
           <thead>
           <tr>
@@ -55,7 +55,7 @@
     </div>
 
     <div ng-show="tab == 'ifms.corba'">
-      <div ng-controller="IfmscorbaCtrl" >
+      <div ng-controller="IfmscorbaCtrl" class="panel panel-default">
         <table st-table="rowCollection" class="table table-striped">
           <thead>
           <tr>
