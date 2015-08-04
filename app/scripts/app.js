@@ -103,7 +103,7 @@ angular
   })
   .config(['$httpProvider', function ($httpProvider) {
     // enable http caching
-    $httpProvider.defaults.cache = true;
+    $httpProvider.defaults.cache = false;
   }])
   .config(function ($httpProvider) {
     //Enable cross domain calls
