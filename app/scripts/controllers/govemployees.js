@@ -27,6 +27,12 @@ angular.module('cdoWebApp')
           entry.PID = result[j].attributes.ID;
           entry.oe = result[j].attributes.oeCode;
           entry.url = result[j]._links.self.href;
+          if (result[j]._links.references.owns !== undefined) {
+            entry.owns = result[j]._links.references.owns.size;
+          } else {
+            entry.owns = 0;
+          }
+
           scope.rowCollection.push(entry);
         }
 

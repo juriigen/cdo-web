@@ -25,6 +25,11 @@ angular.module('cdoWebApp')
           entry.name = result[j].attributes.name;
           entry.description = result[j].attributes.description;
           entry.url = result[j]._links.self.href;
+          if (result[j]._links.references.governanceAttributes !== undefined) {
+            entry.owns = result[j]._links.references.governanceAttributes.size;
+          } else {
+            entry.owns = 0;
+          }
           scope.rowCollection.push(entry);
         }
 
