@@ -43,8 +43,8 @@
 
 
             <div class="col-sm-12">
-              <label class="control-label">{{reference.feature}}</label>
-              <ul class="list-group">
+              <label class="control-label reflink" ng-click="show = !show">{{reference.feature}}</label>
+              <ul class="list-group" ng-show="show">
                 <li ng-if="selectedObject.references[reference.feature] !== undefined" class="list-group-item">
                   <div>
                     <ref-link ref-object="selectedObject.references[reference.feature]"
@@ -137,8 +137,8 @@
             ng-if="reference.derived === true && reference.upperBound === 1 && selectedObject.references[reference.feature] !== undefined"
             class="form-group">
             <div class="col-sm-12">
-              <label class="control-label">/{{reference.feature}}</label>
-              <ul class="list-group">
+              <label class="control-label reflink" ng-click="show = !show">/{{reference.feature}}</label>
+              <ul class="list-group" ng-show="show">
                 <li class="list-group-item">
                   <ref-link ref-object="selectedObject.references[reference.feature]"
                             ref-feature="reference.feature"></ref-link>
