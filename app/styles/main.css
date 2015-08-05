@@ -21,6 +21,12 @@ body {
   cursor: pointer;
 }
 
+.reflink:hover,
+.reflink:focus {
+  color: #23527c;
+  text-decoration: underline;
+}
+
 .form-horizontal .control-label{
   /* text-align:right; */
   text-align:left;
