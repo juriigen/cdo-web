@@ -3,13 +3,19 @@
 angular.module('Authentication')
 
   .controller('LoginController',
-  ['$scope', '$rootScope', '$location', 'toaster', 'AuthenticationService',
-    function ($scope, $rootScope, $location, toaster, AuthenticationService) {
+  ['$scope', '$rootScope', '$location', '$log', 'toaster', 'AuthenticationService',
+    function ($scope, $rootScope, $location, $log, toaster, AuthenticationService) {
       // reset login status
       AuthenticationService.ClearCredentials();
 
+      $scope.rendpoint = $rootScope.endpoint;
+
+
       $scope.login = function () {
         $scope.dataLoading = true;
+        $rootScope.endpoint = $scope.rendpoint;
+        $log.debug("Repo Endpoint - " + $rootScope.endpoint)
+
         AuthenticationService.Login($scope.username, $scope.password, function (data, status) {
           if (status === 200) {
             toaster.pop('success', 'Authentication ok', 'Welcome ' + $scope.username);
