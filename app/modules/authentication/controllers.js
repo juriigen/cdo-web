@@ -21,7 +21,7 @@ angular.module('Authentication')
             toaster.pop('success', 'Authentication ok', 'Welcome ' + $scope.username);
             $rootScope.$broadcast('repoRootNodeUpdated', data);
             AuthenticationService.SetCredentials($scope.username, $scope.password);
-            $location.path('/governance');
+            $location.path('/repo');
           } else {
             $scope.error = data.message;
             $scope.dataLoading = false;
