@@ -31,9 +31,9 @@
       </alert>
 
       <div ng-repeat="attribute in selectedObject.meta.attributes" ng-show="selectedObject.attributes[attribute.feature] !== undefined && selectedObject.attributes[attribute.feature].length > 0|| selectedObject.permission === 'WRITE'" class="form-group">
-        <label class="control-label col-sm-2" for="{{attribute.feature}}"><span ng-if="attribute.derived === true">/</span>{{attribute.feature}}</label>
+        <label class="control-label col-sm-4" for="{{attribute.feature}}"><span ng-if="attribute.derived === true">/</span>{{attribute.feature}}</label>
 
-        <div class="col-sm-10"
+        <div class="col-sm-8"
              ng-class="{ 'has-warning' : (attributesForm[attribute.feature].$error.required
              || attributesForm[attribute.feature].$error.pattern
              || attributesForm[attribute.feature].$error.number
