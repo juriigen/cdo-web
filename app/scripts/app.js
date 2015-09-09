@@ -51,46 +51,6 @@ angular
         controller: 'RepoCtrl',
         templateUrl: 'views/repo.html'
       })
-      .state('governance', {
-        url: '/governance',
-        controller: 'GovernanceCtrl',
-        templateUrl: 'views/governance.html'
-      })
-      .state('governance.employee', {
-        url: '/employee'
-      })
-      .state('governance.datafamily', {
-        url: '/datafamily'
-      })
-      .state('governance.ownershiparea', {
-        url: '/ownershiparea'
-      })
-      .state('app', {
-        url: '/app',
-        controller: 'AppCtrl',
-        templateUrl: 'views/app.html'
-      })
-      .state('screen', {
-        url: '/screen',
-        controller: 'ScreenCtrl',
-        templateUrl: 'views/screen.html'
-      })
-      .state('db', {
-        url: '/db',
-        controller: 'DbCtrl',
-        templateUrl: 'views/db.html'
-      })
-      .state('ifms', {
-        url: '/ifms',
-        controller: 'IfmsCtrl',
-        templateUrl: 'views/ifms.html'
-      })
-      .state('ifms.ws', {
-        url: '/ws'
-      })
-      .state('ifms.corba', {
-        url: '/corba'
-      })
       .state('search', {
         url: '/search',
         controller: 'SearchCtrl',
