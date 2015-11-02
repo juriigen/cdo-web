@@ -23,7 +23,6 @@ angular
     'ngTouch',
     'ngJsTree',
     'toaster',
-    'smart-table',
     'naif.base64'
   ])
   .filter('highlight', function($sce) {
