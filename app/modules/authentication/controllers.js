@@ -14,7 +14,7 @@ angular.module('Authentication')
       $scope.login = function () {
         $scope.dataLoading = true;
         $rootScope.endpoint = $scope.rendpoint;
-        $log.debug("Repo Endpoint - " + $rootScope.endpoint)
+        $log.debug('Repo Endpoint - ' + $rootScope.endpoint);
 
         AuthenticationService.Login($scope.username, $scope.password, function (data, status) {
           if (status === 200) {

@@ -135,6 +135,6 @@ angular.module('cdoWebApp')
         }
       }
       return false;
-    }
+    };
 
   });

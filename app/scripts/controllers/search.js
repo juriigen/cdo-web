@@ -19,17 +19,17 @@ angular.module('cdoWebApp')
       var param = '';
       if ($scope.searchType === $scope.searchLiterals[0]) {
         param = 'ID=' + $scope.query;
-      };
+      }
       if ($scope.searchType === $scope.searchLiterals[1]) {
         param = 'name=' + $scope.query;
-      };
+      }
       if ($scope.searchType === $scope.searchLiterals[2]) {
         param = 'description=' + $scope.query;
-      };
+      }
       RepoAccessService.get('/obj/repo/base.FLElement?' + param, function (data, status) {
 
         if (status === 200) {
-          var result = data.data
+          var result = data.data;
 
           for (var j = 0; j < result.length; j++) {
             var label = result[j].label;
