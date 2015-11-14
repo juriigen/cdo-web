@@ -1,8 +1,7 @@
 <div class="panel panel-default">
   <div class="panel-heading"><i class="glyphicon glyphicon-plus"></i> Add child node to
     <label>{{selectedObject.label}}</label>
-    <img ng-if="repoTree.dataLoading" class="pull-right"
-         src="images/loading.gif"></div>
+    <i ng-if="repoTree.dataLoading" class="loading glyphicon glyphicon-repeat pull-right"></i></div>
   <div class="panel-body">
 
     <alert ng-show="repoTree.showAddNodeSuccess()" type="success" close="repoTree.closeAddNodeSuccess()">
@@ -23,7 +22,7 @@
           ng-show="selectedObject.permission === 'WRITE' && repoTree.selectedObject.containments.length > 0" novalidate
           name="newNodeForm" role="form" class="form-horizontal">
       <div class="form-group">
-        <label class="control-label col-sm-2" for="containments">containment</label>
+        <label class="control-label col-sm-2" for="containments">cont</label>
 
         <div class="col-sm-10" ng-class="{ 'has-error' : false }">
           <select

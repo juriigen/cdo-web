@@ -22,8 +22,19 @@ angular
     'ngSanitize',
     'ngTouch',
     'ngJsTree',
-    'toaster'
+    'toaster',
+    'naif.base64'
   ])
+  .filter('highlight', function($sce) {
+    return function(text, phrase) {
+      if (phrase) {
+        text = text.replace(new RegExp('('+phrase+')', 'gi'),
+          '<span class="highlighted">$1</span>');
+      }
+
+      return $sce.trustAsHtml(text);
+    };
+  })
   .config(function($stateProvider, $urlRouterProvider) {
 
     // For any unmatched url, redirect to /state1
@@ -41,18 +52,27 @@ angular
         controller: 'RepoCtrl',
         templateUrl: 'views/repo.html'
       })
+      .state('search', {
+        url: '/search',
+        controller: 'SearchCtrl',
+        templateUrl: 'views/search.html'
+      })
       .state('repo.json', {
         url: '/json'
       });
 
   })
+  .config(['$httpProvider', function ($httpProvider) {
+    // enable http caching
+    $httpProvider.defaults.cache = false;
+  }])
   .config(function ($httpProvider) {
     //Enable cross domain calls
     $httpProvider.defaults.withCredentials = true;
   })
   .config(function($logProvider){
-    $logProvider.debugEnabled(false);
-    //$logProvider.debugEnabled(true);
+    //$logProvider.debugEnabled(false);
+    $logProvider.debugEnabled(true);
   })
   .run(['$rootScope', '$location', '$cookieStore', '$http',
     function ($rootScope, $location, $cookieStore, $http) {
@@ -72,6 +92,7 @@ angular
       /* Global Variables */
       //$rootScope.endpoint = 'https://cdo-flatland.rhcloud.com';
       //$rootScope.endpoint = 'http://192.168.0.127';
+      //$rootScope.endpoint = 'https://63fd9c1b.ngrok.com';
       $rootScope.endpoint = 'http://localhost:8080';
       $rootScope.repository = 'repo/';
       //$rootScope.endpoint = 'https://swisscom.3ap.ch';

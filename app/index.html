@@ -25,19 +25,18 @@
 <![endif]-->
 
 <!-- Add your site or application content here -->
-<div class="container-fluid">
+<div class="container">
 
   <div class="header">
 
     <ul ng-controller="NavCtrl" class="nav nav-pills pull-right">
-      <li ng-class="{ active: isActive('/repo') }"><a ng-href="#/repo">Repository</a></li>
-      <li ng-class="{ active: isActive('/login') }" ng-show="globals.currentUser != undefined"><a ng-href="#/login">Log
+      <li ng-class="{ active: isActive('/repo') }"><a ng-href="#/repo"><i class="glyphicon glyphicon-globe"></i> Repository</a></li>
+      <li ng-class="{ active: isActive('/login') }" ng-show="globals.currentUser != undefined"><a ng-href="#/login"><i class="glyphicon glyphicon-off"></i> Log
         out</a></li>
       <li ng-class="{ active: isActive('/login') }" ng-show="globals.currentUser == undefined"><a ng-href="#/login">Log
         in</a></li>
     </ul>
-
-    <h3 class="text-muted">CDO Web <img ng-if="update" src="images/loading.gif"></h3>
+    <div class="text-info small">CDO Web <i ng-if="update" class="loading glyphicon glyphicon-repeat"></i></div>
   </div>
 
   <div class="row">
@@ -46,7 +45,7 @@
   </div>
 
   <div class="footer">
-
+    <span class="aaap pull-right">concept and realization by <a href="http://www.3ap.ch"><img  src="images/logo_big.png"></a> as agile as possible</span>
   </div>
 
 </div>
@@ -70,6 +69,7 @@
 <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
 <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
 <script src="bower_components/angular-touch/angular-touch.js"></script>
+<script src="bower_components/angular-base64-upload/src/angular-base64-upload.js"></script>
 <script src="bower_components/jstree/dist/jstree.js"></script>
 <script src="bower_components/ng-js-tree/dist/ngJsTree.js"></script>
 <script src="bower_components/AngularJS-Toaster/toaster.js"></script>
@@ -100,6 +100,7 @@
 <script src="scripts/directives/removenode.js"></script>
 <script src="scripts/directives/referencesform.js"></script>
 <script src="scripts/directives/reflink.js"></script>
+<script src="scripts/controllers/search.js"></script>
 <!-- endbuild -->
 </body>
 </html>

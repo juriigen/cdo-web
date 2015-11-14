@@ -18,6 +18,9 @@ angular.module('cdoWebApp')
         $log.debug('AttributesCtrl check attribute - ' + attribute);
         if (attribute === undefined || attribute === null || attribute.length === 0) {
           attributes[attributeMeta.feature] = null;
+        } else if (attributeMeta.type === 'ecore.xml.type.Base64Binary'){
+          $log.debug('Base64 ' + attribute[0].filesize + ' ' + attribute[0].base64);
+          attributes[attributeMeta.feature] = attribute[0].base64;
         } else {
           attributes[attributeMeta.feature] = attribute;
         }
@@ -83,7 +86,7 @@ angular.module('cdoWebApp')
       } else {
         $scope.status = undefined;
       }
-      $log.debug('AttributesCtrl.objectSelected - reset status ' + $scope.selectedObject.id);
+      //$log.debug('AttributesCtrl.objectSelected - reset status ' + $scope.selectedObject.id);
     });
 
     $scope.$on('updateSelectedObject', function (scope, data) {
