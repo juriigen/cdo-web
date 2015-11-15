@@ -26,7 +26,7 @@ angular.module('cdoWebApp')
       if ($scope.searchType === $scope.searchLiterals[2]) {
         param = 'description=' + $scope.query;
       }
-      RepoAccessService.get('/obj/repo/base.FLElement?' + param, function (data, status) {
+      RepoAccessService.get('/obj/' + $rootScope.repository + 'base.FLElement?' + param, function (data, status) {
 
         if (status === 200) {
           var result = data.data;
