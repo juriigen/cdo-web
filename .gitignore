@@ -14,3 +14,4 @@ bower_components
 .idea/libraries/cdo_web_node_modules.xml
 .idea/scopes/scope_settings.xml
 /.project
+/.idea/
