@@ -46,7 +46,7 @@ angular.module('cdoWebApp')
 
       if ($rootScope.globals.currentUser !== undefined) {
         // page reload
-        RepoAccessService.get('/obj/' + $rootScope.repository + 'eresource.CDOResource/1/references/contents?meta&orderBy=name', function (data, status) {
+        RepoAccessService.get('/obj/' + $rootScope.repository + 'eresource.CDOResource/1/references/contents?meta&cdometa&orderBy=name', function (data, status) {
           if (status === 200) {
             $scope.$broadcast('repoRootNodeUpdated', data);
           } else {
@@ -173,7 +173,7 @@ angular.module('cdoWebApp')
       }
 
       repoTree.dataLoading = true;
-      RepoAccessService.post(repoTree.selectedObject._links.self.href + '/references/' + repoTree.selectedObject.containment.feature + '?rrefs&meta', newObject, function (data, status) {
+      RepoAccessService.post(repoTree.selectedObject._links.self.href + '/references/' + repoTree.selectedObject.containment.feature + '?rrefs&cdometa&meta', newObject, function (data, status) {
         if (status === 201) {
           var newNode = TreeModelService.transformObject(data.data, repoTree.selectedObject.id);
 
@@ -265,7 +265,7 @@ angular.module('cdoWebApp')
     repoTree.resolveChildren = function(parentNode) {
       $log.debug('>> resolve childen');
 
-        var url = parentNode.url + '/references?crefs&meta';
+        var url = parentNode.url + '/references?crefs&cdometa&meta';
         RepoAccessService.get(url, function (data, status) {
           if (status === 200) {
 

@@ -15,7 +15,7 @@ angular.module('cdoWebApp')
 
       $log.debug('LOAD - url ' + url);
       $rootScope.update = true;
-      RepoAccessService.get(url + '?rrefs&crefs&meta', function (data, status) {
+      RepoAccessService.get(url + '?rrefs&crefs&cdometa&meta', function (data, status) {
 
         if (status === 200) {
           selectedObject = data.data;

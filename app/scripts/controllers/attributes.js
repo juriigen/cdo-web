@@ -27,7 +27,7 @@ angular.module('cdoWebApp')
       });
 
       $scope.dataLoading = true;
-      RepoAccessService.put($scope.selectedObject._links.self.href + '?rrefs&meta', {'attributes': attributes}, function (data, status) {
+      RepoAccessService.put($scope.selectedObject._links.self.href + '?rrefs&cdometa&meta', {'attributes': attributes}, function (data, status) {
         if (status === 200) {
 
           ContextService.updateSelectedObject(data.data);

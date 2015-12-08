@@ -19,7 +19,7 @@ angular.module('cdoWebApp')
     };
 
     $scope.refCandidates = function(val, type) {
-      var url = CalculateUrlService.getUrl('/obj/' + $rootScope.repository + type + '?like&name=' + val);
+      var url = CalculateUrlService.getUrl('/obj/' + $rootScope.repository + type + '?like&cdometa&name=' + val);
       $log.debug('ReferencesCtrl.getObjects - ' + url);
       return $http.get(url).then(function(response){
         return response.data.data.map(function(item){
@@ -29,7 +29,7 @@ angular.module('cdoWebApp')
     };
 
     $scope.newRef = function (id, reference) {
-      var relUrl = $scope.selectedObject._links.self.href + '/references/' + reference + '/' + id + '?rrefs&meta';
+      var relUrl = $scope.selectedObject._links.self.href + '/references/' + reference + '/' + id + '?rrefs&cdometa&meta';
       $log.debug('ReferencesCtrl.newReference - ' + relUrl);
       var url = CalculateUrlService.getUrl(relUrl);
       $scope.dataLoading = true;
@@ -58,7 +58,7 @@ angular.module('cdoWebApp')
       $log.debug('ReferencesCtrl.removeReference - ' + url);
 
       $scope.dataLoading = true;
-      RepoAccessService.delete(url + '?rrefs&meta', function (data, status) {
+      RepoAccessService.delete(url + '?rrefs&cdometa&meta', function (data, status) {
         if (status === 200) {
 
           ContextService.updateSelectedObject(data.data);
