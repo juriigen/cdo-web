@@ -13,7 +13,7 @@ angular.module('Authentication')
 
       $scope.login = function () {
         $scope.dataLoading = true;
-        $rootScope.endpoint = $scope.rendpoint;
+        $rootScope.endpoint = document.location.origin;
         $log.debug('Repo Endpoint - ' + $rootScope.endpoint);
 
         AuthenticationService.Login($scope.username, $scope.password, function (data, status) {

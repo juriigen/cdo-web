@@ -127,7 +127,7 @@
                  type="checkbox"
                  id="{{attribute.feature}}"
                  name="{{attribute.feature}}"
-                 ng-disabled="selectedObject.permission === 'READ' || attribute.derived === true"/>
+                 ng-disabled="selectedObject.permission === 'READ' || (attribute.derived === true && attribute.changeable === false)"/>
         </div>
       </div>
       <div ng-show="selectedObject.meta.attributes.length > 0 && selectedObject.permission === 'WRITE'"
