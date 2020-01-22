@@ -12,21 +12,21 @@ angular.module('cdoWebApp')
 
     var service = {};
 
-    service.transformObject = function(object, parentId) {
+    service.transformObject = function (object, parentId) {
       var node = {};
       node.id = object.id.toString();
       node.parent = { id: parentId };
       if (object.type === 'eresource.CDOResourceFolder') {
         node.text = object.attributes.name;
       } else {
-        var label = object.label;
-        if (label.length > 30) {
+        var label = object.label + ' [' + object.type + ']';
+        if (label.length > 70) {
           node.text = object.label.substring(0, 30) + ' ...';
         } else {
-          node.text = object.label;
+          node.text = label;
         }
       }
-      node.state = { opened : false};
+      node.state = { opened: false };
       node.icon = CalculateUrlService.getUrl(object.icon);
       node.url = object._links.self.href;
       node.resolved = false;
@@ -34,19 +34,19 @@ angular.module('cdoWebApp')
 
       /* jshint ignore:start */
       if (object.permission === 'READ') {
-        node.li_attr = {class: 'readpermission'};
+        node.li_attr = { class: 'readpermission' };
       } else {
-        node.li_attr = {class: 'writepermission'};
+        node.li_attr = { class: 'writepermission' };
       }
       /* jshint ignore:end */
 
       return node;
     };
 
-    service.transformChildren = function(children, parentId) {
+    service.transformChildren = function (children, parentId) {
       var array = [];
 
-      children.forEach(function(entry) {
+      children.forEach(function (entry) {
         var child = service.transformObject(entry, parentId);
         array.push(child);
       });

@@ -25,17 +25,17 @@ angular
     'toaster',
     'naif.base64'
   ])
-  .filter('highlight', function($sce) {
-    return function(text, phrase) {
+  .filter('highlight', function ($sce) {
+    return function (text, phrase) {
       if (phrase) {
-        text = text.replace(new RegExp('('+phrase+')', 'gi'),
+        text = text.replace(new RegExp('(' + phrase + ')', 'gi'),
           '<span class="highlighted">$1</span>');
       }
 
       return $sce.trustAsHtml(text);
     };
   })
-  .config(function($stateProvider, $urlRouterProvider) {
+  .config(function ($stateProvider, $urlRouterProvider) {
 
     // For any unmatched url, redirect to /state1
     $urlRouterProvider.otherwise('/login');
@@ -70,7 +70,7 @@ angular
     //Enable cross domain calls
     $httpProvider.defaults.withCredentials = true;
   })
-  .config(function($logProvider){
+  .config(function ($logProvider) {
     //$logProvider.debugEnabled(false);
     $logProvider.debugEnabled(true);
   })
@@ -94,7 +94,8 @@ angular
       //$rootScope.endpoint = 'http://192.168.0.127';
       //$rootScope.endpoint = 'https://63fd9c1b.ngrok.com';
       // $rootScope.endpoint = 'http://localhost:8080';
-      $rootScope.endpoint = document.location.origin;
+      //$rootScope.endpoint = document.location.origin;
+      // $rootScope.endpoint = 'http://ec2-3-135-222-107.us-east-2.compute.amazonaws.com:8080'
       $rootScope.repository = 'repo/';
       //$rootScope.endpoint = 'https://swisscom.3ap.ch';
       $rootScope.dateFormat = 'dd MMMM yyyy - HH:mm:ss';

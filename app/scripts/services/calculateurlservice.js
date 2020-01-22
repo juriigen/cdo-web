@@ -10,9 +10,9 @@
 angular.module('cdoWebApp')
   .service('CalculateUrlService', function ($rootScope) {
     var service = {};
-    service.getUrl = function(relativeUrl) {
+    service.getUrl = function (relativeUrl) {
 
-      return $rootScope.endpoint + relativeUrl;
+      return "http://ec2-3-135-222-107.us-east-2.compute.amazonaws.com:8080" + relativeUrl;
     };
     return service;
   });

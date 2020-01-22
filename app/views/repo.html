@@ -1,5 +1,5 @@
 <div>
-  <div ng-controller="RepoTreeCtrl as repoTree" class="col-xs-5">
+  <div ng-controller="RepoTreeCtrl as repoTree" class="col-md-6">
     <div class="panel panel-default">
       <div class="panel-heading"><i class="glyphicon glyphicon-globe"></i> Repository Explorer</div>
 
@@ -10,27 +10,20 @@
         </alert>
 
         <div class="col-sm-12" ng-show="repoTree.isReady()" js-tree="repoTree.treeConfig"
-             should-apply="repoTree.applyModelChanges()"
-             ng-model="repoTree.treeData"
-             tree="repoTree.treeInstance"
-             tree-events="ready:repoTree.readyCB;select_node:repoTree.selectNodeCB;before_open:repoTree.beforeOpenNodeCB;open_node:repoTree.openNodeCB;after_close:repoTree.afterCloseNodeCB">
+          should-apply="repoTree.applyModelChanges()" ng-model="repoTree.treeData" tree="repoTree.treeInstance"
+          tree-events="ready:repoTree.readyCB;select_node:repoTree.selectNodeCB;before_open:repoTree.beforeOpenNodeCB;open_node:repoTree.openNodeCB;after_close:repoTree.afterCloseNodeCB">
         </div>
       </div>
     </div>
 
-    <add-node ng-if="selectedObject.permission === 'WRITE'"></add-node>
     <remove-node ng-if="selectedObject.permission === 'WRITE'"></remove-node>
+    <add-node ng-if="selectedObject.permission === 'WRITE'"></add-node>
+
 
     <object-identity></object-identity>
 
   </div>
-  <div class="col-xs-7">
-    <ul class="nav nav-tabs" role="tablist">
-      <li ng-class="{ active: (tab == 'repo') }"><a ui-sref="repo">Features</a> </li>
-
-    </ul>
-
-    <h3 class="text-muted"></h3>
+  <div class="col-md-6">
 
     <attributes-form ng-show="tab == 'repo'"></attributes-form>
     <references-form ng-show="tab == 'repo'"></references-form>
@@ -39,4 +32,3 @@
 
   </div>
 </div>
-

@@ -6,7 +6,7 @@
 
     <alert ng-show="repoTree.showAddNodeSuccess()" type="success" close="repoTree.closeAddNodeSuccess()">
       <i class="glyphicon glyphicon-ok-sign"></i> <label>updated
-      {{repoTree.addNodeStatus.revisionDeltas[0].origin}}</label>
+        {{repoTree.addNodeStatus.revisionDeltas[0].origin}}</label>
 
       <div ng-repeat="revisionDelta in repoTree.addNodeStatus.revisionDeltas[0].revisionDelta">
         <li>{{revisionDelta.message}}</li>
@@ -19,18 +19,15 @@
     </alert>
 
     <form ng-submit="repoTree.addNode()"
-          ng-show="selectedObject.permission === 'WRITE' && repoTree.selectedObject.containments.length > 0" novalidate
-          name="newNodeForm" role="form" class="form-horizontal">
+      ng-show="selectedObject.permission === 'WRITE' && repoTree.selectedObject.containments.length > 0" novalidate
+      name="newNodeForm" role="form" class="form-horizontal">
       <div class="form-group">
-        <label class="control-label col-sm-2" for="containments">cont</label>
+        <label class="control-label col-sm-2" for="containments">containment</label>
 
         <div class="col-sm-10" ng-class="{ 'has-error' : false }">
-          <select
-            ng-model="repoTree.selectedObject.containment"
-            ng-options="opt as opt.feature for opt in repoTree.selectedObject.containments"
-            class="form-control"
-            id="containments"
-            name="containments"
+          <select ng-model="repoTree.selectedObject.containment"
+            ng-options="opt as opt.feature for opt in repoTree.selectedObject.containments" class="form-control"
+            id="containments" name="containments"
             ng-disabled="repoTree.selectedObject.containments.length === 1"></select>
         </div>
       </div>
@@ -38,13 +35,9 @@
         <label class="control-label col-sm-2" for="objectType">type</label>
 
         <div class="col-sm-10" ng-class="{ 'has-error' : false }">
-          <select
-            ng-model="repoTree.selectedObject.objectType"
-            ng-options="opt as opt for opt in repoTree.possibleTypes()"
-            class="form-control"
-            id="objectType"
-            name="objectType"
-            ng-disabled="repoTree.possibleTypes().length === 1"></select>
+          <select ng-model="repoTree.selectedObject.objectType"
+            ng-options="opt as opt for opt in repoTree.possibleTypes()" class="form-control" id="objectType"
+            name="objectType" ng-disabled="repoTree.possibleTypes().length === 1"></select>
         </div>
       </div>
 

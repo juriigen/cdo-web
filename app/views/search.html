@@ -1,22 +1,17 @@
 <div>
-  <div class="col-xs-5">
+  <div class="col-md-6">
     <div class="panel panel-default">
       <div class="panel-heading"><i class="glyphicon glyphicon-search"></i> Search</div>
 
       <div class="panel-body">
         <form name="searchForm" ng-submit="search()" novalidate role="form">
           <div class="form-group">
-            <input type="text" name="query" id="query" class="form-control" ng-model="query"
-                   placeholder="Query" required/>
+            <input type="text" name="query" id="query" class="form-control" ng-model="query" placeholder="Query"
+              required />
           </div>
           <div class="form-group">
-            <select
-                    ng-model="searchType"
-                    ng-options="opt as opt for opt in searchLiterals"
-                    class="form-control"
-                    id="searchType"
-                    name="searchType"
-                    ng-required="true">
+            <select ng-model="searchType" ng-options="opt as opt for opt in searchLiterals" class="form-control"
+              id="searchType" name="searchType" ng-required="true">
             </select>
           </div>
           <div class="form-actions">
@@ -28,7 +23,7 @@
 
     </div>
 
-    <ul class="list-group table-striped" >
+    <ul class="list-group table-striped">
       <li class="list-group-item" ng-repeat="row in rowCollection">
         <img ng-src="{{row.icon}}">
         <a ng-if="row.id !== undefined" href ng-click="setNewObject(row._links.self.href)">
@@ -40,10 +35,9 @@
 
   </div>
 
-  <div class="col-xs-7">
+  <div class="col-md-6">
     <attributes-form></attributes-form>
     <references-form></references-form>
     <object-identity></object-identity>
   </div>
 </div>
-
