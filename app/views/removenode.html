@@ -1,12 +1,16 @@
 <div class="panel-body">
-  <div class="col-sm-12">
-    <div class="col-sm-6">
-      <i class="glyphicon glyphicon-minus"></i> Delete
+  <div class="col-md-12 col-xs-12">
+    <div class="col-md-6 col-xs-6">
+      <i class="glyphicon glyphicon-minus"></i>
       <label>{{selectedObject.label}}</label>
       <i ng-if="repoTree.dataLoading2" class="loading glyphicon glyphicon-repeat pull-right"></i>
     </div>
-
-    <div class="col-sm-6">
+    <div class="col-md-3 col-xs-3">
+      <div>
+        <button type="button" ng-disabled="false" class="btn btn-info pull-right">Copy</button>
+      </div>
+    </div>
+    <div class="col-md-3 col-xs-3">
       <form ng-submit="repoTree.deleteNode()" ng-show="selectedObject.permission === 'WRITE'" novalidate
         name="newNodeForm" role="form" class="form-horizontal">
         <div ng-show="true" class="form-actions">
@@ -17,7 +21,7 @@
       </form>
     </div>
   </div>
-  <div class="col-sm-12">
+  <div class="col-md-12 col-xs-12">
     <alert ng-show="repoTree.showRemoveNodeSuccess()" type="success" close="repoTree.closeRemoveNodeSuccess()">
       <i class="glyphicon glyphicon-ok-sign"></i> <label>updated
         {{repoTree.removeNodeStatus.revisionDeltas[0].origin}}</label>

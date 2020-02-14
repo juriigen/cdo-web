@@ -33,7 +33,10 @@
 
       <ul ng-controller="NavCtrl" class="nav nav-pills pull-right">
         <li ng-class="{ active: isActive('/login') }" ng-show="globals.currentUser != undefined"><a ng-href="/"><i
-              class="glyphicon glyphicon-repeat"></i> Undo
+              class="glyphicon glyphicon-chevron-left"></i> Undo
+          </a></li>
+        <li ng-class="{ active: isActive('/login') }" ng-show="globals.currentUser != undefined"><a ng-href="/"><i
+              class="glyphicon glyphicon-chevron-right"></i> Redo
           </a></li>
         <li ng-class="{ active: isActive('/repo') }"><a ng-href="#/repo"><i class="glyphicon glyphicon-globe"></i>
             Repository</a></li>

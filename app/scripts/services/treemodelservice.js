@@ -20,8 +20,8 @@ angular.module('cdoWebApp')
         node.text = object.attributes.name;
       } else {
         var label = object.label + ' [' + object.type + ']';
-        if (label.length > 70) {
-          node.text = object.label.substring(0, 30) + ' ...';
+        if (label.length > 35) {
+          node.text = object.label.substring(0, 35) + ' ...';
         } else {
           node.text = label;
         }

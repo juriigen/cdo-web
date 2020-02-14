@@ -38,124 +38,136 @@
         </alert>
 
         <span ng-repeat="reference in selectedObject.meta.references">
+          <span ng-hide="selected.index === $index">
+            <div
+              ng-if="reference.derived === false && reference.upperBound === 1 && showObject(reference, selectedObject)"
+              class="form-group">
 
-          <div
-            ng-if="reference.derived === false && reference.upperBound === 1 && showObject(reference, selectedObject)"
-            class="form-group">
+
+              <div class="col-sm-10 col-xs-9">
+                <label class="control-label reflink" ng-click="show = !show">{{reference.feature}}</label>
+                <ul class="list-group" ng-show="show">
+                  <li ng-if="selectedObject.references[reference.feature] !== undefined" class="list-group-item">
+                    <div>
+                      <ref-link ref-object="selectedObject.references[reference.feature]"
+                        ref-feature="reference.feature">
+                      </ref-link>
+                      <button ng-if="selectedObject.permission === 'WRITE'"
+                        ng-click="removeReference(selectedObject.references[reference.feature].id, reference.feature)"
+                        ng-disabled="dataLoading" class="btn btn-xs btn-danger pull-right">Remove
+                      </button>
+                    </div>
+                  </li>
+                  <li ng-show="selectedObject.permission === 'WRITE'" class="list-group-item">
+                    <div>
+                      <input type="text" ng-model="new" typeahead-editable="false"
+                        placeholder="object name for reference" typeahead-loading="searchingRef"
+                        typeahead="ref as (ref.label + ' - ' + ref.id + ' - ' + ref.type)  for ref in refCandidates($viewValue, reference.type)"
+                        class="form-control" />
+                    </div>
+                    <img ng-if="searchingRef" class="pull-right" src="images/loading.gif">
+                    <br>
+
+                    <div class="form-actions">
+                      <span class="pull-right">
+                        <button ng-click="new = undefined" class="btn btn-danger">
+                          Clear
+                        </button>
+                        <button ng-click="newRef(new.id, reference.feature)"
+                          ng-disabled="new.id === undefined || dataLoading" class="btn btn-success">
+                          Add
+                        </button>
+                      </span>
+                      <br>
+                      <br>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <div class="col-sm-2 col-xs-2">
+                <input type="button" value="Hide" class="btn btn-danger" ng-click="selected.index = $index">
+              </div>
+            </div>
 
 
-            <div class="col-sm-12">
-              <label class="control-label reflink" ng-click="show = !show">{{reference.feature}}</label>
-              <ul class="list-group" ng-show="show">
-                <li ng-if="selectedObject.references[reference.feature] !== undefined" class="list-group-item">
-                  <div>
+            <div
+              ng-if="reference.derived === false && reference.upperBound !== 1 && showObject(reference, selectedObject)"
+              class="form-group">
+              <div class="col-sm-12 col-xs-12">
+                <label class="control-label reflink" ng-click="show = !show">{{reference.feature}} <span
+                    class="badge">{{selectedObject.references[reference.feature].length}}</span></label>
+                <ul class="list-group" ng-show="show">
+                  <li ng-repeat="feature in selectedObject.references[reference.feature]" class="list-group-item">
+                    <div>
+                      <ref-link ref-object="feature" ref-feature="reference.feature"></ref-link>
+                      <button ng-if="selectedObject.permission === 'WRITE'" ng-disabled="dataLoading"
+                        ng-click="removeReference(feature.id, reference.feature)"
+                        class="btn btn-xs btn-danger pull-right">Remove
+                      </button>
+                    </div>
+                  </li>
+                  <li ng-show="selectedObject.permission === 'WRITE'" class="list-group-item">
+                    <div>
+                      <input type="text" ng-model="new" typeahead-editable="false" placeholder="object name reference"
+                        typeahead-loading="searchingRef"
+                        typeahead="ref as (ref.label + ' - ' + ref.id + ' - ' + ref.type) for ref in refCandidates($viewValue, reference.type)"
+                        class="form-control" />
+                    </div>
+                    <i ng-if="searchingRef" class="loading glyphicon glyphicon-repeat pull-right"></i>
+                    <br>
+
+                    <div class="form-actions">
+                      <span class="pull-right">
+                        <button ng-click="new = undefined" class="btn btn-danger">
+                          Clear
+                        </button>
+                        <button ng-click="newRef(new.id, reference.feature)"
+                          ng-disabled="new.id === undefined || dataLoading" class="btn btn-success">
+                          Add
+                        </button>
+                      </span>
+                      <br>
+                      <br>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <div
+              ng-if="reference.derived === true && reference.upperBound === 1 && selectedObject.references[reference.feature] !== undefined"
+              class="form-group">
+              <div class="col-sm-12 col-xs-12">
+                <label class="control-label reflink" ng-click="show = !show">/{{reference.feature}}</label>
+                <ul class="list-group" ng-show="show">
+                  <li class="list-group-item">
                     <ref-link ref-object="selectedObject.references[reference.feature]" ref-feature="reference.feature">
                     </ref-link>
-                    <button ng-if="selectedObject.permission === 'WRITE'"
-                      ng-click="removeReference(selectedObject.references[reference.feature].id, reference.feature)"
-                      ng-disabled="dataLoading" class="btn btn-xs btn-danger pull-right">Remove
-                    </button>
-                  </div>
-                </li>
-                <li ng-show="selectedObject.permission === 'WRITE'" class="list-group-item">
-                  <div>
-                    <input type="text" ng-model="new" typeahead-editable="false" placeholder="object name for reference"
-                      typeahead-loading="searchingRef"
-                      typeahead="ref as (ref.label + ' - ' + ref.id + ' - ' + ref.type)  for ref in refCandidates($viewValue, reference.type)"
-                      class="form-control" />
-                  </div>
-                  <img ng-if="searchingRef" class="pull-right" src="images/loading.gif">
-                  <br>
-
-                  <div class="form-actions">
-                    <span class="pull-right">
-                      <button ng-click="new = undefined" class="btn btn-danger">
-                        Clear
-                      </button>
-                      <button ng-click="newRef(new.id, reference.feature)"
-                        ng-disabled="new.id === undefined || dataLoading" class="btn btn-success">
-                        Add
-                      </button>
-                    </span>
-                    <br>
-                    <br>
-                  </div>
-                </li>
-              </ul>
+                  </li>
+                </ul>
+              </div>
+              <div class="col-sm-2 col-xs-2">
+                <input type="button" value="Hide" class="btn btn-danger" ng-click="selected.index = $index">
+              </div>
             </div>
-          </div>
 
-          <div
-            ng-if="reference.derived === false && reference.upperBound !== 1 && showObject(reference, selectedObject)"
-            class="form-group">
-            <div class="col-sm-12">
-              <label class="control-label reflink" ng-click="show = !show">{{reference.feature}} <span
-                  class="badge">{{selectedObject.references[reference.feature].length}}</span></label>
-              <ul class="list-group" ng-show="show">
-                <li ng-repeat="feature in selectedObject.references[reference.feature]" class="list-group-item">
-                  <div>
+            <div
+              ng-if="reference.derived === true && reference.upperBound !== 1 && selectedObject.references[reference.feature] !== undefined"
+              class="form-group">
+              <div class="col-sm-10 col-xs-9">
+                <label class="control-label reflink" ng-click="show = !show">/{{reference.feature}} <span
+                    class="badge">{{selectedObject.references[reference.feature].length}}</span></label>
+                <ul class="list-group" ng-show="show">
+                  <li ng-repeat="feature in selectedObject.references[reference.feature]" class="list-group-item">
                     <ref-link ref-object="feature" ref-feature="reference.feature"></ref-link>
-                    <button ng-if="selectedObject.permission === 'WRITE'" ng-disabled="dataLoading"
-                      ng-click="removeReference(feature.id, reference.feature)"
-                      class="btn btn-xs btn-danger pull-right">Remove
-                    </button>
-                  </div>
-                </li>
-                <li ng-show="selectedObject.permission === 'WRITE'" class="list-group-item">
-                  <div>
-                    <input type="text" ng-model="new" typeahead-editable="false" placeholder="object name reference"
-                      typeahead-loading="searchingRef"
-                      typeahead="ref as (ref.label + ' - ' + ref.id + ' - ' + ref.type) for ref in refCandidates($viewValue, reference.type)"
-                      class="form-control" />
-                  </div>
-                  <i ng-if="searchingRef" class="loading glyphicon glyphicon-repeat pull-right"></i>
-                  <br>
-
-                  <div class="form-actions">
-                    <span class="pull-right">
-                      <button ng-click="new = undefined" class="btn btn-danger">
-                        Clear
-                      </button>
-                      <button ng-click="newRef(new.id, reference.feature)"
-                        ng-disabled="new.id === undefined || dataLoading" class="btn btn-success">
-                        Add
-                      </button>
-                    </span>
-                    <br>
-                    <br>
-                  </div>
-                </li>
-              </ul>
+                  </li>
+                </ul>
+              </div>
+              <div class="col-sm-2 col-xs-2">
+                <input type="button" value="Hide" class="btn btn-danger" ng-click="selected.index = $index">
+              </div>
             </div>
-          </div>
-
-          <div
-            ng-if="reference.derived === true && reference.upperBound === 1 && selectedObject.references[reference.feature] !== undefined"
-            class="form-group">
-            <div class="col-sm-12">
-              <label class="control-label reflink" ng-click="show = !show">/{{reference.feature}}</label>
-              <ul class="list-group" ng-show="show">
-                <li class="list-group-item">
-                  <ref-link ref-object="selectedObject.references[reference.feature]" ref-feature="reference.feature">
-                  </ref-link>
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          <div
-            ng-if="reference.derived === true && reference.upperBound !== 1 && selectedObject.references[reference.feature] !== undefined"
-            class="form-group">
-            <div class="col-sm-12">
-              <label class="control-label reflink" ng-click="show = !show">/{{reference.feature}} <span
-                  class="badge">{{selectedObject.references[reference.feature].length}}</span></label>
-              <ul class="list-group" ng-show="show">
-                <li ng-repeat="feature in selectedObject.references[reference.feature]" class="list-group-item">
-                  <ref-link ref-object="feature" ref-feature="reference.feature"></ref-link>
-                </li>
-              </ul>
-            </div>
-          </div>
+          </span>
         </span>
       </form>
     </div>
