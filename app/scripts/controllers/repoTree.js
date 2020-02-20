@@ -283,6 +283,7 @@ angular.module('cdoWebApp')
 
     };
 
+
     repoTree.openNodeCB = function (e, item) {
       $log.debug('RepoTreeCtrl.openNodeCB - ' + item.node.id);
 
@@ -292,6 +293,20 @@ angular.module('cdoWebApp')
         }
       });
     };
+
+
+    $scope.copyToClipboard = function () {
+      var textData = angular.toJson(repoTree.selectedObject)
+      var copyElement = document.createElement("textarea");
+      copyElement.style.position = 'fixed';
+      copyElement.style.opacity = '0';
+      copyElement.textContent = textData;
+      var body = document.getElementsByTagName('body')[0];
+      body.appendChild(copyElement);
+      copyElement.select();
+      document.execCommand('copy');
+      body.removeChild(copyElement);
+    }
 
     // either login or reload is triggered
     $scope.$on('repoRootNodeUpdated', function (scope, data) {
