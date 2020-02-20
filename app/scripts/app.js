@@ -95,7 +95,7 @@ angular
       //$rootScope.endpoint = 'https://63fd9c1b.ngrok.com';
       // $rootScope.endpoint = 'http://localhost:8080';
       //$rootScope.endpoint = document.location.origin;
-      // $rootScope.endpoint = 'http://ec2-3-135-222-107.us-east-2.compute.amazonaws.com:8080'
+      $rootScope.endpoint = 'http://ec2-3-135-222-107.us-east-2.compute.amazonaws.com:8080'
       $rootScope.repository = 'repo/';
       //$rootScope.endpoint = 'https://swisscom.3ap.ch';
       $rootScope.dateFormat = 'dd MMMM yyyy - HH:mm:ss';

@@ -382,4 +382,5 @@ angular.module('cdoWebApp')
       repoTree.removeNodeStatus = undefined;
       repoTree.removeNodeStatusFailed = undefined;
     };
+
   });
