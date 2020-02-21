@@ -180,11 +180,9 @@
             </div>
           </div>
         </span>
-        <div ng-show="selectedObject.meta.references.length > 0" class="form-actions">
-          <div class="pull-right">
-            <button type="submit" ng-click="showObject(reference, selectedObject)" class="btn btn-link">UnHide
-              All</button>
-          </div>
+        <div ng-show="selectedObject.meta.references.length > 0" class="pull-right ng-hide">
+          <button type="button" ng-click="setNewObject(selectedObject._links.self.href)" class="btn btn-link">UnHide
+            All</button>
         </div>
       </form>
     </div>

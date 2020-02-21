@@ -18,7 +18,7 @@ angular.module('cdoWebApp')
         $log.debug('AttributesCtrl check attribute - ' + attribute);
         if (attribute === undefined || attribute === null || attribute.length === 0) {
           attributes[attributeMeta.feature] = null;
-        } else if (attributeMeta.type === 'ecore.xml.type.Base64Binary'){
+        } else if (attributeMeta.type === 'ecore.xml.type.Base64Binary') {
           $log.debug('Base64 ' + attribute[0].filesize + ' ' + attribute[0].base64);
           attributes[attributeMeta.feature] = attribute[0].base64;
         } else {
@@ -27,7 +27,7 @@ angular.module('cdoWebApp')
       });
 
       $scope.dataLoading = true;
-      RepoAccessService.put($scope.selectedObject._links.self.href + '?rrefs&meta', {'attributes': attributes}, function (data, status) {
+      RepoAccessService.put($scope.selectedObject._links.self.href + '?rrefs&meta', { 'attributes': attributes }, function (data, status) {
         if (status === 200) {
 
           ContextService.updateSelectedObject(data.data);
@@ -48,6 +48,10 @@ angular.module('cdoWebApp')
           $scope.dataLoading = false;
         }
       });
+    };
+
+    $scope.setNewObject = function (url) {
+      ContextService.setSelectedObject(url);
     };
 
     $scope.closeAlert = function (index, list) {
