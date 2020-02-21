@@ -44,7 +44,7 @@
               class="form-group">
 
 
-              <div class="col-sm-10 col-xs-7">
+              <div class="col-sm-11 col-xs-10">
                 <label class="control-label reflink" ng-click="show = !show">{{reference.feature}}</label>
                 <ul class="list-group" ng-show="show">
                   <li ng-if="selectedObject.references[reference.feature] !== undefined" class="list-group-item">
@@ -84,8 +84,8 @@
                   </li>
                 </ul>
               </div>
-              <div class="col-sm-2 col-xs-2">
-                <button type="button" class="btn btn-danger" ng-click="reference.index = $index">
+              <div class="col-sm-1 col-xs-1">
+                <button type="button" class="btn btn-danger pull-right" ng-click="reference.index = $index">
                   <i class="glyphicon glyphicon-eye-close"></i>
                 </button>
               </div>
@@ -95,7 +95,7 @@
             <div
               ng-if="reference.derived === false && reference.upperBound !== 1 && showObject(reference, selectedObject)"
               class="form-group">
-              <div class="col-sm-10 col-xs-10">
+              <div class="col-sm-11 col-xs-10">
                 <label class="control-label reflink" ng-click="show = !show">{{reference.feature}} <span
                     class="badge">{{selectedObject.references[reference.feature].length}}</span></label>
                 <ul class="list-group" ng-show="show">
@@ -134,8 +134,8 @@
                   </li>
                 </ul>
               </div>
-              <div class="col-sm-2 col-xs-2">
-                <button type="button" class="btn btn-danger" ng-click="reference.index = $index">
+              <div class=" col-sm-1 col-xs-1">
+                <button type="button" class="btn btn-danger pull-right" ng-click="reference.index = $index">
                   <i class="glyphicon glyphicon-eye-close"></i>
                 </button>
               </div>
@@ -144,7 +144,7 @@
             <div
               ng-if="reference.derived === true && reference.upperBound === 1 && selectedObject.references[reference.feature] !== undefined"
               class="form-group">
-              <div class="col-sm-10 col-xs-10">
+              <div class="col-sm-11 col-xs-10">
                 <label class="control-label reflink" ng-click="show = !show">/{{reference.feature}}</label>
                 <ul class="list-group" ng-show="show">
                   <li class="list-group-item">
@@ -153,8 +153,8 @@
                   </li>
                 </ul>
               </div>
-              <div class="col-sm-2 col-xs-2">
-                <button type="button" class="btn btn-danger" ng-click="reference.index = $index">
+              <div class="col-sm-1 col-xs-1 ">
+                <button type="button" class="btn btn-danger pull-right" ng-click="reference.index = $index">
                   <i class="glyphicon glyphicon-eye-close"></i>
                 </button>
               </div>
@@ -163,7 +163,7 @@
             <div
               ng-if="reference.derived === true && reference.upperBound !== 1 && selectedObject.references[reference.feature] !== undefined"
               class="form-group">
-              <div class="col-sm-10 col-xs-7">
+              <div class="col-sm-11 col-xs-10">
                 <label class="control-label reflink" ng-click="show = !show">/{{reference.feature}} <span
                     class="badge">{{selectedObject.references[reference.feature].length}}</span></label>
                 <ul class="list-group" ng-show="show">
@@ -172,15 +172,15 @@
                   </li>
                 </ul>
               </div>
-              <div class="col-sm-2 col-xs-2">
-                <button type="button" class="btn btn-danger" ng-click="reference.index = $index">
+              <div class="col-sm-1 col-xs-1">
+                <button type="button" class="btn btn-danger pull-right" ng-click="reference.index = $index">
                   <i class="glyphicon glyphicon-eye-close"></i>
                 </button>
               </div>
             </div>
           </div>
         </span>
-        <div ng-show="selectedObject.meta.references.length > 0" class="pull-right ng-hide">
+        <div ng-show="selectedObject.meta.references.length > 0" class="pull-right ng-hide form-group">
           <button type="button" ng-click="setNewObject(selectedObject._links.self.href)" class="btn btn-link">UnHide
             All</button>
         </div>
