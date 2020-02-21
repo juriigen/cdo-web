@@ -36,10 +36,10 @@
         ng-show="selectedObject.attributes[attribute.feature] !== undefined && selectedObject.attributes[attribute.feature].length > 0|| selectedObject.permission === 'WRITE'"
         class="form-group">
         <div ng-hide="selected.index === $index">
-          <label class="control-label col-sm-3 col-xs-3" for="{{attribute.feature}}">
+          <label class="control-label col-sm-4 col-xs-4" for="{{attribute.feature}}">
             <span ng-if="attribute.derived === true">/</span>{{attribute.feature}}
           </label>
-          <div class="col-sm-8 col-xs-7 " ng-class="{ 'has-warning' : (attributesForm[attribute.feature].$error.required
+          <div class="col-sm-7 col-xs-6 " ng-class="{ 'has-warning' : (attributesForm[attribute.feature].$error.required
              || attributesForm[attribute.feature].$error.pattern
              || attributesForm[attribute.feature].$error.number
              || attributesForm[attribute.feature].$error.date)}">
@@ -116,7 +116,7 @@
               ng-disabled="selectedObject.permission === 'READ' || (attribute.derived === true && attribute.changeable === false)" />
           </div>
 
-          <div class="col-sm-1 col-xs-1">
+          <div class="col-sm-1 col-xs-2">
             <button type="button" class="btn btn-danger pull-right" ng-click="selected.index = $index">
               <i class="glyphicon glyphicon-eye-close"></i>
             </button>
@@ -126,13 +126,12 @@
       <div class="form-group"
         ng-show="selectedObject.meta.attributes.length > 0 && selectedObject.permission === 'WRITE'"
         class="form-actions">
-        <div class="col-sm-4 col-xs-4 pull-right">
+        <div class="col-sm-4 col-xs-6 pull-right">
+          <button type="button" ng-click="setNewObject(selectedObject._links.self.href)" class="btn btn-link">UnHide
+            All</button>
           <button type="submit" ng-disabled="attributesForm.$invalid || dataLoading" class="btn btn-success pull-right">
             <i class="glyphicon glyphicon-floppy-disk"></i>
           </button>
-
-          <button type="button" ng-click="setNewObject(selectedObject._links.self.href)" class="btn btn-link">UnHide
-            All</button>
         </div>
       </div>
     </form>
