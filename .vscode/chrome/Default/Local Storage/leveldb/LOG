@@ -1,5 +1,3 @@
-2020/02/20-19:29:56.985 1b00 Reusing MANIFEST C:\Users\User\workspace\cdo-web\.vscode\chrome\Default\Local Storage\leveldb/MANIFEST-000001
-2020/02/20-19:29:56.986 1b00 Recovering log #4
-2020/02/20-19:29:56.986 1b00 Level-0 table #7: started
-2020/02/20-19:29:56.988 1b00 Level-0 table #7: 10584 bytes OK
-2020/02/20-19:29:56.995 1b00 Delete type=0 #4
+2020/02/27-23:30:29.727 419c Reusing MANIFEST C:\Users\User\workspace\cdo-web\.vscode\chrome\Default\Local Storage\leveldb/MANIFEST-000001
+2020/02/27-23:30:29.728 419c Recovering log #8
+2020/02/27-23:30:29.728 419c Reusing old log C:\Users\User\workspace\cdo-web\.vscode\chrome\Default\Local Storage\leveldb/000008.log 
