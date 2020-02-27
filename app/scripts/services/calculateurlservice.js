@@ -12,7 +12,7 @@ angular.module('cdoWebApp')
     var service = {};
     service.getUrl = function (relativeUrl) {
 
-      return "the server url" + relativeUrl;
+      return $rootScope.endpoint + relativeUrl;
     };
     return service;
   });
